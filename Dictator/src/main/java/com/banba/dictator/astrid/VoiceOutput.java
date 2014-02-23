@@ -20,7 +20,7 @@ import java.util.Locale;
  *
  */
 @SuppressWarnings("nls")
-public class Api6VoiceOutputAssistant implements OnInitListener {
+public class VoiceOutput implements OnInitListener {
 
     private static final int MY_DATA_CHECK_CODE = 2534;
     private static final String TAG = "Astrid.VoiceOutputAssistant";
@@ -36,7 +36,7 @@ public class Api6VoiceOutputAssistant implements OnInitListener {
                 String.valueOf(AudioManager.STREAM_NOTIFICATION));
     }
 
-    public Api6VoiceOutputAssistant(Context context) {
+    public VoiceOutput(Context context) {
         this.context = context;
     }
 
@@ -124,9 +124,6 @@ public class Api6VoiceOutputAssistant implements OnInitListener {
         }
     }
 
-    /**
-     * Has to be called in onDestroy of the activity that uses this instance of VoiceOutputAssistant.
-     */
     public void onDestroy() {
         if (mTts != null && isTTSInitialized) {
             mTts.shutdown();
