@@ -1,0 +1,143 @@
+<RelativeLayout
+    android:id="@+id/layout_main"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <View
+        android:id="@+id/middle_separator"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_centerVertical="true" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/middle_separator"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/main_button_border">
+            <ImageButton
+                style="@style/AppTheme.MainPageIcon"
+                android:tag="Applications"
+                android:onClick="onClick"
+                android:id="@+id/iconRecord"
+                android:src="@drawable/button_record" />
+            <TextView
+                android:layout_below="@+id/iconRecord"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                style="@style/AppTheme.MainPageIconText"
+                android:text="RECORD" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/middle_separator"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/main_button_border">
+
+                <ImageButton
+                    style="@style/AppTheme.MainPageIcon"
+                    android:tag="Categories"
+                    android:id="@+id/iconManage"
+                    android:onClick="onClick"
+                    android:src="@drawable/button_manage" />
+                <TextView
+                    android:layout_below="@+id/iconManage"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    style="@style/AppTheme.MainPageIconText"
+                    android:text="MANAGE" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/main_button_border">
+
+                <ImageButton
+                    style="@style/AppTheme.MainPageIcon"
+                    android:id="@+id/iconEntries"
+                    android:tag="Entries"
+                    android:onClick="onClick"
+                    android:src="@drawable/button_entries" />
+
+                <TextView
+                    android:layout_below="@+id/iconEntries"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    style="@style/AppTheme.MainPageIconText"
+                    android:text="ENTRIES" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/main_button_border">
+
+                <ImageButton
+                    style="@style/AppTheme.MainPageIcon"
+                    android:id="@+id/iconAbout"
+                    android:tag="About"
+                    android:onClick="onClick"
+                    android:src="@drawable/button_about" />
+
+                <TextView
+                    android:layout_below="@+id/iconAbout"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    style="@style/AppTheme.MainPageIconText"
+                    android:text="@string/about_icon" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/main_button_border">
+
+                <ImageButton
+                    style="@style/AppTheme.MainPageIcon"
+                    android:id="@+id/iconInfo"
+                    android:tag="Help"
+                    android:onClick="onClick"
+                    android:src="@drawable/button_help" />
+
+                <TextView
+                    android:layout_below="@+id/iconInfo"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    style="@style/AppTheme.MainPageIconText"
+                    android:text="@string/help_icon" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

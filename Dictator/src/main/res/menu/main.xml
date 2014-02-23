@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dictator="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_item_share"
+        android:icon="@drawable/ic_action_share"
+        android:title="@string/share"
+        android:actionProviderClass="android.widget.ShareActionProvider" />
+
+    <item
+        android:id="@+id/menu_item_search"
+        android:actionViewClass="android.widget.SearchView"
+        android:icon="@drawable/ic_action_search"
+        android:title="@string/search" />
+
+    <item
+        android:id="@+id/menu_item_tts"
+        android:title="@string/text_to_speech" />
+
+    <item
+        android:id="@+id/menu_item_ex"
+        android:title="@string/error" />
+
+    <item
+        android:id="@+id/menu_item_apache"
+        android:title="@string/apache_item" />
+
+</menu>
