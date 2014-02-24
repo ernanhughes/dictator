@@ -10,21 +10,20 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.MediaStore.MediaColumns;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.banba.dictator.ui.L;
 
 import java.io.File;
 import java.io.IOException;
 
 public class RecordingActivity extends Activity {
-
     MediaRecorder mRecorder;
     File mSampleFile = null;
     static final String SAMPLE_PREFIX = "recording";
     static final String SAMPLE_EXTENSION = ".3gpp";
     private static final String OUTPUT_FILE = "/sdcard/audiooutput.3gpp";
-    private static final String TAG = "SoundRecordingDemo";
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,7 +88,7 @@ public class RecordingActivity extends Activity {
                 this.mSampleFile = File.createTempFile(RecordingActivity.SAMPLE_PREFIX,
                         RecordingActivity.SAMPLE_EXTENSION, sampleDir);
             } catch (IOException e) {
-                Log.e(RecordingActivity.TAG, "sdcard access error");
+                L.e("sdcard access error");
                 return;
             }
         }

@@ -1,7 +1,7 @@
 /**
  * This file is part of Speech Trainer.
  * Copyright (C) 2011 Jan Wrobel <wrr@mixedbit.org>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -57,8 +57,8 @@ public class AudioEventCollector implements AudioEventListener, AudioEventHistor
         public boolean isPlayed() {
             synchronized (AudioEventCollector.this) {
                 return firstBufferPlayed != null
-                && firstBufferPlayed.getAudioBufferId() <= audioBufferId
-                && audioBufferId <= lastBufferPlayed.getAudioBufferId();
+                        && firstBufferPlayed.getAudioBufferId() <= audioBufferId
+                        && audioBufferId <= lastBufferPlayed.getAudioBufferId();
             }
         }
     }
@@ -85,24 +85,23 @@ public class AudioEventCollector implements AudioEventListener, AudioEventHistor
     private AudioBufferInfoImpl lastBufferPlayed = null;
 
     /**
-     * @param nextListener
-     *            A chained listener to which all audio events are passed.
+     * @param nextListener A chained listener to which all audio events are passed.
      */
     public AudioEventCollector(AudioEventListener nextListener) {
         this.nextListener = nextListener;
         final Comparator<AudioBufferInfo> lastRecordedBufferLastComparator =
-            new Comparator<AudioBufferInfo>() {
-            @Override
-            public int compare(AudioBufferInfo a, AudioBufferInfo b) {
-                if (a.getAudioBufferId() < b.getAudioBufferId()) {
-                    return -1;
-                }
-                if (a.getAudioBufferId() > b.getAudioBufferId()) {
-                    return 1;
-                }
-                return 0;
-            }
-        };
+                new Comparator<AudioBufferInfo>() {
+                    @Override
+                    public int compare(AudioBufferInfo a, AudioBufferInfo b) {
+                        if (a.getAudioBufferId() < b.getAudioBufferId()) {
+                            return -1;
+                        }
+                        if (a.getAudioBufferId() > b.getAudioBufferId()) {
+                            return 1;
+                        }
+                        return 0;
+                    }
+                };
         recordedBuffersLastRecordedLast = new TreeSet<AudioBufferInfo>(
                 lastRecordedBufferLastComparator);
         recordedBuffersLastRecordedFirst = new TreeSet<AudioBufferInfo>(
@@ -134,7 +133,7 @@ public class AudioEventCollector implements AudioEventListener, AudioEventHistor
     public void audioBufferRecorded(int audioBufferId, double soundLevel) {
         synchronized (this) {
             Assertions.illegalStateIfFalse(firstBufferPlayed == null,
-            "Recorded buffer but recording not started.");
+                    "Recorded buffer but recording not started.");
             minSoundLevel = Math.min(soundLevel, minSoundLevel);
             maxSoundLevel = Math.max(soundLevel, maxSoundLevel);
             recentlyRecordedBuffers.add(new AudioBufferInfoImpl(audioBufferId, soundLevel));
@@ -211,10 +210,10 @@ public class AudioEventCollector implements AudioEventListener, AudioEventHistor
     }
 
     private Iterator<AudioBufferInfo> centerPlotOn(AudioBufferInfoImpl audioBufferToCenter,
-            int plotWidth) {
+                                                   int plotWidth) {
         // Point the iterator at the buffer to be placed in the center.
         final Iterator<AudioBufferInfo> iterator =
-            recordedBuffersLastRecordedLast.tailSet(audioBufferToCenter).iterator();
+                recordedBuffersLastRecordedLast.tailSet(audioBufferToCenter).iterator();
         AudioBufferInfo startBuffer = recordedBuffersLastRecordedLast.last();
         // Move the iterator by half of the plot width, so the centered buffer
         // is actually in the center.

@@ -2,7 +2,6 @@ package com.banba.dictator; /**
  * Created by Ernan on 22/02/14.
  * Copyrite Banba Inc. 2013.
  */
-import java.util.Locale;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -12,9 +11,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.Locale;
+
 public class TextToSpeechActivity extends Activity implements
         TextToSpeech.OnInitListener {
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
 
     private TextToSpeech tts;
     private Button btnSpeak;

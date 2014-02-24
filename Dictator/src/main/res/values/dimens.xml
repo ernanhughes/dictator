@@ -19,7 +19,6 @@
     <dimen name="list_title_margin_top">18dp</dimen>
 
 
-
     <dimen name="card_outer_padding_top">2dp</dimen>
     <dimen name="card_outer_padding_bottom">1dp</dimen>
     <dimen name="card_outer_padding_horizontal">8dp</dimen>

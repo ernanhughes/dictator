@@ -1,7 +1,7 @@
 /**
  * This file is part of Speech Trainer.
  * Copyright (C) 2011 Jan Wrobel <wrr@mixedbit.org>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -29,7 +29,7 @@ public interface AudioEventHistory {
 
     /**
      * @return The minimum sound level of all recorded buffers. Along with
-     *         getMaxSoundLevel() allows to scale the plot of sound levels.
+     * getMaxSoundLevel() allows to scale the plot of sound levels.
      */
     public double getMinSoundLevel();
 
@@ -39,16 +39,14 @@ public interface AudioEventHistory {
     public double getMaxSoundLevel();
 
     /**
-     * 
-     * @param plotWidth
-     *            How many events can fit on the plot.
+     * @param plotWidth How many events can fit on the plot.
      * @return An iterator pointing at the first event to be plotted. If playing
-     *         is in progress and the first played buffer is outside of the plot
-     *         of recently recorded buffers, the iterator is positioned in such
-     *         a way that the most recently played buffer is in the middle of
-     *         the plot. In all other cases, the iterator points at the most
-     *         recently recorded buffer. The iterator remains valid until the
-     *         next call to the getIteratorOverAudioEventsToPlot.
+     * is in progress and the first played buffer is outside of the plot
+     * of recently recorded buffers, the iterator is positioned in such
+     * a way that the most recently played buffer is in the middle of
+     * the plot. In all other cases, the iterator points at the most
+     * recently recorded buffer. The iterator remains valid until the
+     * next call to the getIteratorOverAudioEventsToPlot.
      */
     public Iterator<AudioBufferInfo> getIteratorOverAudioEventsToPlot(int plotWidth);
 

@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * You can have multiple VoiceInputAssistants per Fragment, just use the additional constructor
  * to specify unique requestCodes for the RecognizerIntent (e.g. VoiceInputAssistant.VOICE_RECOGNITION_REQUEST_CODE+i).
  * If you have only one VoiceInputAssitant on an Fragment, just use the normal constructor.
- * <p>
+ * <p/>
  * You can query voiceinput-capabilities by calling isVoiceInputAvailable() for external checking,
  * but the visibility for the microphone-button specified by the constructor is handled in configureMicrophoneButton(int).
  *
@@ -34,7 +34,9 @@ import java.util.ArrayList;
 @SuppressWarnings("nls")
 public class VoiceInputAssistant {
 
-    /** requestcode for activityresult from voicerecognizer-intent */
+    /**
+     * requestcode for activityresult from voicerecognizer-intent
+     */
     public static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
 
     /**
@@ -63,7 +65,9 @@ public class VoiceInputAssistant {
         return languageModel;
     }
 
-    /** Sets whether voice input will append into field */
+    /**
+     * Sets whether voice input will append into field
+     */
     public void setAppend(boolean append) {
         this.append = append;
     }
@@ -103,7 +107,7 @@ public class VoiceInputAssistant {
      * Creates a new VoiceInputAssistance-instance for use with a specified button and textfield.
      * If you need more than one microphone-button on a given fragment, use the other constructor.
      *
-     * @param activity the activity which holds the microphone-buttone and the textField to insert recognized test
+     * @param activity    the activity which holds the microphone-buttone and the textField to insert recognized test
      * @param voiceButton the microphone-Button
      */
     public VoiceInputAssistant(Activity activity, ImageButton voiceButton) {
@@ -122,7 +126,7 @@ public class VoiceInputAssistant {
      * you can leave it to its default, VOICE_RECOGNITION_REQUEST_CODE.
      *
      * @param requestCode has to be unique in a single fragment-context,
-     *   dont use VOICE_RECOGNITION_REQUEST_CODE, this is reserved for the other constructor
+     *                    dont use VOICE_RECOGNITION_REQUEST_CODE, this is reserved for the other constructor
      */
     public VoiceInputAssistant(Activity activity, ImageButton voiceButton, int requestCode) {
         this(activity, voiceButton);
@@ -157,7 +161,7 @@ public class VoiceInputAssistant {
      * You can check in your fragment if it was really a RecognizerIntent that was handled here,
      * if so, this method returns true. In this case, you should call super.onActivityResult in your
      * fragment.onActivityResult.
-     * <p>
+     * <p/>
      * If this method returns false, then it wasnt a request with a RecognizerIntent, so you can handle
      * these other requests as you need.
      *
@@ -182,9 +186,9 @@ public class VoiceInputAssistant {
                 if (match != null && match.size() > 0 && match.get(0).length() > 0) {
                     String recognizedSpeech = match.get(0);
                     recognizedSpeech = recognizedSpeech.substring(0, 1).toUpperCase() +
-                        recognizedSpeech.substring(1).toLowerCase();
+                            recognizedSpeech.substring(1).toLowerCase();
 
-                    if(append)
+                    if (append)
                         textField.setText((textField.getText() + " " + recognizedSpeech).trim());
                     else
                         textField.setText(recognizedSpeech);
@@ -199,6 +203,7 @@ public class VoiceInputAssistant {
      * Can also be called from Fragment.onActivityResult to simply get the string result
      * of the speech to text, or null if it couldn't be processed. Convenient when you
      * don't have a bunch of UI elements to hook into.
+     *
      * @param activityRequestCode
      * @param resultCode
      * @param data
@@ -214,7 +219,7 @@ public class VoiceInputAssistant {
                 if (match != null && match.size() > 0 && match.get(0).length() > 0) {
                     String recognizedSpeech = match.get(0);
                     recognizedSpeech = recognizedSpeech.substring(0, 1).toUpperCase() +
-                        recognizedSpeech.substring(1).toLowerCase();
+                            recognizedSpeech.substring(1).toLowerCase();
                     return recognizedSpeech;
                 }
             }
@@ -224,11 +229,11 @@ public class VoiceInputAssistant {
     }
 
     public void configureMicrophoneButton(final Fragment fragment, final int prompt) {
-            voiceButton.setVisibility(View.VISIBLE);
-            voiceButton.setOnClickListener(new OnClickListener() {
-                public void onClick(View v) {
-                    startVoiceRecognitionActivity(fragment, prompt);
-                }
-            });
+        voiceButton.setVisibility(View.VISIBLE);
+        voiceButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                startVoiceRecognitionActivity(fragment, prompt);
+            }
+        });
     }
 }

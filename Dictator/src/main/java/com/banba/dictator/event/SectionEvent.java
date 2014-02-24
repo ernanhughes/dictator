@@ -13,6 +13,7 @@ public class SectionEvent {
     public static final String ABOUT = "About";
 
     public String section;
+
     public SectionEvent(String section) {
         this.section = section;
     }

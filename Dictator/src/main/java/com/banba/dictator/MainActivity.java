@@ -23,7 +23,7 @@ import de.greenrobot.event.EventBus;
  * Created by Ernan on 23/02/14.
  * Copyrite Banba Inc. 2013.
  */
-public class MainActivity extends Activity{
+public class MainActivity extends Activity {
     private ShareActionProvider mShareActionProvider;
 
     @Override
@@ -65,7 +65,8 @@ public class MainActivity extends Activity{
             Intent i = new Intent(this, SearchActivity.class);
             startActivity(i);
         } else if (SectionEvent.RECORD.equalsIgnoreCase(section.section)) {
-
+            Intent i = new Intent(this, RecordingActivity.class);
+            startActivity(i);
         } else if (SectionEvent.MANAGE.equalsIgnoreCase(section.section)) {
             // manage of entries
         } else if (SectionEvent.MANAGE.equalsIgnoreCase(section.section)) {

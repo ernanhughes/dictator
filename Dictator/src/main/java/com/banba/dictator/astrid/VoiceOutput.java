@@ -17,7 +17,6 @@ import java.util.Locale;
 
 /**
  * @author Arne Jans
- *
  */
 @SuppressWarnings("nls")
 public class VoiceOutput implements OnInitListener {
@@ -68,7 +67,7 @@ public class VoiceOutput implements OnInitListener {
     }
 
     private void initTTS() {
-        mTts = new TextToSpeech(context, (OnInitListener)this);
+        mTts = new TextToSpeech(context, (OnInitListener) this);
     }
 
     public void queueSpeak(String textToSpeak) {
@@ -99,8 +98,8 @@ public class VoiceOutput implements OnInitListener {
             // Try this someday for some interesting results.
             // int result mTts.setLanguage(Locale.FRANCE);
             if (result == TextToSpeech.LANG_MISSING_DATA ||
-                result == TextToSpeech.LANG_NOT_SUPPORTED) {
-               // Language data is missing or the language is not supported.
+                    result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                // Language data is missing or the language is not supported.
                 Log.e(TAG, "Language is not available.");
             } else {
                 // Check the documentation for other possible result codes.

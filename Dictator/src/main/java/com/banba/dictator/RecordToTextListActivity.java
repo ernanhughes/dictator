@@ -119,14 +119,12 @@ public class RecordToTextListActivity extends Activity {
             }
 
             //returned from TTS data check
-            if (requestCode == MY_DATA_CHECK_CODE)
-            {
+            if (requestCode == MY_DATA_CHECK_CODE) {
                 //we have the data - create a TTS instance
                 if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS)
                     repeatTTS = new TextToSpeech(getActivity(), this);
                     //data not installed, prompt the user to install it
-                else
-                {
+                else {
                     //intent will take user to TTS download page in Google Play
                     Intent installTTSIntent = new Intent();
                     installTTSIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
@@ -162,7 +160,7 @@ public class RecordToTextListActivity extends Activity {
                     Toast.makeText(getActivity(), "You said: " + wordChosen, Toast.LENGTH_SHORT).show();//**alter for your Activity name***
 
                     //speak the word using the TTS
-                    repeatTTS.speak("You said: "+wordChosen, TextToSpeech.QUEUE_FLUSH, null);
+                    repeatTTS.speak("You said: " + wordChosen, TextToSpeech.QUEUE_FLUSH, null);
                 }
             });
 

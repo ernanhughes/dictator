@@ -1,7 +1,7 @@
 /**
  * This file is part of Speech Trainer.
  * Copyright (C) 2011 Jan Wrobel <wrr@mixedbit.org>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -29,7 +29,7 @@ import java.util.Iterator;
 /**
  * Draws a plot with sound levels of recently recorded or played buffers. The
  * data to be plotted is obtained from the AudioEventHistory.
- * 
+ * <p/>
  * The creator of the AudioEventView must set AudioEventHistory.
  */
 public class AudioEventView extends ImageButton {
@@ -49,9 +49,8 @@ public class AudioEventView extends ImageButton {
 
     /**
      * Must be called before recording or playing is started for the first time.
-     * 
-     * @param audioEventHistory
-     *            Provides a data to be plotted. Not null.
+     *
+     * @param audioEventHistory Provides a data to be plotted. Not null.
      */
     public void setAudioEventHistory(AudioEventHistory audioEventHistory) {
         this.audioEventHistory = audioEventHistory;
@@ -63,7 +62,7 @@ public class AudioEventView extends ImageButton {
         final int viewHeight = getHeight();
 
         final Iterator<AudioBufferInfo> buffersIterator =
-            audioEventHistory.getIteratorOverAudioEventsToPlot(viewWidth);
+                audioEventHistory.getIteratorOverAudioEventsToPlot(viewWidth);
 
         for (int i = 0; i < viewWidth && buffersIterator.hasNext(); ++i) {
             final AudioBufferInfo audioBufferInfo = buffersIterator.next();

@@ -2,24 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
+    android:layout_height="fill_parent">
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Sound Recording Demo"
-        />
+        android:text="Sound Recording Demo" />
+
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/startrecording"
-        android:text="Start Recording"
-        />
+        android:text="Start Recording" />
+
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/stoprecording"
-        android:text="Stop Recording"
-        />
+        android:text="Stop Recording" />
 
 </LinearLayout>
