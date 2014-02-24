@@ -2,9 +2,8 @@
     android:id="@+id/layout_main"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/main_button_border"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
-
     <View
         android:id="@+id/middle_separator"
         android:layout_width="fill_parent"
@@ -20,12 +19,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/main_button_border">
+            android:layout_gravity="center"
+            android:layout_weight="1">
 
             <ImageButton
                 style="@style/AppTheme.MainPageIcon"
                 android:tag="Record"
+                android:paddingTop="10dip"
                 android:onClick="onClick"
                 android:id="@+id/iconRecord"
                 android:layout_weight="1"
@@ -55,10 +55,9 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/main_button_border">
+                android:layout_weight="1">
 
-                <ImageButton
+            <ImageButton
                     style="@style/AppTheme.MainPageIcon"
                     android:id="@+id/iconEntries"
                     android:tag="Entries"
@@ -76,10 +75,9 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/main_button_border">
+                android:layout_weight="1">
 
-                <ImageButton
+            <ImageButton
                     style="@style/AppTheme.MainPageIcon"
                     android:tag="Categories"
                     android:id="@+id/iconManage"
@@ -104,10 +102,9 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/main_button_border">
+                android:layout_weight="1">
 
-                <ImageButton
+            <ImageButton
                     style="@style/AppTheme.MainPageIcon"
                     android:id="@+id/iconInfo"
                     android:tag="Help"
@@ -125,10 +122,9 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/main_button_border">
+                android:layout_weight="1">
 
-                <ImageButton
+            <ImageButton
                     style="@style/AppTheme.MainPageIcon"
                     android:id="@+id/iconAbout"
                     android:tag="About"
