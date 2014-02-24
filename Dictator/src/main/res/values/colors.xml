@@ -1,4 +1,8 @@
 <resources>
+    <color name="startRecording">#5da423</color>
+    <color name="stopRecording">#c60f13</color>
+
+
     <color name="textFieldColor">#000</color>
     <color name="card_text_color_header">#000</color>
     <color name="content_font_color">#222222</color>
@@ -22,7 +26,6 @@
     <color name="card_backgroundExpand">#515254</color>
     <color name="sendDarkColor">#515F9F</color>
     <color name="sendMeduimColor">#5D6CA5</color>
-    <color name="success_color">#5da423</color>
     <color name="success">#5da423</color>
     <color name="violet">#5E3F8b</color>
     <color name="counter_text_bg">#626262</color>

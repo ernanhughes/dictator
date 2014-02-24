@@ -4,6 +4,7 @@
     android:layout_height="fill_parent"
     android:background="@drawable/main_button_border"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
     <View
         android:id="@+id/middle_separator"
         android:layout_width="fill_parent"
@@ -33,6 +34,7 @@
 
             <TextView
                 android:layout_below="@+id/iconRecord"
+                android:id="@+id/textRecord"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 style="@style/AppTheme.MainPageIconText"
@@ -52,12 +54,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal">
+
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
-            <ImageButton
+                <ImageButton
                     style="@style/AppTheme.MainPageIcon"
                     android:id="@+id/iconEntries"
                     android:tag="Entries"
@@ -77,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
-            <ImageButton
+                <ImageButton
                     style="@style/AppTheme.MainPageIcon"
                     android:tag="Categories"
                     android:id="@+id/iconManage"
@@ -99,12 +102,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="horizontal">
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
-            <ImageButton
+                <ImageButton
                     style="@style/AppTheme.MainPageIcon"
                     android:id="@+id/iconInfo"
                     android:tag="Help"
@@ -124,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
-            <ImageButton
+                <ImageButton
                     style="@style/AppTheme.MainPageIcon"
                     android:id="@+id/iconAbout"
                     android:tag="About"
