@@ -1,4 +1,4 @@
-package com.banba.dictator;
+package com.banba.dictator.ui.util;
 
 
 import android.content.ContentResolver;
@@ -22,6 +22,18 @@ public class CalendarUtil {
         cal.setTime(date);
         return cal;
     }
+
+    public static Date addOneDay(Date date) {
+        return addDays(date, 1);
+    }
+
+    public static Date addDays(Date date, int days) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DAY_OF_WEEK, days);
+        return cal.getTime();
+    }
+
 
     public static String insertEvent(Context context, String title, String description, Calendar beginTime, Calendar endTime) {
         long startMillis = beginTime.getTimeInMillis();

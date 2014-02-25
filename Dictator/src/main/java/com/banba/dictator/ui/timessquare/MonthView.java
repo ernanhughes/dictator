@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.banba.dictator.R;
+import com.banba.dictator.ui.L;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -50,7 +51,7 @@ public class MonthView extends LinearLayout {
 
     public void init(MonthDescriptor month, List<List<MonthCellDescriptor>> cells,
                      boolean displayOnly) {
-        Logr.d("Initializing MonthView (%d) for %s", System.identityHashCode(this), month);
+        L.d("Initializing MonthView (%d) for %s", System.identityHashCode(this), month);
         long start = System.currentTimeMillis();
         title.setText(month.getLabel());
 
@@ -82,7 +83,7 @@ public class MonthView extends LinearLayout {
                 weekRow.setVisibility(GONE);
             }
         }
-        Logr.d("MonthView.init took %d ms", System.currentTimeMillis() - start);
+        L.d("MonthView.init took %d ms", System.currentTimeMillis() - start);
     }
 
     public interface Listener {

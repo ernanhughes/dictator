@@ -7,4 +7,6 @@ import com.banba.dictator.ui.BaseApplication;
  * Copyrite Banba Inc. 2013.
  */
 public class DictatorApp extends BaseApplication {
+    public static final String DATABASE_NAME = "director.db";
+
 }

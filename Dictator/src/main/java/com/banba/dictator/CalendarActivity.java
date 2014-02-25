@@ -4,18 +4,26 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.res.Configuration;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
-import com.banba.dictator.ui.L;
+import com.banba.dictator.data.DaoMaster;
+import com.banba.dictator.data.DaoSession;
+import com.banba.dictator.data.Recording;
+import com.banba.dictator.data.RecordingDao;
 import com.banba.dictator.ui.timessquare.CalendarPickerView;
+import com.banba.dictator.ui.util.CalendarUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
+
 
 /**
  * Created by Ernan on 25/02/14.
@@ -29,152 +37,85 @@ public class CalendarActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sample_calendar_picker);
+        setContentView(R.layout.activity_calendar);
         final ActionBar actionBar = getActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
         }
 
-
-        final Calendar nextYear = Calendar.getInstance();
-        nextYear.add(Calendar.YEAR, 1);
-
-        final Calendar lastYear = Calendar.getInstance();
-        lastYear.add(Calendar.YEAR, -1);
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, DictatorApp.DATABASE_NAME, null);
+        DaoMaster daoMaster = new DaoMaster(helper.getWritableDatabase());
+        DaoSession session = daoMaster.newSession();
+        final RecordingDao dataDao = session.getRecordingDao();
+        final List<Recording> recordings = dataDao.loadAll();
+        Collections.sort(recordings, new Comparator<Recording>() {
+            @Override
+            public int compare(Recording lhs, Recording rhs) {
+                return lhs.getStartTime().compareTo(rhs.getStartTime());
+            }
+        });
 
         calendar = (CalendarPickerView) findViewById(R.id.calendar_view);
-        calendar.init(lastYear.getTime(), nextYear.getTime()) //
-                .inMode(CalendarPickerView.SelectionMode.SINGLE) //
-                .withSelectedDate(new Date());
-
-        final Button single = (Button) findViewById(R.id.button_single);
-        final Button multi = (Button) findViewById(R.id.button_multi);
-        final Button range = (Button) findViewById(R.id.button_range);
-        final Button displayOnly = (Button) findViewById(R.id.button_display_only);
-        final Button dialog = (Button) findViewById(R.id.button_dialog);
-        single.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                single.setEnabled(false);
-                multi.setEnabled(true);
-                range.setEnabled(true);
-                displayOnly.setEnabled(true);
-
-                calendar.init(lastYear.getTime(), nextYear.getTime()) //
-                        .inMode(CalendarPickerView.SelectionMode.SINGLE) //
-                        .withSelectedDate(new Date());
+        if (recordings.size() > 0) {
+            Recording first = recordings.get(0);
+            Recording last = recordings.get(recordings.size() - 1);
+            Calendar lastDate = CalendarUtil.dateToCalendar(last.getStartTime());
+            lastDate.add(Calendar.DAY_OF_WEEK, 7);
+            List<Date> dates = new ArrayList<Date>();
+            for (Recording r : recordings) {
+                dates.add(r.getStartTime());
             }
-        });
+            calendar.init(first.getStartTime(), lastDate.getTime()) //
+                    .inMode(CalendarPickerView.SelectionMode.SINGLE)
+                    .withHighlightedDates(dates)
+                    .withSelectedDate(last.getStartTime());
+        } else {
+            final Calendar nextYear = Calendar.getInstance();
+            nextYear.add(Calendar.YEAR, 1);
+            final Calendar lastYear = Calendar.getInstance();
+            lastYear.add(Calendar.YEAR, -1);
+            calendar.init(lastYear.getTime(), nextYear.getTime()) //
+                    .inMode(CalendarPickerView.SelectionMode.SINGLE) //
+                    .withSelectedDate(new Date());
+        }
 
-        multi.setOnClickListener(new View.OnClickListener() {
+        calendar.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
-            public void onClick(View v) {
-                single.setEnabled(true);
-                multi.setEnabled(false);
-                range.setEnabled(true);
-                displayOnly.setEnabled(true);
-
-                Calendar today = Calendar.getInstance();
-                ArrayList<Date> dates = new ArrayList<Date>();
-                for (int i = 0; i < 5; i++) {
-                    today.add(Calendar.DAY_OF_MONTH, 3);
-                    dates.add(today.getTime());
-                }
-                calendar.init(new Date(), nextYear.getTime()) //
-                        .inMode(CalendarPickerView.SelectionMode.MULTIPLE) //
-                        .withSelectedDates(dates);
-            }
-        });
-
-        range.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                single.setEnabled(true);
-                multi.setEnabled(true);
-                range.setEnabled(false);
-                displayOnly.setEnabled(true);
-
-                Calendar today = Calendar.getInstance();
-                ArrayList<Date> dates = new ArrayList<Date>();
-                today.add(Calendar.DATE, 3);
-                dates.add(today.getTime());
-                today.add(Calendar.DATE, 5);
-                dates.add(today.getTime());
-                calendar.init(new Date(), nextYear.getTime()) //
-                        .inMode(CalendarPickerView.SelectionMode.RANGE) //
-                        .withSelectedDates(dates);
-            }
-        });
-
-        displayOnly.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                single.setEnabled(true);
-                multi.setEnabled(true);
-                range.setEnabled(true);
-                displayOnly.setEnabled(false);
-
-                calendar.init(new Date(), nextYear.getTime()) //
-                        .inMode(CalendarPickerView.SelectionMode.SINGLE) //
-                        .withSelectedDate(new Date())
-                        .displayOnly();
-            }
-        });
-
-        dialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogView = (CalendarPickerView) getLayoutInflater().inflate(R.layout.dialog, null, false);
-                dialogView.init(lastYear.getTime(), nextYear.getTime()) //
-                        .withSelectedDate(new Date());
-                theDialog =
-                        new AlertDialog.Builder(CalendarActivity.this).setTitle("I'm a dialog!")
-                                .setView(dialogView)
-                                .setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
+            public void onDateSelected(Date date) {
+                Toast.makeText(CalendarActivity.this, "You selected date: " + date, Toast.LENGTH_SHORT);
+                Date nextDay = CalendarUtil.addDays(date, 1);
+                final List<Recording> results = dataDao.queryRaw("where " + RecordingDao.Properties.StartTime.columnName + " between ? and ?", String.valueOf(date.getTime()),
+                        String.valueOf(nextDay.getTime()));
+                new AlertDialog.Builder(CalendarActivity.this)
+                        .setIcon(R.drawable.ic_save)
+                        .setTitle("Play Recording")
+                        .setPositiveButton("Play",
+                                new DialogInterface.OnClickListener() {
                                     @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialogInterface.dismiss();
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        if (results.size() > 0) {
+                                            Recording rec = results.get(0);
+                                            String path = rec.getFileName();
+                                            File f = new File(path);
+                                            Uri uri = Uri.fromFile(f);
+                                            MediaPlayer player = MediaPlayer.create(CalendarActivity.this, uri);
+                                            player.start();
+                                        }
                                     }
                                 })
-                                .create();
-                theDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(DialogInterface dialogInterface) {
-                        L.d("onShow: fix the dimens!");
-                        dialogView.fixDialogDimens();
-                    }
-                });
-                theDialog.show();
-            }
-        });
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-        findViewById(R.id.done_button).setOnClickListener(new View.OnClickListener() {
+                            }
+                        }).create().show();
+            }
+
             @Override
-            public void onClick(View view) {
-//                L.d("Selected time in millis: " +  calendar.getSelectedDate().getTime());
-                String toast = "Selected: " + calendar.getSelectedDate().getTime();
-                Toast.makeText(CalendarActivity.this, toast, Toast.LENGTH_SHORT).show();
+            public void onDateUnselected(Date date) {
+
             }
         });
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        boolean applyFixes = theDialog != null && theDialog.isShowing();
-        if (applyFixes) {
-            L.d("Config change: unfix the dimens so I'll get remeasured!");
-            dialogView.unfixDialogDimens();
-        }
-        super.onConfigurationChanged(newConfig);
-        if (applyFixes) {
-            dialogView.post(new Runnable() {
-                @Override
-                public void run() {
-                    L.d("Config change done: re-fix the dimens!");
-                    dialogView.fixDialogDimens();
-                }
-            });
-        }
     }
 }

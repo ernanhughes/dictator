@@ -191,13 +191,13 @@ public class ManageActivity extends Activity {
             final int layoutResource;
             switch (getItemViewType(row, column)) {
                 case 0:
-                    layoutResource = R.layout.games_list_table_header;
+                    layoutResource = R.layout.table_list_table_header;
                     break;
                 case 1:
-                    layoutResource = R.layout.games_list_item_blue;
+                    layoutResource = R.layout.table_list_item_blue;
                     break;
                 case 2:
-                    layoutResource = R.layout.games_list_item_white;
+                    layoutResource = R.layout.table_list_item_white;
                     break;
                 default:
                     throw new RuntimeException("wtf?");

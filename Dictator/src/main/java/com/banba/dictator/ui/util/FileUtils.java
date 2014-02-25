@@ -1,4 +1,4 @@
-package com.banba.dictator;
+package com.banba.dictator.ui.util;
 
 import android.os.Environment;
 

@@ -62,8 +62,8 @@ public abstract class BaseActivity extends Activity {
             return true;
         }
 //        if (id == R.id.menu_item_command) {
-//            Intent search = new Intent(this, RunCommandActivity.class);
-//            startActivity(search);
+//            Intent activity_search = new Intent(this, RunCommandActivity.class);
+//            startActivity(activity_search);
 //            return true;
 //        }
         return super.onOptionsItemSelected(item);

@@ -35,6 +35,8 @@ import com.banba.dictator.data.RecordingDao;
 import com.banba.dictator.event.SectionEvent;
 import com.banba.dictator.ui.ColorUtil;
 import com.banba.dictator.ui.L;
+import com.banba.dictator.ui.util.CalendarUtil;
+import com.banba.dictator.ui.util.DateTimeUtil;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -180,7 +182,7 @@ public class MainActivity extends Activity {
             StringBuilder buf = new StringBuilder(outputDir.getAbsolutePath())
                     .append(File.separator)
                     .append("Dictator_")
-                    .append(TimeFormatter.shortFileNameFormat(new Date()))
+                    .append(DateTimeUtil.shortFileNameFormat(new Date()))
                     .append(".3gpp");
 
             String fileName = buf.toString();
@@ -230,7 +232,7 @@ public class MainActivity extends Activity {
         recording.setEndTime(new Date());
         recording.setFileSize(f.length() / 1000);
         try {
-            DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "director.db", null);
+            DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, DictatorApp.DATABASE_NAME, null);
             DaoMaster daoMaster = new DaoMaster(helper.getWritableDatabase());
             DaoSession session = daoMaster.newSession();
             RecordingDao dataDao = session.getRecordingDao();
@@ -291,7 +293,7 @@ public class MainActivity extends Activity {
                 long now = SystemClock.uptimeMillis();
                 mTotalTime += now - mLastLogTime;
                 mLastLogTime = now;
-                Spanned text = Html.fromHtml("<font color=\"#800000\">Recording " + TimeFormatter.formatTime(mTotalTime / 1000) + "</font>");
+                Spanned text = Html.fromHtml("<font color=\"#800000\">Recording " + DateTimeUtil.formatTime(mTotalTime / 1000) + "</font>");
                 getActionBar().setTitle(text);
                 mRecordText.setText(text);
                 mHandler.postDelayed(mUpdateTimeTask, 1000);
