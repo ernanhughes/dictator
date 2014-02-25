@@ -7,7 +7,7 @@ package com.banba.dictator.event;
 public class SectionEvent {
     public static final String RECORD = "Record";
     public static final String MANAGE = "Manage";
-    public static final String ENTRIES = "Entries";
+    public static final String CALENDAR = "Calendar";
     public static final String SEARCH = "Search";
     public static final String HELP = "Help";
     public static final String ABOUT = "About";

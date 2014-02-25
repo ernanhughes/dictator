@@ -43,105 +43,131 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <ViewSwitcher
+        android:id="@+id/viewSwitcher"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_alignTop="@id/middle_separator"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:id="@+id/bottomLayout"
+            android:layout_alignTop="@id/middle_separator"
+            android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        style="@style/AppTheme.MainPageIcon"
+                        android:id="@+id/iconCalendar"
+                        android:tag="Calendar"
+                        android:onClick="onClick"
+                        android:src="@drawable/button_entries" />
+
+                    <TextView
+                        android:layout_below="@+id/iconCalendar"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        style="@style/AppTheme.MainPageIconText"
+                        android:text="HISTORY" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        style="@style/AppTheme.MainPageIcon"
+                        android:tag="Manage"
+                        android:id="@+id/iconManage"
+                        android:onClick="onClick"
+                        android:src="@drawable/button_manage" />
+
+                    <TextView
+                        android:layout_below="@+id/iconManage"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        style="@style/AppTheme.MainPageIconText"
+                        android:text="MANAGE" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-                <ImageButton
-                    style="@style/AppTheme.MainPageIcon"
-                    android:id="@+id/iconEntries"
-                    android:tag="Entries"
-                    android:onClick="onClick"
-                    android:src="@drawable/button_entries" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
 
-                <TextView
-                    android:layout_below="@+id/iconEntries"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    style="@style/AppTheme.MainPageIconText"
-                    android:text="ENTRIES" />
-            </RelativeLayout>
+                    <ImageButton
+                        style="@style/AppTheme.MainPageIcon"
+                        android:id="@+id/iconInfo"
+                        android:tag="Help"
+                        android:onClick="onClick"
+                        android:src="@drawable/button_help" />
 
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
+                    <TextView
+                        android:layout_below="@+id/iconInfo"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        style="@style/AppTheme.MainPageIconText"
+                        android:text="@string/help_icon" />
+                </RelativeLayout>
 
-                <ImageButton
-                    style="@style/AppTheme.MainPageIcon"
-                    android:tag="Categories"
-                    android:id="@+id/iconManage"
-                    android:onClick="onClick"
-                    android:src="@drawable/button_manage" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
 
-                <TextView
-                    android:layout_below="@+id/iconManage"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    style="@style/AppTheme.MainPageIconText"
-                    android:text="MANAGE" />
-            </RelativeLayout>
+                    <ImageButton
+                        style="@style/AppTheme.MainPageIcon"
+                        android:id="@+id/iconAbout"
+                        android:tag="About"
+                        android:onClick="onClick"
+                        android:src="@drawable/button_about" />
 
+                    <TextView
+                        android:layout_below="@+id/iconAbout"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        style="@style/AppTheme.MainPageIconText"
+                        android:text="@string/about_icon" />
+                </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:visibility="gone"
+            android:id="@+id/recordingFeedbackLayout"
+            android:layout_alignTop="@id/middle_separator"
+            android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <ImageButton
-                    style="@style/AppTheme.MainPageIcon"
-                    android:id="@+id/iconInfo"
-                    android:tag="Help"
-                    android:onClick="onClick"
-                    android:src="@drawable/button_help" />
-
-                <TextView
-                    android:layout_below="@+id/iconInfo"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    style="@style/AppTheme.MainPageIconText"
-                    android:text="@string/help_icon" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <ImageButton
-                    style="@style/AppTheme.MainPageIcon"
-                    android:id="@+id/iconAbout"
-                    android:tag="About"
-                    android:onClick="onClick"
-                    android:src="@drawable/button_about" />
-
-                <TextView
-                    android:layout_below="@+id/iconAbout"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    style="@style/AppTheme.MainPageIconText"
-                    android:text="@string/about_icon" />
-            </RelativeLayout>
+                android:layout_margin="100dp"
+                android:max="4000"
+                android:progressDrawable="@drawable/progressbar" />
         </LinearLayout>
-    </LinearLayout>
+    </ViewSwitcher>
 </RelativeLayout>

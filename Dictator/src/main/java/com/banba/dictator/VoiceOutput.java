@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.banba.dictator.astrid;
+package com.banba.dictator;
 
 import android.app.Activity;
 import android.content.Context;

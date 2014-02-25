@@ -12,7 +12,11 @@ public class Recording {
      * Not-null value.
      */
     private String name;
-    private java.util.Date starttime;
+    private String fileName;
+    private Long fileSize;
+    private byte[] recordingData;
+    private java.util.Date startTime;
+    private java.util.Date endTime;
 
     public Recording() {
     }
@@ -21,10 +25,14 @@ public class Recording {
         this.id = id;
     }
 
-    public Recording(Long id, String name, java.util.Date starttime) {
+    public Recording(Long id, String name, String fileName, Long fileSize, byte[] recordingData, java.util.Date startTime, java.util.Date endTime) {
         this.id = id;
         this.name = name;
-        this.starttime = starttime;
+        this.fileName = fileName;
+        this.fileSize = fileSize;
+        this.recordingData = recordingData;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public Long getId() {
@@ -49,12 +57,44 @@ public class Recording {
         this.name = name;
     }
 
-    public java.util.Date getStarttime() {
-        return starttime;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setStarttime(java.util.Date starttime) {
-        this.starttime = starttime;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public Long getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(Long fileSize) {
+        this.fileSize = fileSize;
+    }
+
+    public byte[] getRecordingData() {
+        return recordingData;
+    }
+
+    public void setRecordingData(byte[] recordingData) {
+        this.recordingData = recordingData;
+    }
+
+    public java.util.Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(java.util.Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public java.util.Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(java.util.Date endTime) {
+        this.endTime = endTime;
     }
 
 }

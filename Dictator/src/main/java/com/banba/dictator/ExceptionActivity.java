@@ -18,6 +18,14 @@ import com.banba.dictator.ui.adapter.Binder;
 import com.banba.dictator.ui.adapter.SimpleAdapter;
 import com.banba.dictator.ui.adapter.interfaces.StringExtractor;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -135,5 +143,18 @@ public class ExceptionActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    public void postData(ExceptionData data) {
+        HttpClient httpclient = new DefaultHttpClient();
+        HttpPost httppost = new HttpPost("https://www.oursite.com/domainchecker.php");
+        try {
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+            nameValuePairs.add(new BasicNameValuePair("id", data.getExceptionClassName()));
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            httpclient.execute(httppost);
+        } catch (Exception e) {
+
+        }
+    }
 
 }

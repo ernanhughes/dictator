@@ -3,7 +3,7 @@
  *
  * See the file "LICENSE" for the full license governing this code.
  */
-package com.banba.dictator.astrid;
+package com.banba.dictator;
 
 import android.app.Activity;
 import android.content.Intent;

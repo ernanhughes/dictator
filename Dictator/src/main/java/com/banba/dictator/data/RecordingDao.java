@@ -24,7 +24,11 @@ public class RecordingDao extends AbstractDao<Recording, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Name = new Property(1, String.class, "name", false, "NAME");
-        public final static Property Starttime = new Property(2, java.util.Date.class, "starttime", false, "STARTTIME");
+        public final static Property FileName = new Property(2, String.class, "fileName", false, "FILE_NAME");
+        public final static Property FileSize = new Property(3, Long.class, "fileSize", false, "FILE_SIZE");
+        public final static Property RecordingData = new Property(4, byte[].class, "recordingData", false, "RECORDING_DATA");
+        public final static Property StartTime = new Property(5, java.util.Date.class, "startTime", false, "START_TIME");
+        public final static Property EndTime = new Property(6, java.util.Date.class, "endTime", false, "END_TIME");
     }
 
     ;
@@ -46,10 +50,11 @@ public class RecordingDao extends AbstractDao<Recording, Long> {
         db.execSQL("CREATE TABLE " + constraint + "'RECORDING' (" + //
                 "'_id' INTEGER PRIMARY KEY ," + // 0: id
                 "'NAME' TEXT NOT NULL ," + // 1: name
-                "'STARTTIME' INTEGER);"); // 2: starttime
-        // Add Indexes
-        db.execSQL("CREATE INDEX " + constraint + "IDX_RECORDING_NAME ON RECORDING" +
-                " (NAME);");
+                "'FILE_NAME' TEXT," + // 2: fileName
+                "'FILE_SIZE' INTEGER," + // 3: fileSize
+                "'RECORDING_DATA' BLOB," + // 4: recordingData
+                "'START_TIME' INTEGER," + // 5: startTime
+                "'END_TIME' INTEGER);"); // 6: endTime
     }
 
     /**
@@ -73,9 +78,29 @@ public class RecordingDao extends AbstractDao<Recording, Long> {
         }
         stmt.bindString(2, entity.getName());
 
-        java.util.Date starttime = entity.getStarttime();
-        if (starttime != null) {
-            stmt.bindLong(3, starttime.getTime());
+        String fileName = entity.getFileName();
+        if (fileName != null) {
+            stmt.bindString(3, fileName);
+        }
+
+        Long fileSize = entity.getFileSize();
+        if (fileSize != null) {
+            stmt.bindLong(4, fileSize);
+        }
+
+        byte[] recordingData = entity.getRecordingData();
+        if (recordingData != null) {
+            stmt.bindBlob(5, recordingData);
+        }
+
+        java.util.Date startTime = entity.getStartTime();
+        if (startTime != null) {
+            stmt.bindLong(6, startTime.getTime());
+        }
+
+        java.util.Date endTime = entity.getEndTime();
+        if (endTime != null) {
+            stmt.bindLong(7, endTime.getTime());
         }
     }
 
@@ -95,7 +120,11 @@ public class RecordingDao extends AbstractDao<Recording, Long> {
         Recording entity = new Recording( //
                 cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
                 cursor.getString(offset + 1), // name
-                cursor.isNull(offset + 2) ? null : new java.util.Date(cursor.getLong(offset + 2)) // starttime
+                cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // fileName
+                cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3), // fileSize
+                cursor.isNull(offset + 4) ? null : cursor.getBlob(offset + 4), // recordingData
+                cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)), // startTime
+                cursor.isNull(offset + 6) ? null : new java.util.Date(cursor.getLong(offset + 6)) // endTime
         );
         return entity;
     }
@@ -107,7 +136,11 @@ public class RecordingDao extends AbstractDao<Recording, Long> {
     public void readEntity(Cursor cursor, Recording entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setName(cursor.getString(offset + 1));
-        entity.setStarttime(cursor.isNull(offset + 2) ? null : new java.util.Date(cursor.getLong(offset + 2)));
+        entity.setFileName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setFileSize(cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3));
+        entity.setRecordingData(cursor.isNull(offset + 4) ? null : cursor.getBlob(offset + 4));
+        entity.setStartTime(cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)));
+        entity.setEndTime(cursor.isNull(offset + 6) ? null : new java.util.Date(cursor.getLong(offset + 6)));
     }
 
     /**

@@ -3,7 +3,9 @@
     package="com.banba.dictator">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"></uses-permission>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <uses-feature
         android:name="android.hardware.microphone"
@@ -18,19 +20,34 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
-        <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AboutActivity" />
-        <activity android:name=".HelpActivity" />
-        <activity android:name=".RecordingActivity" />
+        <activity
+            android:name=".AboutActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".HelpActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".RecordToTextListActivity" />
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".ExceptionActivity" />
-        <activity android:name=".ApacheActivity" />
+        <activity
+            android:name=".SearchActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ExceptionActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ApacheActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ManageActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".CalendarActivity"
+            android:parentActivityName=".MainActivity" />
 
     </application>
 

@@ -21,6 +21,12 @@ public class TimeFormatter {
 
     public static String shortFormat(Date date) {
         android.text.format.DateFormat df = new android.text.format.DateFormat();
-        return String.valueOf(df.format("yy-MM-dd hh:mm:ss", date));
+        return String.valueOf(df.format("yy-MM-dd HH:mm:ss", date));
     }
+
+    public static String shortFileNameFormat(Date date) {
+        android.text.format.DateFormat df = new android.text.format.DateFormat();
+        return String.valueOf(df.format("yyMMddHHmmss", date));
+    }
+
 }
