@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.squareup.timessquare.CalendarPickerView
+        <com.banba.dictator.ui.timessquare.CalendarPickerView
             android:id="@+id/calendar_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.banba.dictator.ui.L;
-import com.squareup.timessquare.CalendarPickerView;
+import com.banba.dictator.ui.timessquare.CalendarPickerView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,18 +29,24 @@ public class CalendarActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.listview);
-        setContentView(R.layout.activity_manage);
+        setContentView(R.layout.sample_calendar_picker);
         final ActionBar actionBar = getActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
         }
 
-        CalendarPickerView calendar = (CalendarPickerView) findViewById(R.id.calendar_view);
-        Date today = new Date();
-        calendar.init(today, nextYear.getTime())
-                .withSelectedDate(today);
+
+        final Calendar nextYear = Calendar.getInstance();
+        nextYear.add(Calendar.YEAR, 1);
+
+        final Calendar lastYear = Calendar.getInstance();
+        lastYear.add(Calendar.YEAR, -1);
+
+        calendar = (CalendarPickerView) findViewById(R.id.calendar_view);
+        calendar.init(lastYear.getTime(), nextYear.getTime()) //
+                .inMode(CalendarPickerView.SelectionMode.SINGLE) //
+                .withSelectedDate(new Date());
 
         final Button single = (Button) findViewById(R.id.button_single);
         final Button multi = (Button) findViewById(R.id.button_multi);
@@ -56,7 +62,7 @@ public class CalendarActivity extends Activity {
                 displayOnly.setEnabled(true);
 
                 calendar.init(lastYear.getTime(), nextYear.getTime()) //
-                        .inMode(SelectionMode.SINGLE) //
+                        .inMode(CalendarPickerView.SelectionMode.SINGLE) //
                         .withSelectedDate(new Date());
             }
         });
@@ -76,7 +82,7 @@ public class CalendarActivity extends Activity {
                     dates.add(today.getTime());
                 }
                 calendar.init(new Date(), nextYear.getTime()) //
-                        .inMode(SelectionMode.MULTIPLE) //
+                        .inMode(CalendarPickerView.SelectionMode.MULTIPLE) //
                         .withSelectedDates(dates);
             }
         });
@@ -96,7 +102,7 @@ public class CalendarActivity extends Activity {
                 today.add(Calendar.DATE, 5);
                 dates.add(today.getTime());
                 calendar.init(new Date(), nextYear.getTime()) //
-                        .inMode(SelectionMode.RANGE) //
+                        .inMode(CalendarPickerView.SelectionMode.RANGE) //
                         .withSelectedDates(dates);
             }
         });
@@ -110,7 +116,7 @@ public class CalendarActivity extends Activity {
                 displayOnly.setEnabled(false);
 
                 calendar.init(new Date(), nextYear.getTime()) //
-                        .inMode(SelectionMode.SINGLE) //
+                        .inMode(CalendarPickerView.SelectionMode.SINGLE) //
                         .withSelectedDate(new Date())
                         .displayOnly();
             }

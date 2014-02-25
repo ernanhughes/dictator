@@ -1,4 +1,4 @@
-<com.squareup.timessquare.CalendarPickerView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.banba.dictator.ui.timessquare.CalendarPickerView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/calendar_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

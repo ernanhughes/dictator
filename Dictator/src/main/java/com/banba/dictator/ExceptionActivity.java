@@ -26,6 +26,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -97,6 +99,12 @@ public class ExceptionActivity extends Activity {
         DaoSession session = daoMaster.newSession();
         ExceptionDataDao dataDao = session.getExceptionDataDao();
         List<ExceptionData> exceptions = dataDao.loadAll();
+        Collections.sort(exceptions, new Comparator<ExceptionData>() {
+            @Override
+            public int compare(ExceptionData lhs, ExceptionData rhs) {
+                return rhs.getExceptionTime().compareTo(lhs.getExceptionTime());
+            }
+        });
         final SimpleAdapter<ExceptionData> cardsAdapter = new SimpleAdapter<ExceptionData>(this, exceptions, binder, R.layout.list_item_exception);
         ListView cardsList = (ListView) findViewById(R.id.listview);
         cardsList.setAdapter(cardsAdapter);

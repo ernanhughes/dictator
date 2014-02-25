@@ -32,17 +32,17 @@
             android:id="@+id/button_display_only"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DisplayOnly" />
+            android:text="Display" />
 
         <Button
             android:id="@+id/button_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dialog" />
+            android:text="Dlg" />
 
     </LinearLayout>
 
-    <com.squareup.timessquare.CalendarPickerView
+    <com.banba.dictator.ui.timessquare.CalendarPickerView
         android:id="@+id/calendar_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
