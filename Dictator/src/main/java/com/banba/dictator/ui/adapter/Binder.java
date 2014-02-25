@@ -38,6 +38,11 @@ public class Binder<T> {
     public Binder() {
     }
 
+
+    public List<StringField<T>> getStringFields() {
+        return mStringFields;
+    }
+
     public static <T extends View> T get(View view, int id) {
         SparseArray<View> viewHolder = (SparseArray<View>) view.getTag();
         if (viewHolder == null) {

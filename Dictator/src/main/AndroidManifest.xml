@@ -48,6 +48,10 @@
         <activity
             android:name=".CalendarActivity"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".TextToSpeechActivity"
+            android:parentActivityName=".MainActivity" />
+
 
     </application>
 

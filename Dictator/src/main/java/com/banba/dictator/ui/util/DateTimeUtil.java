@@ -10,6 +10,7 @@ public class DateTimeUtil {
 
     static final String FILE_NAME_FORMAT = "yyMMddHHmmss";
     static final String DATE_FORMAT = "yy-MM-dd HH:mm:ss";
+    static final String SHORT_DATE_FORMAT = "yy-MM-dd";
     static final String SQL_DATE_FORMAT = "yy-MM-dd";
     static final String TIME_FORMAT = "HH:mm:ss";
 
@@ -35,7 +36,13 @@ public class DateTimeUtil {
         return seconds < 10 ? "0" + seconds : Integer.toString(seconds);
     }
 
-    public static String shortFormat(Date date) {
+    public static String shortDateFormat(Date date) {
+        android.text.format.DateFormat df = new android.text.format.DateFormat();
+        return String.valueOf(df.format(SHORT_DATE_FORMAT, date));
+    }
+
+
+    public static String normalDateFormat(Date date) {
         android.text.format.DateFormat df = new android.text.format.DateFormat();
         return String.valueOf(df.format(DATE_FORMAT, date));
     }

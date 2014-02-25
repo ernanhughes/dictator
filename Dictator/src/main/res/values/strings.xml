@@ -16,6 +16,7 @@
     <string name="error">Error</string>
     <string name="help">Help</string>
     <string name="text_to_speech">Speak</string>
+    <string name="history">History</string>
 
     <string name="record_icon">RECORD</string>
     <string name="manage_icon">MANAGE</string>

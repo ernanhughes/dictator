@@ -19,9 +19,9 @@ import java.util.List;
 public class SimpleAdapter<T> extends BaseAdapter implements Filterable {
     protected List<T> mDataItems;
     protected final Context mContext;
-    private final List<Integer> mLayoutResourceIds;
-    private final Binder<T> mBinder;
-    private Filter mFilter;
+    protected final List<Integer> mLayoutResourceIds;
+    protected final Binder<T> mBinder;
+    protected Filter mFilter;
 
     public SimpleAdapter(Context context, List<T> dataItems,
                          Binder<T> binder, Integer... layoutResourceIds) {

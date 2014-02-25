@@ -10,6 +10,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ShareActionProvider;
 
+import com.banba.dictator.event.SectionEvent;
+
 import de.greenrobot.event.EventBus;
 
 /**
@@ -67,6 +69,11 @@ public abstract class BaseActivity extends Activity {
 //            return true;
 //        }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onEvent(SectionEvent event) {
+//        EventBus.getDefault().cancelEventDelivery(event);
+
     }
 
 

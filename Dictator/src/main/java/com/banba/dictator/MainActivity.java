@@ -2,16 +2,12 @@ package com.banba.dictator;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.graphics.Color;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.provider.MediaStore;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.Menu;
@@ -25,22 +21,15 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
-import com.banba.dictator.data.DaoMaster;
-import com.banba.dictator.data.DaoSession;
 import com.banba.dictator.data.Recording;
-import com.banba.dictator.data.RecordingDao;
 import com.banba.dictator.event.SectionEvent;
 import com.banba.dictator.ui.ColorUtil;
 import com.banba.dictator.ui.L;
-import com.banba.dictator.ui.util.CalendarUtil;
 import com.banba.dictator.ui.util.DateTimeUtil;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import de.greenrobot.event.EventBus;
@@ -51,16 +40,13 @@ import de.greenrobot.event.EventBus;
  */
 public class MainActivity extends Activity {
     private ShareActionProvider mShareActionProvider;
-
     MediaRecorder mRecorder;
     String mOutputFile;
-    File mSampleFile = null;
     ImageButton mRecordButton;
     TextView mRecordText;
     boolean mIsRecording = false;
     long mLastLogTime = 0l, mTotalTime = 0l;
     Handler mHandler = new Handler();
-    int oldActionBarColor = Color.BLACK;
     private ProgressBar mProgressBar;
     Recording recording;
     ViewSwitcher viewSwitcher;
@@ -176,7 +162,17 @@ public class MainActivity extends Activity {
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-        mSoundLevel.run();
+        new Runnable() {
+            public void run() {
+                if (mIsRecording) {
+                    int amplitude = mRecorder.getMaxAmplitude();
+                    System.out.println(amplitude);
+                    mProgressBar.setProgress(amplitude);
+                    mHandler.postDelayed(this, 100);
+                }
+            }
+        }.run();
+
         try {
             File outputDir = getFilesDir();
             StringBuilder buf = new StringBuilder(outputDir.getAbsolutePath())
@@ -190,11 +186,13 @@ public class MainActivity extends Activity {
             mOutputFile = outputFile.getAbsolutePath();
             mRecorder.setOutputFile(mOutputFile);
             mRecorder.prepare();
+
             recording = new Recording();
             recording.setId(null);
             recording.setName("Recording on " + new Date());
             recording.setStartTime(new Date());
             recording.setFileName(Uri.fromFile(outputFile).toString());
+
             mRecorder.start();
         } catch (Exception ex) {
             L.e(ex.getMessage());
@@ -219,70 +217,15 @@ public class MainActivity extends Activity {
         mRecordButton.setImageResource(R.drawable.record_start_large);
         getActionBar().setTitle(R.string.app_name);
         mRecordText.setText("RECORD");
-        ContentValues values = new ContentValues();
-        long current = System.currentTimeMillis();
-        values.put(MediaStore.MediaColumns.TITLE, "test_audio");
-        values.put(MediaStore.MediaColumns.DATE_ADDED, (int) (current / 1000));
-        values.put(MediaStore.MediaColumns.MIME_TYPE, "audio/3gpp");
-        values.put(MediaStore.MediaColumns.DATA, mOutputFile);
-
-        File f = new File(mOutputFile);
-        Toast.makeText(this, "File saved: " + mOutputFile + " " + f.length() + " (bytes)", Toast.LENGTH_LONG).show();
-
         recording.setEndTime(new Date());
+        File f = new File(mOutputFile);
+        L.i("File saved: " + mOutputFile + " " + f.length() + " (bytes)");
         recording.setFileSize(f.length() / 1000);
-        try {
-            DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, DictatorApp.DATABASE_NAME, null);
-            DaoMaster daoMaster = new DaoMaster(helper.getWritableDatabase());
-            DaoSession session = daoMaster.newSession();
-            RecordingDao dataDao = session.getRecordingDao();
-            dataDao.insert(recording);
-            for (int i = 0; i < 1000; ++i) {
-                recording.setId(null);
-                String dt = "2010-01-01";  // Start date
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                Calendar c = Calendar.getInstance();
-                c.setTime(sdf.parse(dt));
-                c.add(Calendar.DATE, i);  // number of days to add
-                c.add(Calendar.HOUR_OF_DAY, i);  // number of days to add
-                recording.setStartTime(c.getTime());
-                c.add(Calendar.HOUR_OF_DAY, 1);  // number of days to add
-                recording.setEndTime(c.getTime());
-                dataDao.insert(recording);
-            }
-        } catch (Exception ex) {
-            L.e(ex.getMessage());
-        }
 
-        try {
-            CalendarUtil.insertEvent(this, recording.getName(), recording.getFileName(), CalendarUtil.dateToCalendar(recording.getStartTime()), CalendarUtil.dateToCalendar(recording.getEndTime()));
-        } catch (Exception ex) {
-            L.e(ex.getMessage());
-        }
-
-        ContentResolver contentResolver = getContentResolver();
-        Uri base = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-        Uri newUri = contentResolver.insert(base, values);
-        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, newUri));
+        Util.saveRecording(this, recording);
+        Util.addMediaEntry(this, mOutputFile);
+        Util.addCalendarEntry(this, recording);
     }
-
-
-    void hideButtons() {
-        LinearLayout ll = (LinearLayout) findViewById(R.id.bottomLayout);
-        ll.startAnimation(AnimationUtils.loadAnimation(this, R.anim.vanish));
-        ll.setVisibility(View.GONE);
-        ll = (LinearLayout) findViewById(R.id.recordingFeedbackLayout);
-        ll.setVisibility(View.VISIBLE);
-    }
-
-    void showButtons() {
-        LinearLayout ll = (LinearLayout) findViewById(R.id.recordingFeedbackLayout);
-        ll.setVisibility(View.GONE);
-        ll = (LinearLayout) findViewById(R.id.bottomLayout);
-        ll.startAnimation(AnimationUtils.loadAnimation(this, R.anim.vanish));
-        ll.setVisibility(View.VISIBLE);
-    }
-
 
     Runnable mUpdateTimeTask = new Runnable() {
         public void run() {
@@ -300,17 +243,4 @@ public class MainActivity extends Activity {
             }
         }
     };
-
-    Runnable mSoundLevel = new Runnable() {
-        public void run() {
-            if (mIsRecording) {
-                int amplitude = mRecorder.getMaxAmplitude();
-                System.out.println(amplitude);
-                mProgressBar.setProgress(amplitude);
-                mHandler.postDelayed(mSoundLevel, 100);
-            }
-        }
-    };
-
-
 }

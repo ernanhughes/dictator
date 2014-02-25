@@ -7,12 +7,13 @@ import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+
+import com.banba.dictator.ui.L;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -41,8 +42,6 @@ public class ContinuousDictationFragment extends Fragment implements Recognition
     // ---- MEMBERS ---- //
     // Callback activity called following dictation process
     private ContinuousDictationFragmentResultsCallback mCallback;
-    // Logger tag
-    private static final String TAG = "" + ContinuousDictationFragment.class;
     // Speech recognizer instance
     private SpeechRecognizer speech = null;
     // Speech recognition control button
@@ -159,7 +158,7 @@ public class ContinuousDictationFragment extends Fragment implements Recognition
 
     @Override
     public void onReadyForSpeech(Bundle params) {
-        Log.d(TAG, "onReadyForSpeech");
+        L.d("onReadyForSpeech");
         // create and schedule the input speech timeout
         speechTimeout = new Timer();
         speechTimeout.schedule(new SilenceTimer(), 3000);
@@ -168,7 +167,7 @@ public class ContinuousDictationFragment extends Fragment implements Recognition
 
     @Override
     public void onBeginningOfSpeech() {
-        Log.d(TAG, "onBeginningOfSpeech");
+        L.d("onBeginningOfSpeech");
         // Cancel the timeout because voice is arriving
         speechTimeout.cancel();
         buttonChangeState(2);
@@ -178,12 +177,12 @@ public class ContinuousDictationFragment extends Fragment implements Recognition
 
     @Override
     public void onBufferReceived(byte[] buffer) {
-        Log.d(TAG, "onBufferReceived");
+        L.d("onBufferReceived");
     }
 
     @Override
     public void onEndOfSpeech() {
-        Log.d(TAG, "onEndOfSpeech");
+        L.d("onEndOfSpeech");
         buttonChangeState(0);
         // Notify the container activity that dictation is finished
         mCallback.onDictationFinish();
@@ -227,7 +226,7 @@ public class ContinuousDictationFragment extends Fragment implements Recognition
                 message = "Not recognised";
                 break;
         }
-        Log.d(TAG, "onError code:" + error + " message: " + message);
+        L.d("onError code:" + error + " message: " + message);
 
         if (restart) {
             getActivity().runOnUiThread(new Runnable() {
@@ -241,12 +240,12 @@ public class ContinuousDictationFragment extends Fragment implements Recognition
 
     @Override
     public void onEvent(int eventType, Bundle params) {
-        Log.d(TAG, "onEvent");
+        L.d("onEvent");
     }
 
     @Override
     public void onPartialResults(Bundle partialResults) {
-        Log.d(TAG, "onPartialResults");
+        L.d("onPartialResults");
     }
 
     @Override
@@ -258,7 +257,7 @@ public class ContinuousDictationFragment extends Fragment implements Recognition
         for (int i = 0; i < results.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES).length; i++) {
             scores.append(results.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES)[i] + " ");
         }
-        Log.d(TAG, "onResults: " + results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) + " scores: " + scores.toString());
+        L.d("onResults: " + results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) + " scores: " + scores.toString());
         // Return to the container activity dictation results
         if (results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) != null) {
             mCallback.onResults(this, results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
