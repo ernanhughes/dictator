@@ -7,11 +7,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.banba.dictator.R;
 import com.banba.dictator.Util;
 import com.banba.dictator.data.Recording;
+import com.banba.dictator.event.PlayRecordingEvent;
 import com.banba.dictator.ui.timessquare.CalendarPickerView;
 import com.banba.dictator.ui.util.DateTimeUtil;
 
@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by Ernan on 25/02/14.
@@ -32,8 +34,9 @@ public class CalendarFragment extends Fragment {
         final List<Recording> recordings = Util.getAllRecordings(getActivity());
         final CalendarPickerView calendar = (CalendarPickerView) rootView.findViewById(R.id.calendar_view);
         if (recordings.size() > 0) {
-            Recording first = recordings.get(0);
-            Recording last = recordings.get(recordings.size() - 1);
+            // recording are sorted inversely
+            Recording first = recordings.get(recordings.size() - 1);
+            Recording last = recordings.get(0);
             Calendar lastDate = DateTimeUtil.dateToCalendar(last.getStartTime());
             lastDate.add(Calendar.DAY_OF_WEEK, 7);
             List<Date> dates = new ArrayList<Date>();
@@ -75,9 +78,7 @@ public class CalendarFragment extends Fragment {
                                         public void onClick(DialogInterface dialog, int which) {
                                             if (results.size() > 0) {
                                                 Recording recording = results.get(0);
-                                                boolean result = Util.playRecording(getActivity(), recording);
-                                                Toast.makeText(getActivity(), result ?
-                                                        "Playing" : "Failed tpo play " + recording.getFileName(), Toast.LENGTH_LONG);
+                                                EventBus.getDefault().post(new PlayRecordingEvent((recording)));
                                             }
                                         }
                                     })

@@ -14,6 +14,7 @@ public class DateTimeUtil {
     static final String SHORT_DATE_FORMAT = "yy-MM-dd";
     static final String SQL_DATE_FORMAT = "yy-MM-dd";
     static final String TIME_FORMAT = "HH:mm:ss";
+    static final String DATE_TIME_FORMAT = "yy-MM-dd HH:mm";
 
     public static String formatTime(int seconds) {
         return Integer.toString(seconds / 60) + ":" + padWithZeros(seconds % 60);
@@ -32,6 +33,12 @@ public class DateTimeUtil {
         android.text.format.DateFormat df = new android.text.format.DateFormat();
         return String.valueOf(df.format(TIME_FORMAT, date));
     }
+
+    public static String getDateTime(Date date) {
+        android.text.format.DateFormat df = new android.text.format.DateFormat();
+        return String.valueOf(df.format(DATE_TIME_FORMAT, date));
+    }
+
 
     private static String padWithZeros(int seconds) {
         return seconds < 10 ? "0" + seconds : Integer.toString(seconds);

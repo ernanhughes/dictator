@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ShareActionProvider;
 
+import com.banba.dictator.event.PlayRecordingEvent;
 import com.banba.dictator.event.SectionEvent;
 
 import de.greenrobot.event.EventBus;
@@ -76,6 +77,12 @@ public abstract class BaseActivity extends Activity {
 
     }
 
+    public void onEvent(PlayRecordingEvent event) {
+        EventBus.getDefault().cancelEventDelivery(event);
+        Intent i = new Intent(this, PlayActivity.class);
+        i.putExtra(Util.FILE_NAME, event.recording.getFileName());
+        startActivity(i);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

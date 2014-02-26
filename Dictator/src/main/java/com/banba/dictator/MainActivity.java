@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaRecorder;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -158,8 +157,30 @@ public class MainActivity extends Activity {
         if (viewSwitcher.getCurrentView() != secondView) {
             viewSwitcher.showNext();
         }
-        mRecordButton.setImageResource(R.drawable.record_stop_large);
+        mRecordButton.setImageResource(R.drawable.record_stop_half);
+        mRecorder = new MediaRecorder();
+        mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        try {
+            String fileName = Util.getRecordingFileName(this);
+            File outputFile = new File(fileName);
+            mOutputFile = outputFile.getAbsolutePath();
+            mRecorder.setOutputFile(mOutputFile);
+            mRecorder.prepare();
 
+            recording = new Recording();
+            recording.setId(null);
+            recording.setName(Util.getRecordingName(this));
+            recording.setStartTime(new Date());
+            recording.setFileName(mOutputFile);
+
+            mRecorder.start();
+        } catch (Exception ex) {
+            L.e(ex.getMessage());
+            return;
+        }
+        mIsRecording = true;
         new Runnable() {
             public void run() {
                 if (mIsRecording) {
@@ -186,31 +207,6 @@ public class MainActivity extends Activity {
                 }
             }
         }.run();
-
-
-        mRecorder = new MediaRecorder();
-        mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-        try {
-            String fileName = Util.getRecordingFileName(this);
-            File outputFile = new File(fileName);
-            mOutputFile = outputFile.getAbsolutePath();
-            mRecorder.setOutputFile(mOutputFile);
-            mRecorder.prepare();
-
-            recording = new Recording();
-            recording.setId(null);
-            recording.setName("Recording on " + new Date());
-            recording.setStartTime(new Date());
-            recording.setFileName(Uri.fromFile(outputFile).toString());
-
-            mRecorder.start();
-        } catch (Exception ex) {
-            L.e(ex.getMessage());
-            return;
-        }
-        mIsRecording = true;
     }
 
     protected void stopRecording() {
@@ -226,7 +222,7 @@ public class MainActivity extends Activity {
         } catch (Exception ex) {
         }
         mRecorder.release();
-        mRecordButton.setImageResource(R.drawable.record_start_large);
+        mRecordButton.setImageResource(R.drawable.record_start_half);
         getActionBar().setTitle(R.string.app_name);
         mRecordText.setText("RECORD");
         recording.setEndTime(new Date());

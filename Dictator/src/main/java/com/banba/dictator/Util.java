@@ -4,7 +4,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.net.Uri;
 import android.provider.MediaStore;
 
@@ -17,6 +17,7 @@ import com.banba.dictator.ui.util.CalendarUtil;
 import com.banba.dictator.ui.util.DateTimeUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -31,9 +32,12 @@ import java.util.List;
  */
 public class Util {
 
+    public static final String FILE_NAME = "Uri";
+
     public static String getDatabaseName() {
         return DictatorApp.DATABASE_NAME;
     }
+
 
     public static List<Recording> getAllRecordings(Context context) {
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, getDatabaseName(), null);
@@ -44,7 +48,7 @@ public class Util {
         Collections.sort(recordings, new Comparator<Recording>() {
             @Override
             public int compare(Recording lhs, Recording rhs) {
-                return lhs.getStartTime().compareTo(rhs.getStartTime());
+                return rhs.getStartTime().compareTo(lhs.getStartTime());
             }
         });
         return recordings;
@@ -74,6 +78,12 @@ public class Util {
         DaoMaster daoMaster = new DaoMaster(helper.getWritableDatabase());
         DaoSession session = daoMaster.newSession();
         RecordingDao dataDao = session.getRecordingDao();
+        File file = new File(recording.getFileName());
+        try {
+            boolean deleted = file.getCanonicalFile().delete();
+        } catch (IOException e) {
+            L.e(e.getMessage());
+        }
         dataDao.delete(recording);
     }
 
@@ -95,6 +105,25 @@ public class Util {
         return buf.toString();
     }
 
+
+    public static MediaRecorder createRecorder() {
+        MediaRecorder recorder = new MediaRecorder();
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        return recorder;
+    }
+
+
+    public static String getShortName(String fileName) {
+        Uri uri = Uri.parse(fileName);
+        return uri.getLastPathSegment();
+    }
+
+
+    public static String getRecordingName(Context context) {
+        return "Rec " + DateTimeUtil.getDateTime(new Date());
+    }
 
     public static void save100(Context context, Recording recording) {
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, getDatabaseName(), null);
@@ -138,18 +167,5 @@ public class Util {
                 DateTimeUtil.dateToCalendar(recording.getStartTime()),
                 DateTimeUtil.dateToCalendar(recording.getEndTime()));
     }
-
-    public static boolean playRecording(Context context, Recording recording) {
-        String path = recording.getFileName();
-        File f = new File(path);
-        Uri uri = Uri.fromFile(f);
-        MediaPlayer player = MediaPlayer.create(context, uri);
-        if (player != null) {
-            player.start();
-            return true;
-        }
-        return false;
-    }
-
 
 }

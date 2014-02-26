@@ -29,7 +29,6 @@
                 android:paddingTop="10dip"
                 android:onClick="onClick"
                 android:id="@+id/iconRecord"
-                android:layout_weight="1"
                 android:src="@drawable/button_record" />
 
             <TextView
