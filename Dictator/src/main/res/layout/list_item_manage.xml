@@ -20,15 +20,25 @@
                 style="@style/card_title" />
 
             <!--suppress AndroidLintContentDescription -->
-            <ImageButton
-                android:id="@android:id/button1"
-                style="@style/card_popup_anchor" />
+            <LinearLayout
+                style="@style/card_popup_anchor"
+                android:orientation="horizontal">
 
-            <!--suppress AndroidLintContentDescription -->
-            <ImageButton
-                android:id="@android:id/button2"
-                style="@style/card_popup_anchor" />
+                <ImageButton
+                    android:id="@android:id/button1"
+                    android:src="@drawable/delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/card_popup_anchor" />
 
+                <ImageButton
+                    android:id="@android:id/button2"
+                    android:src="@drawable/edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/card_popup_anchor" />
+
+            </LinearLayout>
 
         </RelativeLayout>
 

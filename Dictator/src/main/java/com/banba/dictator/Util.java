@@ -87,6 +87,23 @@ public class Util {
         dataDao.delete(recording);
     }
 
+    public static void renameRecording(Context context, Recording recording, String newName) {
+        try {
+            String fileName = recording.getFileName();
+            String shortName = getShortName(fileName);
+            String newNameEx = newName + "." + getExtension(fileName);
+            String newFileName = fileName.replace(shortName, newNameEx);
+            File file = new File(recording.getFileName());
+            File to = new File(newFileName);
+            file.renameTo(to.getCanonicalFile());
+            recording.setFileName(newFileName);
+            updateRecording(context, recording);
+        } catch (IOException e) {
+            L.e(e.getMessage());
+        }
+    }
+
+
     public static void updateRecording(Context context, Recording recording) {
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, getDatabaseName(), null);
         DaoMaster daoMaster = new DaoMaster(helper.getWritableDatabase());
@@ -118,6 +135,11 @@ public class Util {
     public static String getShortName(String fileName) {
         Uri uri = Uri.parse(fileName);
         return uri.getLastPathSegment();
+    }
+
+    public static String getExtension(String fileName) {
+        String[] split = fileName.split("\\.");
+        return split[split.length - 1];
     }
 
 

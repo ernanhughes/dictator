@@ -1,12 +1,15 @@
 package com.banba.dictator.fragments;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -37,6 +40,7 @@ public class ManageFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.listview, container, false);
         final List<Recording> items = Util.getAllRecordings(getActivity());
+        final ListView cardsList = (ListView) rootView.findViewById(R.id.listview);
         Binder<Recording> binder = new Binder.Builder<Recording>()
                 .addString(android.R.id.title, new StringExtractor<Recording>() {
                     @Override
@@ -55,7 +59,28 @@ public class ManageFragment extends Fragment {
                     public void onClick(Object item, int position, View view) {
                         Recording recording = (Recording) item;
                         Util.deleteRecording(getActivity(), recording);
+                        items.remove(item);
                         cardsAdapter.notifyDataSetChanged();
+                    }
+                })
+                .addBaseField(android.R.id.button2, new ItemClickListener() {
+                    @Override
+                    public void onClick(Object item, int position, View view) {
+                        final Recording recording = (Recording) item;
+                        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                        alert.setTitle("Rename file");
+                        alert.setMessage("Rename file: " + recording.getName());
+                        final EditText input = new EditText(getActivity());
+                        alert.setView(input);
+                        alert.setPositiveButton("Rename",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int whichButton) {
+                                        String value = input.getText().toString();
+                                        Util.renameRecording(getActivity(), recording, value);
+                                        cardsAdapter.notifyDataSetChanged();
+                                    }
+                                }).create().show();
                     }
                 })
                 .addStaticImage(android.R.id.icon, new StaticImageLoader<Recording>() {
@@ -66,8 +91,7 @@ public class ManageFragment extends Fragment {
                     }
                 }).build();
 
-        cardsAdapter = new SimpleAdapter<Recording>(getActivity(), items, binder, R.layout.list_item_card);
-        ListView cardsList = (ListView) rootView.findViewById(R.id.listview);
+        cardsAdapter = new SimpleAdapter<Recording>(getActivity(), items, binder, R.layout.list_item_manage);
         cardsList.setAdapter(cardsAdapter);
         cardsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
