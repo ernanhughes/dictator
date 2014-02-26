@@ -62,20 +62,22 @@ public class MainActivity extends Activity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
         }
-        inAnimRight = AnimationUtils.loadAnimation(getApplicationContext(),
+        inAnimRight = AnimationUtils.loadAnimation(this,
                 R.anim.grow_from_bottom);
-        outAnimLeft = AnimationUtils.loadAnimation(getApplicationContext(),
+        outAnimLeft = AnimationUtils.loadAnimation(this,
                 R.anim.grow_from_top);
-        inAnimLeft = AnimationUtils.loadAnimation(getApplicationContext(),
+        inAnimLeft = AnimationUtils.loadAnimation(this,
                 R.anim.fragment_slide_left_enter);
-        outAnimRight = AnimationUtils.loadAnimation(getApplicationContext(),
+        outAnimRight = AnimationUtils.loadAnimation(this,
                 R.anim.fragment_slide_left_exit);
+
         mRecordButton = (ImageButton) findViewById(R.id.iconRecord);
         mRecordText = (TextView) findViewById(R.id.textRecord);
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         viewSwitcher = (ViewSwitcher) findViewById(R.id.viewSwitcher);
         firstView = (LinearLayout) findViewById(R.id.bottomLayout);
         secondView = (LinearLayout) findViewById(R.id.recordingFeedbackLayout);
+
         EventBus.getDefault().register(this);
     }
 
@@ -156,32 +158,42 @@ public class MainActivity extends Activity {
         if (viewSwitcher.getCurrentView() != secondView) {
             viewSwitcher.showNext();
         }
-        mUpdateTimeTask.run();
         mRecordButton.setImageResource(R.drawable.record_stop_large);
-        mRecorder = new MediaRecorder();
-        mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
         new Runnable() {
             public void run() {
                 if (mIsRecording) {
-                    int amplitude = mRecorder.getMaxAmplitude();
-                    System.out.println(amplitude);
-                    mProgressBar.setProgress(amplitude);
-                    mHandler.postDelayed(this, 100);
+                    if (mLastLogTime == 0l) {
+                        mLastLogTime = SystemClock.uptimeMillis();
+                    }
+                    long now = SystemClock.uptimeMillis();
+                    mTotalTime += now - mLastLogTime;
+                    mLastLogTime = now;
+                    Spanned text = Html.fromHtml("<font color=\"#800000\">Recording " + DateTimeUtil.formatTime(mTotalTime / 1000) + "</font>");
+                    getActionBar().setTitle(text);
+                    mRecordText.setText(text);
+                    mHandler.postDelayed(this, 1000);
                 }
             }
         }.run();
 
-        try {
-            File outputDir = getFilesDir();
-            StringBuilder buf = new StringBuilder(outputDir.getAbsolutePath())
-                    .append(File.separator)
-                    .append("Dictator_")
-                    .append(DateTimeUtil.shortFileNameFormat(new Date()))
-                    .append(".3gpp");
+        new Runnable() {
+            public void run() {
+                if (mIsRecording) {
+                    int amplitude = mRecorder.getMaxAmplitude();
+                    mProgressBar.setProgress(amplitude);
+                    mHandler.postDelayed(this, 200);
+                }
+            }
+        }.run();
 
-            String fileName = buf.toString();
+
+        mRecorder = new MediaRecorder();
+        mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        try {
+            String fileName = Util.getRecordingFileName(this);
             File outputFile = new File(fileName);
             mOutputFile = outputFile.getAbsolutePath();
             mRecorder.setOutputFile(mOutputFile);
@@ -226,21 +238,4 @@ public class MainActivity extends Activity {
         Util.addMediaEntry(this, mOutputFile);
         Util.addCalendarEntry(this, recording);
     }
-
-    Runnable mUpdateTimeTask = new Runnable() {
-        public void run() {
-            if (mIsRecording) {
-                if (mLastLogTime == 0l) {
-                    mLastLogTime = SystemClock.uptimeMillis();
-                }
-                long now = SystemClock.uptimeMillis();
-                mTotalTime += now - mLastLogTime;
-                mLastLogTime = now;
-                Spanned text = Html.fromHtml("<font color=\"#800000\">Recording " + DateTimeUtil.formatTime(mTotalTime / 1000) + "</font>");
-                getActionBar().setTitle(text);
-                mRecordText.setText(text);
-                mHandler.postDelayed(mUpdateTimeTask, 1000);
-            }
-        }
-    };
 }

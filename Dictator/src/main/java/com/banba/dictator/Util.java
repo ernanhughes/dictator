@@ -51,7 +51,7 @@ public class Util {
     }
 
     public static List<Recording> getRecordingsForDate(Context context, Date date) {
-        Date nextDay = CalendarUtil.addDays(date, 1);
+        Date nextDay = DateTimeUtil.addDays(date, 1);
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, getDatabaseName(), null);
         DaoMaster daoMaster = new DaoMaster(helper.getWritableDatabase());
         DaoSession session = daoMaster.newSession();
@@ -68,6 +68,33 @@ public class Util {
         RecordingDao dataDao = session.getRecordingDao();
         dataDao.insert(recording);
     }
+
+    public static void deleteRecording(Context context, Recording recording) {
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, getDatabaseName(), null);
+        DaoMaster daoMaster = new DaoMaster(helper.getWritableDatabase());
+        DaoSession session = daoMaster.newSession();
+        RecordingDao dataDao = session.getRecordingDao();
+        dataDao.delete(recording);
+    }
+
+    public static void updateRecording(Context context, Recording recording) {
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, getDatabaseName(), null);
+        DaoMaster daoMaster = new DaoMaster(helper.getWritableDatabase());
+        DaoSession session = daoMaster.newSession();
+        RecordingDao dataDao = session.getRecordingDao();
+        dataDao.update(recording);
+    }
+
+
+    public static String getRecordingFileName(Context context) {
+        File outputDir = context.getFilesDir();
+        StringBuilder buf = new StringBuilder(outputDir.getAbsolutePath())
+                .append(File.separator)
+                .append(DateTimeUtil.shortFileNameFormat(new Date()))
+                .append(".3gpp");
+        return buf.toString();
+    }
+
 
     public static void save100(Context context, Recording recording) {
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, getDatabaseName(), null);
@@ -108,16 +135,20 @@ public class Util {
 
     public static void addCalendarEntry(Context context, Recording recording) {
         CalendarUtil.insertEvent(context, recording.getName(), recording.getFileName(),
-                CalendarUtil.dateToCalendar(recording.getStartTime()),
-                CalendarUtil.dateToCalendar(recording.getEndTime()));
+                DateTimeUtil.dateToCalendar(recording.getStartTime()),
+                DateTimeUtil.dateToCalendar(recording.getEndTime()));
     }
 
-    public static void playRecording(Context context, Recording recording) {
+    public static boolean playRecording(Context context, Recording recording) {
         String path = recording.getFileName();
         File f = new File(path);
         Uri uri = Uri.fromFile(f);
         MediaPlayer player = MediaPlayer.create(context, uri);
-        player.start();
+        if (player != null) {
+            player.start();
+            return true;
+        }
+        return false;
     }
 
 

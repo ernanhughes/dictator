@@ -7,12 +7,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.banba.dictator.R;
 import com.banba.dictator.Util;
 import com.banba.dictator.data.Recording;
 import com.banba.dictator.ui.timessquare.CalendarPickerView;
-import com.banba.dictator.ui.util.CalendarUtil;
 import com.banba.dictator.ui.util.DateTimeUtil;
 
 import java.util.ArrayList;
@@ -34,16 +34,18 @@ public class CalendarFragment extends Fragment {
         if (recordings.size() > 0) {
             Recording first = recordings.get(0);
             Recording last = recordings.get(recordings.size() - 1);
-            Calendar lastDate = CalendarUtil.dateToCalendar(last.getStartTime());
+            Calendar lastDate = DateTimeUtil.dateToCalendar(last.getStartTime());
             lastDate.add(Calendar.DAY_OF_WEEK, 7);
             List<Date> dates = new ArrayList<Date>();
-            for (Recording r : recordings) {
+            int maxCount = 50;
+            for (int i = 0; i < recordings.size() && i < maxCount; ++i) {
+                Recording r = recordings.get(i);
                 dates.add(r.getStartTime());
             }
+
             calendar.init(first.getStartTime(), lastDate.getTime()) //
-                    .inMode(CalendarPickerView.SelectionMode.SINGLE)
-                    .withHighlightedDates(dates)
-                    .withSelectedDate(last.getStartTime());
+                    .inMode(CalendarPickerView.SelectionMode.MULTIPLE)
+                    .withSelectedDates(dates);
         } else {
             final Calendar nextMonth = Calendar.getInstance();
             nextMonth.add(Calendar.MONTH, 1);
@@ -57,29 +59,35 @@ public class CalendarFragment extends Fragment {
         calendar.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
             public void onDateSelected(Date date) {
-                final List<Recording> results = Util.getRecordingsForDate(getActivity(), date);
-                new AlertDialog.Builder(getActivity())
-                        .setIcon(R.drawable.ic_save)
-                        .setTitle("Play Recording for date " + DateTimeUtil.shortDateFormat(date))
-                        .setPositiveButton("Play",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        if (results.size() > 0) {
-                                            Recording recording = results.get(0);
-                                            Util.playRecording(getActivity(), recording);
-                                        }
-                                    }
-                                })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        }).create().show();
+                calendar.selectDate(date);
             }
 
             @Override
             public void onDateUnselected(Date date) {
+                final List<Recording> results = Util.getRecordingsForDate(getActivity(), date);
+                if (results.size() > 0) {
+                    new AlertDialog.Builder(getActivity())
+                            .setIcon(R.drawable.ic_save)
+                            .setTitle("Play Recording for date " + DateTimeUtil.shortDateFormat(date))
+                            .setPositiveButton("Play",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            if (results.size() > 0) {
+                                                Recording recording = results.get(0);
+                                                boolean result = Util.playRecording(getActivity(), recording);
+                                                Toast.makeText(getActivity(), result ?
+                                                        "Playing" : "Failed tpo play " + recording.getFileName(), Toast.LENGTH_LONG);
+                                            }
+                                        }
+                                    })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            }).create().show();
+                }
+                calendar.selectDate(date);
             }
         });
         return rootView;

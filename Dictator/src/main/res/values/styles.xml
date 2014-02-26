@@ -1,9 +1,13 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme">
+    <style name="AppTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/BlueActionBar</item>
     </style>
 
+    <style name="BlueActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/primary_color</item>
+    </style>
 
     <!-- custom light theme: -->
     <color name="dialog_message_text">#333333</color>

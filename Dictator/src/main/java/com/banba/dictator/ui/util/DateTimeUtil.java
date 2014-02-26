@@ -1,5 +1,6 @@
 package com.banba.dictator.ui.util;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -39,6 +40,23 @@ public class DateTimeUtil {
     public static String shortDateFormat(Date date) {
         android.text.format.DateFormat df = new android.text.format.DateFormat();
         return String.valueOf(df.format(SHORT_DATE_FORMAT, date));
+    }
+
+    public static Calendar dateToCalendar(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal;
+    }
+
+    public static Date addOneDay(Date date) {
+        return addDays(date, 1);
+    }
+
+    public static Date addDays(Date date, int days) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DAY_OF_WEEK, days);
+        return cal.getTime();
     }
 
 

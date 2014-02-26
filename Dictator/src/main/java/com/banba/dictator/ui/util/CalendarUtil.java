@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.provider.CalendarContract;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.TimeZone;
 
 /**
@@ -16,23 +15,6 @@ import java.util.TimeZone;
  * Copyrite Banba Inc. 2013.
  */
 public class CalendarUtil {
-
-    public static Calendar dateToCalendar(Date date) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        return cal;
-    }
-
-    public static Date addOneDay(Date date) {
-        return addDays(date, 1);
-    }
-
-    public static Date addDays(Date date, int days) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        cal.add(Calendar.DAY_OF_WEEK, days);
-        return cal.getTime();
-    }
 
 
     public static String insertEvent(Context context, String title, String description, Calendar beginTime, Calendar endTime) {
