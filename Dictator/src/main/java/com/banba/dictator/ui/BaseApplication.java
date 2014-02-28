@@ -2,7 +2,7 @@ package com.banba.dictator.ui;
 
 import android.app.Application;
 import android.app.ApplicationErrorReport;
-import android.content.Intent;
+import android.content.Context;
 
 import com.banba.dictator.BuildConfig;
 import com.banba.dictator.data.DaoMaster;
@@ -30,8 +30,12 @@ public class BaseApplication extends Application implements Thread.UncaughtExcep
 
     @Override
     public void uncaughtException(Thread thread, Throwable e) {
+        reportException(this, e);
+    }
+
+    public static void reportException(Context context, Throwable e) {
         ApplicationErrorReport report = new ApplicationErrorReport();
-        report.packageName = report.processName = getPackageName();
+        report.packageName = report.processName = context.getPackageName();
         report.time = System.currentTimeMillis();
         report.type = ApplicationErrorReport.TYPE_CRASH;
         report.systemApp = false;
@@ -60,15 +64,14 @@ public class BaseApplication extends Application implements Thread.UncaughtExcep
                 crash.throwFileName,
                 String.valueOf(crash.throwLineNumber),
                 crash.throwMethodName);
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "exceptions-db", null);
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, "exceptions-db", null);
         DaoMaster daoMaster = new DaoMaster(helper.getWritableDatabase());
         DaoSession session = daoMaster.newSession();
         ExceptionDataDao dataDao = session.getExceptionDataDao();
         dataDao.insert(data);
 
-
-        Intent intent = new Intent(Intent.ACTION_APP_ERROR);
-        intent.putExtra(Intent.EXTRA_BUG_REPORT, report);
-        startActivity(intent);
+//        Intent intent = new Intent(Intent.ACTION_APP_ERROR);
+//        intent.putExtra(Intent.EXTRA_BUG_REPORT, report);
+//        context.startActivity(intent);
     }
 }

@@ -46,6 +46,20 @@
         <item name="android:layout_centerHorizontal">true</item>
     </style>
 
+    <style name="AppTheme.HeaderText">
+        <item name="android:textSize">@dimen/title_section_textSize</item>
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/title_font_color</item>
+    </style>
+
+    <style name="AppTheme.SubTitleText" parent="AppTheme.HeaderText">
+        <item name="android:textSize">@dimen/list_sub_title_textSize</item>
+    </style>
+
 
     <style name="AppTheme.MainPageIconText">
         <item name="android:layout_width">match_parent</item>
@@ -58,6 +72,26 @@
         <item name="android:layout_marginTop">@dimen/title_section_margin_top</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/icon_font_color</item>
+    </style>
+
+    <style name="AppTheme.FragmentTitleText">
+        <item name="android:textSize">@dimen/package_title_section_textSize</item>
+        <item name="android:layout_marginLeft">@dimen/title_section_margin</item>
+        <item name="android:layout_marginRight">@dimen/title_section_margin</item>
+        <item name="android:layout_marginBottom">@dimen/title_section_margin_bottom</item>
+        <item name="android:layout_marginTop">@dimen/title_section_margin_top</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/icon_selected_color</item>
+    </style>
+
+    <style name="AppTheme.SmallBoldText">
+        <item name="android:textSize">@dimen/small_bold_textSize</item>
+        <item name="android:layout_marginLeft">@dimen/title_section_margin</item>
+        <item name="android:layout_marginRight">@dimen/title_section_margin</item>
+        <item name="android:layout_marginBottom">@dimen/title_section_margin_bottom</item>
+        <item name="android:layout_marginTop">@dimen/title_section_margin_top</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/list_title_color</item>
     </style>
 
 

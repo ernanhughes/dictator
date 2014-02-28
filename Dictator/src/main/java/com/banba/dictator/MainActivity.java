@@ -7,6 +7,9 @@ import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.Menu;
@@ -29,6 +32,7 @@ import com.banba.dictator.ui.L;
 import com.banba.dictator.ui.util.DateTimeUtil;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 
 import de.greenrobot.event.EventBus;
@@ -162,6 +166,107 @@ public class MainActivity extends Activity {
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+        Intent i = new Intent(this, WordsService.class);
+// potentially add data to the intent
+        i.putExtra("KEY1", "Value to be used by the service");
+        startService(i);
+
+        boolean available = SpeechRecognizer.isRecognitionAvailable(this);
+        if (available) {
+            SpeechRecognizer sr = SpeechRecognizer.createSpeechRecognizer(this);
+            sr.setRecognitionListener(new RecognitionListener() {
+                @Override
+                public void onReadyForSpeech(Bundle params) {
+
+                }
+
+                @Override
+                public void onBeginningOfSpeech() {
+                    System.out.println("Beginning speech");
+                }
+
+                @Override
+                public void onRmsChanged(float rmsdB) {
+
+                }
+
+                @Override
+                public void onBufferReceived(byte[] buffer) {
+
+                }
+
+                @Override
+                public void onEndOfSpeech() {
+                    System.out.println("Ending speech");
+                }
+
+                @Override
+                public void onError(int error) {
+                    String errorMessage = "Error: " + error;
+                    switch (error) {
+                        case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
+                            errorMessage = "Network operation timed out.";
+                            break;
+                        case SpeechRecognizer.ERROR_NETWORK:
+                            errorMessage = "Other network related errors.";
+                            break;
+                        case SpeechRecognizer.ERROR_AUDIO:
+                            errorMessage = "Audio recording error.";
+                            break;
+                        case SpeechRecognizer.ERROR_SERVER:
+                            errorMessage = "Server sends error status.";
+                            break;
+                        case SpeechRecognizer.ERROR_CLIENT:
+                            errorMessage = "Other client side errors.";
+                            break;
+                        case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
+                            errorMessage = "No speech input.";
+                            break;
+                        case SpeechRecognizer.ERROR_NO_MATCH:
+                            errorMessage = "No recognition result matched.";
+                            break;
+                        case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
+                            errorMessage = "RecognitionService busy.";
+                            break;
+                        case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
+                            errorMessage = "Insufficient permissions.";
+                            break;
+                    }
+                    DictatorApp.reportException(MainActivity.this, new Exception(errorMessage));
+                    L.e(errorMessage);
+                }
+
+                @Override
+                public void onResults(Bundle results) {
+                    System.out.println("Got some results");
+                }
+
+                @Override
+                public void onPartialResults(Bundle partialResults) {
+                    System.out.println("Got some partial results");
+                }
+
+                @Override
+                public void onEvent(int eventType, Bundle params) {
+
+                }
+            });
+            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+            // the following appears to be a requirement, but can be a "dummy" value
+            intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, "com.banba.dictator");
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
+            intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3);
+
+            // define any other intent extras you want
+
+            // start playback of audio clip here
+
+            // this will start the speech recognizer service in the background
+            // without starting a separate activity
+            sr.startListening(intent);
+        }
+
         try {
             String fileName = Util.getRecordingFileName(this);
             File outputFile = new File(fileName);
@@ -208,6 +313,29 @@ public class MainActivity extends Activity {
             }
         }.run();
     }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //check speech recognition result
+        //store the returned word list as an ArrayList
+        ArrayList<String> suggestedWords = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+        for (String s : suggestedWords) {
+            L.i(s);
+        }
+
+        //tss code here
+        //call superclass method
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void onDestroy() {
+        if (mIsRecording) {
+            stopRecording();
+        }
+        super.onDestroy();
+    }
+
 
     protected void stopRecording() {
         mIsRecording = false;

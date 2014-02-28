@@ -2,6 +2,7 @@ package com.banba.dictator.ui.util;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Ernan on 21/11/13.
@@ -48,6 +49,15 @@ public class DateTimeUtil {
         android.text.format.DateFormat df = new android.text.format.DateFormat();
         return String.valueOf(df.format(SHORT_DATE_FORMAT, date));
     }
+
+    public static String shortTimeFormat(long timeToFormat) {
+        return String.format("%d min, %d sec",
+                TimeUnit.MILLISECONDS.toMinutes(timeToFormat),
+                TimeUnit.MILLISECONDS.toSeconds(timeToFormat) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.
+                                toMinutes(timeToFormat)));
+    }
+
 
     public static Calendar dateToCalendar(Date date) {
         Calendar cal = Calendar.getInstance();

@@ -17,6 +17,7 @@ import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 
 import com.banba.dictator.ui.L;
+import com.banba.dictator.ui.util.BundleUtil;
 
 import java.lang.ref.WeakReference;
 
@@ -33,7 +34,7 @@ public class WordsService extends Service {
 
     protected boolean mIsListening;
     protected volatile boolean mIsCountDownOn;
-    private static boolean mIsStreamSolo;
+    private static boolean mIsStreamSolo = false;
 
     static final int MSG_RECOGNIZER_START_LISTENING = 1;
     static final int MSG_RECOGNIZER_CANCEL = 2;
@@ -69,7 +70,6 @@ public class WordsService extends Service {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                         if (!mIsStreamSolo) {
                             mAudioManager.setStreamSolo(AudioManager.STREAM_VOICE_CALL, true);
-                            mIsStreamSolo = true;
                         }
                     }
                     if (!target.mIsListening) {
@@ -129,25 +129,60 @@ public class WordsService extends Service {
     }
 
     protected class SpeechRecognitionListener implements RecognitionListener {
-
         @Override
         public void onBeginningOfSpeech() {
             if (mIsCountDownOn) {
                 mIsCountDownOn = false;
                 mNoSpeechCountDown.cancel();
             }
+            L.d("onBeginningOfSpeech"); //$NON-NLS-1$
         }
 
         @Override
         public void onBufferReceived(byte[] buffer) {
+            L.d("onBufferReceived"); //$NON-NLS-1$
         }
 
         @Override
         public void onEndOfSpeech() {
+            L.d("onEndOfSpeech"); //$NON-NLS-1$
         }
 
         @Override
         public void onError(int error) {
+            String errorMessage = "Error: " + error;
+            switch (error) {
+                case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
+                    errorMessage = "Network operation timed out.";
+                    break;
+                case SpeechRecognizer.ERROR_NETWORK:
+                    errorMessage = "Other network related errors.";
+                    break;
+                case SpeechRecognizer.ERROR_AUDIO:
+                    errorMessage = "Audio recording error.";
+                    break;
+                case SpeechRecognizer.ERROR_SERVER:
+                    errorMessage = "Server sends error status.";
+                    break;
+                case SpeechRecognizer.ERROR_CLIENT:
+                    errorMessage = "Other client side errors.";
+                    break;
+                case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
+                    errorMessage = "No speech input.";
+                    break;
+                case SpeechRecognizer.ERROR_NO_MATCH:
+                    errorMessage = "No recognition result matched.";
+                    break;
+                case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
+                    errorMessage = "RecognitionService busy.";
+                    break;
+                case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
+                    errorMessage = "Insufficient permissions.";
+                    break;
+            }
+            DictatorApp.reportException(WordsService.this, new Exception(errorMessage));
+            L.e(errorMessage);
+
             if (mIsCountDownOn) {
                 mIsCountDownOn = false;
                 mNoSpeechCountDown.cancel();
@@ -157,16 +192,19 @@ public class WordsService extends Service {
             try {
                 mServerMessenger.send(message);
             } catch (RemoteException e) {
-
             }
+
+
         }
 
         @Override
         public void onEvent(int eventType, Bundle params) {
+            L.d("onPartialResults " + BundleUtil.toString(params)); //$NON-NLS-1$
         }
 
         @Override
         public void onPartialResults(Bundle partialResults) {
+            L.d("onPartialResults " + BundleUtil.toString(partialResults)); //$NON-NLS-1$
         }
 
         @Override
@@ -174,17 +212,18 @@ public class WordsService extends Service {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 mIsCountDownOn = true;
                 mNoSpeechCountDown.start();
-
             }
-            L.d("onReadyForSpeech"); //$NON-NLS-1$
+            L.d("onReadyForSpeech " + BundleUtil.toString(params)); //$NON-NLS-1$
         }
 
         @Override
         public void onResults(Bundle results) {
+            L.d("onResults " + BundleUtil.toString(results)); //$NON-NLS-1$
         }
 
         @Override
         public void onRmsChanged(float rms) {
+            L.d("onRmsChanged"); //$NON-NLS-1$
         }
     }
 }

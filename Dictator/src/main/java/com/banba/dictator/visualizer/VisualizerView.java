@@ -128,6 +128,12 @@ public class VisualizerView extends View {
         mVisualizer.release();
     }
 
+
+    @Override
+    protected void onDetachedFromWindow() {
+        release();
+    }
+
     /**
      * Pass data to the visualizer. Typically this will be obtained from the
      * Android Visualizer.OnDataCaptureListener call back. See

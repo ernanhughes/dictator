@@ -59,6 +59,8 @@
             android:parentActivityName=".MainActivity" />
 
 
+        <service android:name=".WordsService" />
+
     </application>
 
 </manifest>

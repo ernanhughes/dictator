@@ -33,6 +33,7 @@ import java.util.List;
 public class Util {
 
     public static final String FILE_NAME = "Uri";
+    public static final String POSITION = "Position";
 
     public static String getDatabaseName() {
         return DictatorApp.DATABASE_NAME;
@@ -85,6 +86,14 @@ public class Util {
             L.e(e.getMessage());
         }
         dataDao.delete(recording);
+    }
+
+    public static boolean isValidMediaFile(String path) {
+        File f = new File(path);
+        if (f.exists() && f.length() > 10) {
+            return true;
+        }
+        return false;
     }
 
     public static void renameRecording(Context context, Recording recording, String newName) {
