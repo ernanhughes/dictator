@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.banba.dictator.ui.timessquare.MonthView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.banba.dictator.lib.timessquare.MonthView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -14,12 +14,12 @@
         android:gravity="center_horizontal"
         style="@style/CalendarTitle" />
 
-    <com.banba.dictator.ui.timessquare.CalendarGridView
+    <com.banba.dictator.lib.timessquare.CalendarGridView
         android:id="@+id/calendar_grid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.banba.dictator.ui.timessquare.CalendarRowView
+        <com.banba.dictator.lib.timessquare.CalendarRowView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/calendar_day_headers_paddingbottom">
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/CalendarCell.DayHeader" />
-        </com.banba.dictator.ui.timessquare.CalendarRowView>
+        </com.banba.dictator.lib.timessquare.CalendarRowView>
 
         <include layout="@layout/week" />
 
@@ -71,5 +71,5 @@
         <include layout="@layout/week" />
 
         <include layout="@layout/week" />
-    </com.banba.dictator.ui.timessquare.CalendarGridView>
-</com.banba.dictator.ui.timessquare.MonthView>
+    </com.banba.dictator.lib.timessquare.CalendarGridView>
+</com.banba.dictator.lib.timessquare.MonthView>

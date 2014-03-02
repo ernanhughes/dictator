@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.banba.dictator.ui.timessquare.CalendarRowView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.banba.dictator.lib.timessquare.CalendarRowView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.banba.dictator.ui.timessquare.CalendarCellView
+    <com.banba.dictator.lib.timessquare.CalendarCellView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/CalendarCell.CalendarDate" />
 
-    <com.banba.dictator.ui.timessquare.CalendarCellView
+    <com.banba.dictator.lib.timessquare.CalendarCellView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/CalendarCell.CalendarDate" />
 
-    <com.banba.dictator.ui.timessquare.CalendarCellView
+    <com.banba.dictator.lib.timessquare.CalendarCellView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/CalendarCell.CalendarDate" />
 
-    <com.banba.dictator.ui.timessquare.CalendarCellView
+    <com.banba.dictator.lib.timessquare.CalendarCellView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/CalendarCell.CalendarDate" />
 
-    <com.banba.dictator.ui.timessquare.CalendarCellView
+    <com.banba.dictator.lib.timessquare.CalendarCellView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/CalendarCell.CalendarDate" />
 
-    <com.banba.dictator.ui.timessquare.CalendarCellView
+    <com.banba.dictator.lib.timessquare.CalendarCellView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/CalendarCell.CalendarDate" />
 
-    <com.banba.dictator.ui.timessquare.CalendarCellView
+    <com.banba.dictator.lib.timessquare.CalendarCellView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/CalendarCell.CalendarDate" />
-</com.banba.dictator.ui.timessquare.CalendarRowView>
+</com.banba.dictator.lib.timessquare.CalendarRowView>

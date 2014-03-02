@@ -12,9 +12,9 @@ import com.banba.dictator.data.DaoMaster;
 import com.banba.dictator.data.DaoSession;
 import com.banba.dictator.data.Recording;
 import com.banba.dictator.data.RecordingDao;
-import com.banba.dictator.ui.L;
-import com.banba.dictator.ui.util.CalendarUtil;
-import com.banba.dictator.ui.util.DateTimeUtil;
+import com.banba.dictator.lib.L;
+import com.banba.dictator.lib.util.CalendarUtil;
+import com.banba.dictator.lib.util.DateTimeUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,6 +34,10 @@ public class Util {
 
     public static final String FILE_NAME = "Uri";
     public static final String POSITION = "Position";
+    public static final String DURATION = "Duration";
+    public static final String VISUALISER = "Visualiser";
+    public static final String AMPLITUDE = "Amplitude";
+
 
     public static String getDatabaseName() {
         return DictatorApp.DATABASE_NAME;

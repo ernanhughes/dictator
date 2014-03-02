@@ -27,39 +27,41 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AboutActivity"
+            android:name=".activity.AboutActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".HelpActivity"
+            android:name=".activity.HelpActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".activity.SearchActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".ExceptionActivity"
+            android:name=".lib.activity.ExceptionActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".ApacheActivity"
+            android:name=".activity.ApacheActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".ManageActivity"
+            android:name=".activity.ManageActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".CalendarActivity"
+            android:name=".activity.CalendarActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".PlayRecordingActivity"
+            android:name=".activity.TextToSpeechActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".TextToSpeechActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".PlayActivity"
+            android:name=".activity.PlayActivity"
             android:parentActivityName=".MainActivity" />
 
 
-        <service android:name=".WordsService" />
-        <service android:name=".PlayService" />
+        <service android:name=".service.WordsService" />
+        <service
+            android:enabled="true"
+            android:name=".service.PlayService" />
+        <service
+            android:enabled="true"
+            android:name=".service.RecordService" />
 
     </application>
 

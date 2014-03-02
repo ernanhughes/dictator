@@ -1,6 +1,6 @@
 package com.banba.dictator;
 
-import com.banba.dictator.ui.BaseApplication;
+import com.banba.dictator.lib.BaseApplication;
 
 /**
  * Created by Ernan on 22/02/14.
