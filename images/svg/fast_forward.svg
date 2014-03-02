@@ -15,7 +15,7 @@
    id="svg2987"
    version="1.1"
    inkscape:version="0.48.4 r"
-   sodipodi:docname="fast_forward_pressed.svg">
+   sodipodi:docname="fast_forward.svg">
   <defs
      id="defs2989">
     <inkscape:perspective
@@ -232,7 +232,7 @@
      units="mm"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
-     inkscape:window-x="1912"
+     inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1">
     <inkscape:grid
@@ -741,20 +741,20 @@
        style="fill:none;stroke:#0099ff;stroke-width:3.78049445;stroke-miterlimit:4;stroke-dasharray:none" />
     <g
        id="g14517"
-       transform="matrix(-1,0,0,-1,1772.4043,-283.8529)"
+       transform="matrix(-1,0,0,-1,1772.4043,-283.85289)"
        style="fill:#000000;stroke:#000000">
       <path
          sodipodi:nodetypes="cccc"
          inkscape:connector-curvature="0"
          id="path4517-9"
          d="m 1383.4994,209.85768 0,-703.56825 -625.39398,351.78413 z"
-         style="fill:#000000;stroke:#000000;stroke-width:138.49768065999999000;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+         style="fill:#000000;stroke:#000000;stroke-width:138.49768066;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
       <path
          sodipodi:nodetypes="cccc"
          inkscape:connector-curvature="0"
          id="path4517-9-5"
          d="m 1015.0651,209.85769 0,-703.56826 -625.39403,351.78413 z"
-         style="fill:#000000;stroke:#000000;stroke-width:138.49768065999999000;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+         style="fill:#000000;stroke:#000000;stroke-width:138.49768066;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     </g>
   </g>
 </svg>

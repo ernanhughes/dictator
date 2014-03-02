@@ -32,7 +32,6 @@
         <activity
             android:name=".HelpActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".RecordToTextListActivity" />
         <activity
             android:name=".SearchActivity"
             android:parentActivityName=".MainActivity" />
@@ -60,6 +59,7 @@
 
 
         <service android:name=".WordsService" />
+        <service android:name=".PlayService" />
 
     </application>
 

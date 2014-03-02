@@ -36,21 +36,37 @@ public class WordsService extends Service {
     protected volatile boolean mIsCountDownOn;
     private static boolean mIsStreamSolo = false;
 
+    public static final String MSG_MESSAGE = "MESSAGE_MSG";
     static final int MSG_RECOGNIZER_START_LISTENING = 1;
     static final int MSG_RECOGNIZER_CANCEL = 2;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
-        mSpeechRecognizer.setRecognitionListener(new SpeechRecognitionListener());
-        mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
-                this.getPackageName());
+        boolean available = SpeechRecognizer.isRecognitionAvailable(this);
+        if (available) {
+            mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+            mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+            mSpeechRecognizer.setRecognitionListener(new SpeechRecognitionListener());
+            mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+            mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+            mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
+                    this.getPackageName());
+        }
     }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Message m = (Message) intent.getExtras().get(MSG_MESSAGE);
+        try {
+            mServerMessenger.send(m);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return super.onStartCommand(intent, flags, startId);
+    }
+
 
     protected static class IncomingHandler extends Handler {
         private WeakReference<WordsService> mtarget;
@@ -91,6 +107,7 @@ public class WordsService extends Service {
             }
         }
     }
+
 
     // Count down timer for Jelly Bean work around
     protected CountDownTimer mNoSpeechCountDown = new CountDownTimer(5000, 5000) {
@@ -193,8 +210,6 @@ public class WordsService extends Service {
                 mServerMessenger.send(message);
             } catch (RemoteException e) {
             }
-
-
         }
 
         @Override
@@ -205,6 +220,11 @@ public class WordsService extends Service {
         @Override
         public void onPartialResults(Bundle partialResults) {
             L.d("onPartialResults " + BundleUtil.toString(partialResults)); //$NON-NLS-1$
+            Message message = Message.obtain(null, MSG_RECOGNIZER_START_LISTENING);
+            try {
+                mServerMessenger.send(message);
+            } catch (RemoteException e) {
+            }
         }
 
         @Override
@@ -219,6 +239,11 @@ public class WordsService extends Service {
         @Override
         public void onResults(Bundle results) {
             L.d("onResults " + BundleUtil.toString(results)); //$NON-NLS-1$
+            Message message = Message.obtain(null, MSG_RECOGNIZER_START_LISTENING);
+            try {
+                mServerMessenger.send(message);
+            } catch (RemoteException e) {
+            }
         }
 
         @Override
