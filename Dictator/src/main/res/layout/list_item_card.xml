@@ -24,12 +24,6 @@
                 android:id="@android:id/button1"
                 style="@style/card_popup_anchor" />
 
-            <!--suppress AndroidLintContentDescription -->
-            <ImageButton
-                android:id="@android:id/button2"
-                style="@style/card_popup_anchor" />
-
-
         </RelativeLayout>
 
         <TextView

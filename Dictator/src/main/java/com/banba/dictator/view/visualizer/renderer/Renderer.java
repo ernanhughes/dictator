@@ -4,13 +4,13 @@
  * Licensed under the MIT license:
  * http://creativecommons.org/licenses/MIT/
  */
-package com.banba.dictator.visualizer.renderer;
+package com.banba.dictator.view.visualizer.renderer;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
-import com.banba.dictator.visualizer.AudioData;
-import com.banba.dictator.visualizer.FFTData;
+import com.banba.dictator.view.visualizer.AudioData;
+import com.banba.dictator.view.visualizer.FFTData;
 
 abstract public class Renderer {
     // Have these as members, so we don't have to re-create them each time

@@ -17,6 +17,7 @@ import com.banba.dictator.event.SectionEvent;
 import com.banba.dictator.lib.activity.ExceptionActivity;
 
 import de.greenrobot.event.EventBus;
+import de.greenrobot.event.SubscriberExceptionEvent;
 
 /**
  * Created by Ernan on 14/02/14.
@@ -49,13 +50,36 @@ public abstract class BaseActivity extends Activity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        MenuItem item = menu.findItem(R.id.menu_item_share);
+        // Fetch and store ShareActionProvider
+        mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+        if (getShareItem() == null) {
+            item.setVisible(false);
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    protected Object getShareItem() {
+        return null;
+    }
+
+    protected boolean doShare() {
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("text/plain");
+        startActivity(Intent.createChooser(share, getString(R.string.share_using)));
+        return true;
+    }
+
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menu_item_share) {
-            Intent share = new Intent(Intent.ACTION_SEND);
-            share.setType("text/plain");
-            startActivity(Intent.createChooser(share, getString(R.string.share_using)));
-            return true;
+            return doShare();
         }
         if (id == R.id.menu_item_search) {
             Intent search = new Intent(this, SearchActivity.class);
@@ -87,6 +111,9 @@ public abstract class BaseActivity extends Activity {
         if (SectionEvent.SEARCH.equalsIgnoreCase(event.section)) {
             Intent i = new Intent(this, SearchActivity.class);
             startActivity(i);
+        } else if (SectionEvent.PLAY_LIST.equalsIgnoreCase(event.section)) {
+            Intent i = new Intent(this, PlayListActivity.class);
+            startActivity(i);
         } else if (SectionEvent.MANAGE.equalsIgnoreCase(event.section)) {
             Intent i = new Intent(this, ManageActivity.class);
             startActivity(i);
@@ -102,15 +129,8 @@ public abstract class BaseActivity extends Activity {
         }
     }
 
+    public void onEvent(SubscriberExceptionEvent event) {
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
-        MenuItem item = menu.findItem(R.id.menu_item_share);
-        // Fetch and store ShareActionProvider
-        mShareActionProvider = (ShareActionProvider) item.getActionProvider();
-        return super.onCreateOptionsMenu(menu);
     }
 
     public int getActionBarTitleResourceId() {

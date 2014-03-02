@@ -37,6 +37,7 @@ public class Util {
     public static final String DURATION = "Duration";
     public static final String VISUALISER = "Visualiser";
     public static final String AMPLITUDE = "Amplitude";
+    public static final String EMA = "EMA";
 
 
     public static String getDatabaseName() {
@@ -56,6 +57,7 @@ public class Util {
                 return rhs.getStartTime().compareTo(lhs.getStartTime());
             }
         });
+        helper.close();
         return recordings;
     }
 
@@ -67,6 +69,7 @@ public class Util {
         RecordingDao dataDao = session.getRecordingDao();
         List<Recording> results = dataDao.queryRaw("where " + RecordingDao.Properties.StartTime.columnName + " between ? and ?", String.valueOf(date.getTime()),
                 String.valueOf(nextDay.getTime()));
+        helper.close();
         return results;
     }
 
@@ -76,6 +79,7 @@ public class Util {
         DaoSession session = daoMaster.newSession();
         RecordingDao dataDao = session.getRecordingDao();
         dataDao.insert(recording);
+        helper.close();
     }
 
     public static void deleteRecording(Context context, Recording recording) {
@@ -90,6 +94,7 @@ public class Util {
             L.e(e.getMessage());
         }
         dataDao.delete(recording);
+        helper.close();
     }
 
     public static boolean isValidMediaFile(String path) {
@@ -123,6 +128,7 @@ public class Util {
         DaoSession session = daoMaster.newSession();
         RecordingDao dataDao = session.getRecordingDao();
         dataDao.update(recording);
+        helper.close();
     }
 
 
@@ -182,6 +188,7 @@ public class Util {
             recording.setEndTime(c.getTime());
             dataDao.insert(recording);
         }
+        helper.close();
     }
 
     public static void addMediaEntry(Context context, String fileName) {

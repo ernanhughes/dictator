@@ -4,7 +4,7 @@
  * Licensed under the MIT license:
  * http://creativecommons.org/licenses/MIT/
  */
-package com.banba.dictator.visualizer;
+package com.banba.dictator.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -21,7 +21,9 @@ import android.media.audiofx.Visualizer;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.banba.dictator.visualizer.renderer.Renderer;
+import com.banba.dictator.view.visualizer.AudioData;
+import com.banba.dictator.view.visualizer.FFTData;
+import com.banba.dictator.view.visualizer.renderer.Renderer;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -102,7 +104,7 @@ public class VisualizerView extends View {
             player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
-                    mVisualizer.setEnabled(false);
+                    //    mVisualizer.setEnabled(false);
                 }
             });
         }

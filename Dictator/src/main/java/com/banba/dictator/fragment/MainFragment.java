@@ -48,6 +48,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     LinearLayout firstView, secondView;
     Animation inAnimRight, outAnimLeft, inAnimLeft, outAnimRight;
 
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
@@ -118,7 +119,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         ImageButton button = (ImageButton) view;
         String tag = (String) button.getTag();
-        ColorUtil.applyTempColorFilter(button.getDrawable(), getResources().getColor(R.color.icon_selected_color));
+
+        ColorUtil.applyTempNegativeColorFilter(button.getDrawable());
         EventBus.getDefault().post(new SectionEvent(tag));
     }
 
@@ -154,17 +156,18 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         public void onReceive(Context context, Intent intent) {
             Bundle b = intent.getExtras();
             int amplitude = b.getInt(Util.AMPLITUDE);
-            ;
             mProgressBar.setProgress(amplitude);
             long totalTime = b.getLong(Util.DURATION);
             Spanned text = Html.fromHtml("<font color=\"#800000\">Recording " + DateTimeUtil.formatTime(totalTime / 1000) + "</font>");
             getActivity().getActionBar().setTitle(text);
             mRecordText.setText(text);
+            double signalEMA = b.getDouble(Util.EMA);
         }
     };
 
     public void onDestroy() {
         EventBus.getDefault().post(new Record(Record.Action.Stop));
+        super.onDestroy();
     }
 
 }

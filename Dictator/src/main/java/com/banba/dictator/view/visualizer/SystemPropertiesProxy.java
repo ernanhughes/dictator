@@ -9,7 +9,7 @@
  * from http://stackoverflow.com/questions/2641111/where-is-android-os-systemproperties
  */
 
-package com.banba.dictator.visualizer;
+package com.banba.dictator.view.visualizer;
 
 import android.content.Context;
 import android.util.Log;

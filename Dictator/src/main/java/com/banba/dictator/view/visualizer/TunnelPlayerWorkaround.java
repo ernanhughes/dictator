@@ -5,7 +5,7 @@
  * http://creativecommons.org/licenses/MIT/
  */
 
-package com.banba.dictator.visualizer;
+package com.banba.dictator.view.visualizer;
 
 import android.content.Context;
 import android.media.AudioManager;

@@ -68,6 +68,26 @@
 
                     <ImageButton
                         style="@style/AppTheme.MainPageIcon"
+                        android:tag="PlayList"
+                        android:id="@+id/iconManage"
+                        android:onClick="onClick"
+                        android:src="@drawable/button_play" />
+
+                    <TextView
+                        android:layout_below="@+id/iconManage"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        style="@style/AppTheme.MainPageIconText"
+                        android:text="PLAY" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        style="@style/AppTheme.MainPageIcon"
                         android:id="@+id/iconCalendar"
                         android:tag="Calendar"
                         android:onClick="onClick"
@@ -80,6 +100,14 @@
                         style="@style/AppTheme.MainPageIconText"
                         android:text="HISTORY" />
                 </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -99,34 +127,6 @@
                         android:layout_centerHorizontal="true"
                         style="@style/AppTheme.MainPageIconText"
                         android:text="MANAGE" />
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <ImageButton
-                        style="@style/AppTheme.MainPageIcon"
-                        android:id="@+id/iconInfo"
-                        android:tag="Help"
-                        android:onClick="onClick"
-                        android:src="@drawable/button_help" />
-
-                    <TextView
-                        android:layout_below="@+id/iconInfo"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        style="@style/AppTheme.MainPageIconText"
-                        android:text="@string/help_icon" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -162,11 +162,13 @@
             <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="100dp"
-                android:max="4000"
+                android:layout_weight="1"
+                android:max="5000"
                 android:progressDrawable="@drawable/progressbar" />
+
         </LinearLayout>
     </ViewSwitcher>
 </RelativeLayout>

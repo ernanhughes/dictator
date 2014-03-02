@@ -9,7 +9,6 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +18,13 @@ import android.widget.TextView;
 
 import com.banba.dictator.R;
 import com.banba.dictator.Util;
+import com.banba.dictator.event.Play;
 import com.banba.dictator.lib.util.DateTimeUtil;
 import com.banba.dictator.service.PlayService;
-import com.banba.dictator.visualizer.VisualiserFactory;
-import com.banba.dictator.visualizer.VisualizerView;
+import com.banba.dictator.view.VisualizerView;
+import com.banba.dictator.view.visualizer.VisualiserFactory;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by Ernan on 26/02/14.
@@ -88,9 +90,14 @@ public class PlayFragment extends Fragment {
         endTimeField = (TextView) rootView.findViewById(R.id.endTimeText);
         startTimeField = (TextView) rootView.findViewById(R.id.startTimeText);
 
+        Intent ps = new Intent(getActivity(), PlayService.class);
+        getActivity().startService(ps);
+
         Intent i = getActivity().getIntent();
         final String sUri = i.getExtras().getString(Util.FILE_NAME);
-        sendMessage(PlayService.MSG_START, i.getExtras());
+
+
+        EventBus.getDefault().post(new Play(Play.Action.Start, i.getExtras()));
 
         TextView songName = (TextView) rootView.findViewById(R.id.recordingTitle);
         songName.setText(Util.getShortName(sUri));
@@ -101,7 +108,7 @@ public class PlayFragment extends Fragment {
                 if (fromUser) {
                     Bundle b = new Bundle();
                     b.putInt(Util.POSITION, progress);
-                    sendMessage(PlayService.MSG_SEEK_TO, b);
+                    EventBus.getDefault().post(new Play(Play.Action.Seek, b));
                 }
             }
 
@@ -119,7 +126,7 @@ public class PlayFragment extends Fragment {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendMessage(PlayService.MSG_RESUME, new Bundle());
+                EventBus.getDefault().post(new Play(Play.Action.Resume, new Bundle()));
                 playButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.play));
                 pauseButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.pause_pressed));
             }
@@ -127,48 +134,36 @@ public class PlayFragment extends Fragment {
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendMessage(PlayService.MSG_PAUSE, new Bundle());
+                EventBus.getDefault().post(new Play(Play.Action.Pause, new Bundle()));
                 playButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.play));
                 pauseButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.pause_pressed));
             }
         });
-
         final ImageView rewindButton = (ImageView) rootView.findViewById(R.id.rewindButton);
         rewindButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendMessage(PlayService.MSG_REWIND, new Bundle());
+                EventBus.getDefault().post(new Play(Play.Action.Rewind, new Bundle()));
             }
         });
         final ImageView forwardButton = (ImageView) rootView.findViewById(R.id.forwardButton);
         forwardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendMessage(PlayService.MSG_FORWARD, new Bundle());
+                EventBus.getDefault().post(new Play(Play.Action.Forward, new Bundle()));
             }
         });
         final ImageView restartButton = (ImageView) rootView.findViewById(R.id.restartButton);
         restartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendMessage(PlayService.MSG_RESTART, new Bundle());
+                EventBus.getDefault().post(new Play(Play.Action.Restart, new Bundle()));
             }
         });
-
 
         visualizerView = (VisualizerView) rootView.findViewById(R.id.visualizerView);
 
 
         return rootView;
     }
-
-    void sendMessage(int type, Bundle data) {
-        Intent ps = new Intent(getActivity(), PlayService.class);
-        Message message = new Message();
-        message.what = type;
-        message.setData(data);
-        ps.putExtra(PlayService.MSG_MESSAGE, message);
-        getActivity().startService(ps);
-    }
-
 }

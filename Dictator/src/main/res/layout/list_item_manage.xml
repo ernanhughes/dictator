@@ -19,26 +19,13 @@
                 android:id="@android:id/title"
                 style="@style/card_title" />
 
-            <!--suppress AndroidLintContentDescription -->
-            <LinearLayout
+            <CheckBox
+                android:id="@+id/check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 style="@style/card_popup_anchor"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@android:id/button1"
-                    android:src="@drawable/delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/card_popup_anchor" />
-
-                <ImageButton
-                    android:id="@android:id/button2"
-                    android:src="@drawable/edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/card_popup_anchor" />
-
-            </LinearLayout>
+                android:focusable="false" />
 
         </RelativeLayout>
 

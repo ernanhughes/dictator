@@ -1,14 +1,15 @@
-package com.banba.dictator.visualizer;
+package com.banba.dictator.view.visualizer;
 
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 
-import com.banba.dictator.visualizer.renderer.BarGraphRenderer;
-import com.banba.dictator.visualizer.renderer.CircleBarRenderer;
-import com.banba.dictator.visualizer.renderer.CircleRenderer;
-import com.banba.dictator.visualizer.renderer.LineRenderer;
+import com.banba.dictator.view.VisualizerView;
+import com.banba.dictator.view.visualizer.renderer.BarGraphRenderer;
+import com.banba.dictator.view.visualizer.renderer.CircleBarRenderer;
+import com.banba.dictator.view.visualizer.renderer.CircleRenderer;
+import com.banba.dictator.view.visualizer.renderer.LineRenderer;
 
 /**
  * Created by Ernan on 27/02/14.

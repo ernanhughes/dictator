@@ -60,6 +60,19 @@
         <item name="android:textSize">@dimen/list_sub_title_textSize</item>
     </style>
 
+    <style name="header_outer_layout">
+        <item name="android:layout_marginTop">@dimen/card_header_outer_view_margin_top</item>
+        <item name="android:layout_marginBottom">@dimen/card_header_outer_view_margin_bottom</item>
+        <item name="android:layout_marginLeft">@dimen/card_header_outer_view_margin_left</item>
+        <item name="android:layout_marginRight">@dimen/card_header_outer_view_margin_right</item>
+    </style>
+
+
+    <!-- Header -->
+    <dimen name="card_header_outer_view_margin_top">0dp</dimen>
+    <dimen name="card_header_outer_view_margin_left">0dp</dimen>
+    <dimen name="card_header_outer_view_margin_bottom">0dp</dimen>
+    <dimen name="card_header_outer_view_margin_right">0dp</dimen>
 
     <style name="AppTheme.MainPageIconText">
         <item name="android:layout_width">match_parent</item>

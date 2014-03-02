@@ -137,10 +137,10 @@
             style="@style/card_inner"
             android:orientation="horizontal">
 
-            <com.banba.dictator.visualizer.VisualizerView
+            <com.banba.dictator.view.VisualizerView
                 android:id="@+id/visualizerView"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"></com.banba.dictator.visualizer.VisualizerView>
+                android:layout_height="fill_parent"></com.banba.dictator.view.VisualizerView>
         </LinearLayout>
     </LinearLayout>
 

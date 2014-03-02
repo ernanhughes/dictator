@@ -15,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.banba.dictator.R;
+import com.banba.dictator.Util;
+import com.banba.dictator.data.Recording;
+import com.banba.dictator.event.PlayRecordingEvent;
 import com.banba.dictator.lib.adapter.Binder;
 import com.banba.dictator.lib.adapter.SimpleAdapter;
 import com.banba.dictator.lib.adapter.interfaces.StaticImageLoader;
@@ -24,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
 import rx.util.functions.Func0;
 
 /**
@@ -42,7 +46,15 @@ public class SearchFragment extends Fragment {
             @Override
             public Object call() {
                 final Hashtable<String, Object> searchResultItems = new Hashtable<String, Object>();
+
                 String searchText = tv.getText().toString().toLowerCase();
+                List<Recording> recordings = Util.getAllRecordings(getActivity());
+                for (Recording r : recordings) {
+                    String recordingName = r.getName().toLowerCase();
+                    if (recordingName.contains(searchText)) {
+                        searchResultItems.put(recordingName, r);
+                    }
+                }
                 Binder<String> binder = new Binder.Builder<String>()
                         .addString(android.R.id.title, new StringExtractor<String>() {
                             @Override
@@ -71,6 +83,7 @@ public class SearchFragment extends Fragment {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         String item = (String) searchResultItems.keySet().toArray()[position];
                         Object result = searchResultItems.get(item);
+                        EventBus.getDefault().post(new PlayRecordingEvent((Recording) result));
                     }
                 });
                 return null;

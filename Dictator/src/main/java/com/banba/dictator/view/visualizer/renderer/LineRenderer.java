@@ -4,15 +4,15 @@
  * Licensed under the MIT license:
  * http://creativecommons.org/licenses/MIT/
  */
-package com.banba.dictator.visualizer.renderer;
+package com.banba.dictator.view.visualizer.renderer;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.banba.dictator.visualizer.AudioData;
-import com.banba.dictator.visualizer.FFTData;
+import com.banba.dictator.view.visualizer.AudioData;
+import com.banba.dictator.view.visualizer.FFTData;
 
 public class LineRenderer extends Renderer {
     private Paint mPaint;

@@ -12,6 +12,7 @@ import com.banba.dictator.data.ExceptionDataDao;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.List;
 
 
 /**
@@ -69,6 +70,11 @@ public class BaseApplication extends Application implements Thread.UncaughtExcep
         DaoSession session = daoMaster.newSession();
         ExceptionDataDao dataDao = session.getExceptionDataDao();
         dataDao.insert(data);
+        if (dataDao.count() > 20) {
+            List<ExceptionData> items = dataDao.loadAll();
+            dataDao.delete(items.get(0));
+        }
+        helper.close();
 
 //        Intent intent = new Intent(Intent.ACTION_APP_ERROR);
 //        intent.putExtra(Intent.EXTRA_BUG_REPORT, report);

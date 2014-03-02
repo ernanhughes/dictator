@@ -33,25 +33,28 @@ public class RecordService extends Service {
     public static final String BROADCAST_ACTION = "com.banba.dictator.recordservice";
     private final Handler handler = new Handler();
 
-
     @Override
     public void onCreate() {
         super.onCreate();
+        EventBus.getDefault().register(this);
         intent = new Intent(BROADCAST_ACTION);
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        EventBus.getDefault().register(this);
-        return super.onStartCommand(intent, flags, startId);
-    }
+    static final private double EMA_FILTER = 0.6;
+    private double mEMA = 0.0;
+
 
     public void updateRecordingInfo() {
         Bundle b = new Bundle();
         long now = SystemClock.uptimeMillis();
         long totalTime = now - mStartTime;
         b.putLong(Util.DURATION, totalTime);
-        b.putInt(Util.AMPLITUDE, mRecorder.getMaxAmplitude());
+        int amp = mRecorder.getMaxAmplitude();
+        b.putInt(Util.AMPLITUDE, amp);
+        double damp = Double.valueOf(amp) / 2700.0;
+        mEMA = EMA_FILTER * amp + (1.0 - EMA_FILTER) * mEMA;
+        b.putDouble(Util.EMA, mEMA);
+
         intent.putExtras(b);
         sendBroadcast(intent);
     }
@@ -136,6 +139,7 @@ public class RecordService extends Service {
             }
         }
     };
+
 
     @Override
     public IBinder onBind(Intent intent) {

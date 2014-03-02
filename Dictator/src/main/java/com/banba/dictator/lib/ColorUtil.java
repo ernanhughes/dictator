@@ -1,5 +1,6 @@
 package com.banba.dictator.lib;
 
+import android.graphics.ColorFilter;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
@@ -26,6 +27,27 @@ public class ColorUtil {
 
     public static void applyTempColorFilter(final Drawable iv, int iColor) {
         iv.setColorFilter(getFilter(iColor));
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (iv != null) {
+                    iv.setColorFilter(null);
+                }
+            }
+        }, 100);
+    }
+
+    static float[] colorMatrixNegative = {
+            -1.0f, 0, 0, 0, 255, //red
+            0, -1.0f, 0, 0, 255, //green
+            0, 0, -1.0f, 0, 255, //blue
+            0, 0, 0, 1.0f, 0 //alpha
+    };
+
+    public static void applyTempNegativeColorFilter(final Drawable iv) {
+        ColorFilter colorFilter = new ColorMatrixColorFilter(colorMatrixNegative);
+        iv.setColorFilter(colorFilter);
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

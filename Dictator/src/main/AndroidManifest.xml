@@ -30,6 +30,9 @@
             android:name=".activity.AboutActivity"
             android:parentActivityName=".MainActivity" />
         <activity
+            android:name=".activity.PlayListActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".activity.HelpActivity"
             android:parentActivityName=".MainActivity" />
         <activity
