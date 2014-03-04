@@ -10,7 +10,7 @@ import android.os.SystemClock;
 
 import com.banba.dictator.Util;
 import com.banba.dictator.data.Recording;
-import com.banba.dictator.event.Record;
+import com.banba.dictator.event.RecordEvent;
 import com.banba.dictator.lib.L;
 
 import java.io.File;
@@ -68,7 +68,7 @@ public class RecordService extends Service {
         }
     };
 
-    public void onEvent(Record event) {
+    public void onEvent(RecordEvent event) {
         switch (event.action) {
             case Start: {
                 mRecorder = new MediaRecorder();

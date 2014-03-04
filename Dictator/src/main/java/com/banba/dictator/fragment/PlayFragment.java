@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.banba.dictator.R;
 import com.banba.dictator.Util;
-import com.banba.dictator.event.Play;
+import com.banba.dictator.event.PlayEvent;
 import com.banba.dictator.lib.util.DateTimeUtil;
 import com.banba.dictator.service.PlayService;
 import com.banba.dictator.view.VisualizerView;
@@ -67,6 +67,12 @@ public class PlayFragment extends Fragment {
         getActivity().unregisterReceiver(broadcastReceiver);
     }
 
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().post(new PlayEvent(PlayEvent.Action.Stop, new Bundle()));
+        super.onDestroy();
+    }
+
     private ServiceConnection mConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName className,
                                        IBinder binder) {
@@ -97,7 +103,7 @@ public class PlayFragment extends Fragment {
         final String sUri = i.getExtras().getString(Util.FILE_NAME);
 
 
-        EventBus.getDefault().post(new Play(Play.Action.Start, i.getExtras()));
+        EventBus.getDefault().post(new PlayEvent(PlayEvent.Action.Start, i.getExtras()));
 
         TextView songName = (TextView) rootView.findViewById(R.id.recordingTitle);
         songName.setText(Util.getShortName(sUri));
@@ -108,7 +114,7 @@ public class PlayFragment extends Fragment {
                 if (fromUser) {
                     Bundle b = new Bundle();
                     b.putInt(Util.POSITION, progress);
-                    EventBus.getDefault().post(new Play(Play.Action.Seek, b));
+                    EventBus.getDefault().post(new PlayEvent(PlayEvent.Action.Seek, b));
                 }
             }
 
@@ -126,7 +132,7 @@ public class PlayFragment extends Fragment {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().post(new Play(Play.Action.Resume, new Bundle()));
+                EventBus.getDefault().post(new PlayEvent(PlayEvent.Action.Resume, new Bundle()));
                 playButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.play));
                 pauseButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.pause_pressed));
             }
@@ -134,7 +140,7 @@ public class PlayFragment extends Fragment {
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().post(new Play(Play.Action.Pause, new Bundle()));
+                EventBus.getDefault().post(new PlayEvent(PlayEvent.Action.Pause, new Bundle()));
                 playButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.play));
                 pauseButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.pause_pressed));
             }
@@ -143,21 +149,21 @@ public class PlayFragment extends Fragment {
         rewindButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().post(new Play(Play.Action.Rewind, new Bundle()));
+                EventBus.getDefault().post(new PlayEvent(PlayEvent.Action.Rewind, new Bundle()));
             }
         });
         final ImageView forwardButton = (ImageView) rootView.findViewById(R.id.forwardButton);
         forwardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().post(new Play(Play.Action.Forward, new Bundle()));
+                EventBus.getDefault().post(new PlayEvent(PlayEvent.Action.Forward, new Bundle()));
             }
         });
         final ImageView restartButton = (ImageView) rootView.findViewById(R.id.restartButton);
         restartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().post(new Play(Play.Action.Restart, new Bundle()));
+                EventBus.getDefault().post(new PlayEvent(PlayEvent.Action.Restart, new Bundle()));
             }
         });
 

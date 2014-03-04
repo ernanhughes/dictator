@@ -5,7 +5,7 @@ package com.banba.dictator.event;
  * Copyrite Banba Inc. 2013.
  */
 public class SectionEvent {
-    public static final String RECORD = "Record";
+    public static final String RECORD = "RecordEvent";
     public static final String MANAGE = "Manage";
     public static final String CALENDAR = "Calendar";
     public static final String PLAY_LIST = "PlayList";

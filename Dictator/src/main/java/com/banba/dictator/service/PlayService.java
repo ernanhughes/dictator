@@ -10,7 +10,7 @@ import android.os.Handler;
 import android.os.IBinder;
 
 import com.banba.dictator.Util;
-import com.banba.dictator.event.Play;
+import com.banba.dictator.event.PlayEvent;
 import com.banba.dictator.lib.L;
 
 import de.greenrobot.event.EventBus;
@@ -65,7 +65,7 @@ public class PlayService extends Service {
         }
     };
 
-    public void onEvent(Play event) {
+    public void onEvent(PlayEvent event) {
         switch (event.action) {
             case Start:
                 L.d("Starting player " + mPlayer != null ? "!!! warning player not null" : "");

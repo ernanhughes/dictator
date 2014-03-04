@@ -76,7 +76,7 @@ public class CalendarFragment extends Fragment {
                 if (results.size() > 0) {
                     new AlertDialog.Builder(getActivity())
                             .setIcon(R.drawable.ic_save)
-                            .setTitle("Play Recording for date " + DateTimeUtil.shortDateFormat(date))
+                            .setTitle("PlayEvent Recording for date " + DateTimeUtil.shortDateFormat(date))
                             .setItems(items, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {

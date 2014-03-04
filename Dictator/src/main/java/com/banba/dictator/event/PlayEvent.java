@@ -6,7 +6,7 @@ import android.os.Bundle;
  * Created by Ernan on 02/03/14.
  * Copyrite Banba Inc. 2013.
  */
-public class Play {
+public class PlayEvent {
     public enum Action {
         Start,
         Seek,
@@ -21,7 +21,7 @@ public class Play {
     public Action action;
     public Bundle bundle = null;
 
-    public Play(Action action, Bundle bundle) {
+    public PlayEvent(Action action, Bundle bundle) {
         this.action = action;
         this.bundle = bundle;
     }

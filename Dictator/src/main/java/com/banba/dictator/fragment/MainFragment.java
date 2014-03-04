@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.LayoutInflater;
@@ -17,7 +16,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -25,12 +23,13 @@ import com.banba.dictator.R;
 import com.banba.dictator.Util;
 import com.banba.dictator.activity.ApacheActivity;
 import com.banba.dictator.activity.SearchActivity;
-import com.banba.dictator.event.Record;
+import com.banba.dictator.event.RecordEvent;
 import com.banba.dictator.event.SectionEvent;
 import com.banba.dictator.lib.ColorUtil;
 import com.banba.dictator.lib.activity.ExceptionActivity;
 import com.banba.dictator.lib.util.DateTimeUtil;
 import com.banba.dictator.service.RecordService;
+import com.banba.dictator.view.AudioEventView;
 
 import de.greenrobot.event.EventBus;
 
@@ -42,12 +41,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     ImageButton mRecordButton;
     TextView mRecordText;
     boolean mIsRecording = false;
-    Handler mHandler = new Handler();
-    private ProgressBar mProgressBar;
     ViewSwitcher viewSwitcher;
     LinearLayout firstView, secondView;
     Animation inAnimRight, outAnimLeft, inAnimLeft, outAnimRight;
-
+    AudioEventView eventView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -74,7 +71,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                     }
                     mRecordButton.setImageResource(R.drawable.record_stop_half);
 
-                    EventBus.getDefault().post(new Record(Record.Action.Start));
+                    EventBus.getDefault().post(new RecordEvent(RecordEvent.Action.Start));
                     mIsRecording = true;
                 } else {
                     mIsRecording = false;
@@ -86,15 +83,17 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                     mRecordButton.setImageResource(R.drawable.record_start_half);
                     getActivity().getActionBar().setTitle(R.string.app_name);
                     mRecordText.setText("RECORD");
-                    EventBus.getDefault().post(new Record(Record.Action.Stop));
+                    EventBus.getDefault().post(new RecordEvent(RecordEvent.Action.Stop));
                 }
             }
         });
         mRecordText = (TextView) rootView.findViewById(R.id.textRecord);
-        mProgressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         viewSwitcher = (ViewSwitcher) rootView.findViewById(R.id.viewSwitcher);
         firstView = (LinearLayout) rootView.findViewById(R.id.bottomLayout);
         secondView = (LinearLayout) rootView.findViewById(R.id.recordingFeedbackLayout);
+
+        eventView = (AudioEventView) rootView.findViewById(R.id.eventView);
+
 
         Intent ps = new Intent(getActivity(), RecordService.class);
         getActivity().startService(ps);
@@ -156,7 +155,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         public void onReceive(Context context, Intent intent) {
             Bundle b = intent.getExtras();
             int amplitude = b.getInt(Util.AMPLITUDE);
-            mProgressBar.setProgress(amplitude);
+            eventView.addReading(amplitude);
             long totalTime = b.getLong(Util.DURATION);
             Spanned text = Html.fromHtml("<font color=\"#800000\">Recording " + DateTimeUtil.formatTime(totalTime / 1000) + "</font>");
             getActivity().getActionBar().setTitle(text);
@@ -166,7 +165,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     };
 
     public void onDestroy() {
-        EventBus.getDefault().post(new Record(Record.Action.Stop));
+        EventBus.getDefault().post(new RecordEvent(RecordEvent.Action.Stop));
         super.onDestroy();
     }
 
