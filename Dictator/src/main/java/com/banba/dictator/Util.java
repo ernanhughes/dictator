@@ -46,6 +46,7 @@ public class Util {
 
 
     public static List<Recording> getAllRecordings(Context context) {
+        L.d("Get all recordings");
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, getDatabaseName(), null);
         DaoMaster daoMaster = new DaoMaster(helper.getWritableDatabase());
         DaoSession session = daoMaster.newSession();
@@ -61,7 +62,14 @@ public class Util {
         return recordings;
     }
 
+    public static String getRecordingLength(Recording recording) {
+        Date start = recording.getStartTime();
+        Date end = recording.getEndTime();
+        return DateTimeUtil.milliSecondsToTimer(end.getTime() - start.getTime());
+    }
+
     public static List<Recording> getRecordingsForDate(Context context, Date date) {
+        L.d("Get recordings for :  " + date);
         Date nextDay = DateTimeUtil.addDays(date, 1);
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, getDatabaseName(), null);
         DaoMaster daoMaster = new DaoMaster(helper.getWritableDatabase());
@@ -74,6 +82,7 @@ public class Util {
     }
 
     public static void saveRecording(Context context, Recording recording) {
+        L.d("Saving recording:  " + recording.getName());
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, getDatabaseName(), null);
         DaoMaster daoMaster = new DaoMaster(helper.getWritableDatabase());
         DaoSession session = daoMaster.newSession();
@@ -83,6 +92,7 @@ public class Util {
     }
 
     public static void deleteRecording(Context context, Recording recording) {
+        L.d("Deleting recording: " + recording.getId() + "  " + recording.getName());
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, getDatabaseName(), null);
         DaoMaster daoMaster = new DaoMaster(helper.getWritableDatabase());
         DaoSession session = daoMaster.newSession();
@@ -98,6 +108,7 @@ public class Util {
     }
 
     public static boolean isValidMediaFile(String path) {
+        L.d("Is Valid Media : " + path);
         File f = new File(path);
         if (f.exists() && f.length() > 10) {
             return true;
@@ -106,6 +117,7 @@ public class Util {
     }
 
     public static void renameRecording(Context context, Recording recording, String newName) {
+        L.d("Rename recording: " + recording.getName() + "  " + newName);
         try {
             String fileName = recording.getFileName();
             String shortName = getShortName(fileName);
@@ -123,6 +135,7 @@ public class Util {
 
 
     public static void updateRecording(Context context, Recording recording) {
+        L.d("Update recording: " + recording.getId() + " " + recording.getName());
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, getDatabaseName(), null);
         DaoMaster daoMaster = new DaoMaster(helper.getWritableDatabase());
         DaoSession session = daoMaster.newSession();
@@ -138,7 +151,9 @@ public class Util {
                 .append(File.separator)
                 .append(DateTimeUtil.shortFileNameFormat(new Date()))
                 .append(".3gpp");
-        return buf.toString();
+        String fileName = buf.toString();
+        L.d("Recoding file name: " + fileName);
+        return fileName;
     }
 
 

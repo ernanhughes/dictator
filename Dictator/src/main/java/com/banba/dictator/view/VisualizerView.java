@@ -21,6 +21,7 @@ import android.media.audiofx.Visualizer;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.banba.dictator.lib.L;
 import com.banba.dictator.view.visualizer.AudioData;
 import com.banba.dictator.view.visualizer.FFTData;
 import com.banba.dictator.view.visualizer.renderer.Renderer;
@@ -78,35 +79,40 @@ public class VisualizerView extends View {
     public void link(MediaPlayer player) {
         if (player != null) {
             // Create the Visualizer object and attach it to our media player.
-            mVisualizer = new Visualizer(player.getAudioSessionId());
-            mVisualizer.setCaptureSize(Visualizer.getCaptureSizeRange()[1]);
+            try {
 
-            // Pass through Visualizer data to VisualizerView
-            Visualizer.OnDataCaptureListener captureListener = new Visualizer.OnDataCaptureListener() {
-                @Override
-                public void onWaveFormDataCapture(Visualizer visualizer, byte[] bytes,
-                                                  int samplingRate) {
-                    updateVisualizer(bytes);
-                }
+                mVisualizer = new Visualizer(player.getAudioSessionId());
+                mVisualizer.setCaptureSize(Visualizer.getCaptureSizeRange()[1]);
 
-                @Override
-                public void onFftDataCapture(Visualizer visualizer, byte[] bytes,
-                                             int samplingRate) {
-                    updateVisualizerFFT(bytes);
-                }
-            };
+                // Pass through Visualizer data to VisualizerView
+                Visualizer.OnDataCaptureListener captureListener = new Visualizer.OnDataCaptureListener() {
+                    @Override
+                    public void onWaveFormDataCapture(Visualizer visualizer, byte[] bytes,
+                                                      int samplingRate) {
+                        updateVisualizer(bytes);
+                    }
 
-            mVisualizer.setDataCaptureListener(captureListener,
-                    Visualizer.getMaxCaptureRate() / 2, true, true);
+                    @Override
+                    public void onFftDataCapture(Visualizer visualizer, byte[] bytes,
+                                                 int samplingRate) {
+                        updateVisualizerFFT(bytes);
+                    }
+                };
 
-            // Enabled Visualizer and disable when we're done with the stream
-            mVisualizer.setEnabled(true);
-            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mediaPlayer) {
-                    //    mVisualizer.setEnabled(false);
-                }
-            });
+                mVisualizer.setDataCaptureListener(captureListener,
+                        Visualizer.getMaxCaptureRate() / 2, true, true);
+
+                // Enabled Visualizer and disable when we're done with the stream
+                mVisualizer.setEnabled(true);
+                player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        //    mVisualizer.setEnabled(false);
+                    }
+                });
+            } catch (Exception e) {
+                L.e(e.getMessage());
+            }
         }
     }
 

@@ -48,7 +48,8 @@ public class PlayListFragment extends Fragment {
                 .addString(android.R.id.content, new StringExtractor<Recording>() {
                     @Override
                     public String getStringValue(Recording item, int position) {
-                        return Util.getShortName(item.getFileName());
+                        return Util.getRecordingLength(item) + " " +
+                                Util.getShortName(item.getFileName());
                     }
                 })
                 .addBaseField(android.R.id.button1, new ItemClickListener() {

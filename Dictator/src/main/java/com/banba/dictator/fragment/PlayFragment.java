@@ -101,8 +101,6 @@ public class PlayFragment extends Fragment {
 
         Intent i = getActivity().getIntent();
         final String sUri = i.getExtras().getString(Util.FILE_NAME);
-
-
         EventBus.getDefault().post(new PlayEvent(PlayEvent.Action.Start, i.getExtras()));
 
         TextView songName = (TextView) rootView.findViewById(R.id.recordingTitle);
@@ -128,13 +126,14 @@ public class PlayFragment extends Fragment {
         });
 
         final ImageView playButton = (ImageView) rootView.findViewById(R.id.playButton);
+        playButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.play_selected));
         final ImageView pauseButton = (ImageView) rootView.findViewById(R.id.pauseButton);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EventBus.getDefault().post(new PlayEvent(PlayEvent.Action.Resume, new Bundle()));
-                playButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.play));
-                pauseButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.pause_pressed));
+                playButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.play_selected));
+                pauseButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.pause));
             }
         });
         pauseButton.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +141,7 @@ public class PlayFragment extends Fragment {
             public void onClick(View v) {
                 EventBus.getDefault().post(new PlayEvent(PlayEvent.Action.Pause, new Bundle()));
                 playButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.play));
-                pauseButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.pause_pressed));
+                pauseButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.pause_selected));
             }
         });
         final ImageView rewindButton = (ImageView) rootView.findViewById(R.id.rewindButton);
@@ -166,9 +165,7 @@ public class PlayFragment extends Fragment {
                 EventBus.getDefault().post(new PlayEvent(PlayEvent.Action.Restart, new Bundle()));
             }
         });
-
         visualizerView = (VisualizerView) rootView.findViewById(R.id.visualizerView);
-
 
         return rootView;
     }

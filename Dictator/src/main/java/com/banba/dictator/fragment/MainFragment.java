@@ -118,7 +118,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         ImageButton button = (ImageButton) view;
         String tag = (String) button.getTag();
-
         ColorUtil.applyTempNegativeColorFilter(button.getDrawable());
         EventBus.getDefault().post(new SectionEvent(tag));
     }
@@ -157,7 +156,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             int amplitude = b.getInt(Util.AMPLITUDE);
             eventView.addReading(amplitude);
             long totalTime = b.getLong(Util.DURATION);
-            Spanned text = Html.fromHtml("<font color=\"#800000\">Recording " + DateTimeUtil.formatTime(totalTime / 1000) + "</font>");
+            Spanned text = Html.fromHtml("<font color=\"#CF000F\">Recording " + DateTimeUtil.formatTime(totalTime / 1000) + "</font>");
             getActivity().getActionBar().setTitle(text);
             mRecordText.setText(text);
             double signalEMA = b.getDouble(Util.EMA);
