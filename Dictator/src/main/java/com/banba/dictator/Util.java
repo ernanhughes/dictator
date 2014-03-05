@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -223,6 +224,17 @@ public class Util {
         CalendarUtil.insertEvent(context, recording.getName(), recording.getFileName(),
                 DateTimeUtil.dateToCalendar(recording.getStartTime()),
                 DateTimeUtil.dateToCalendar(recording.getEndTime()));
+    }
+
+    public static Drawable getImage(Context context, Recording recording) {
+        DateTimeUtil.TimeOfDay tod = DateTimeUtil.getTimeOfDay(recording.getEndTime());
+        switch (tod) {
+            case Morning:
+                return context.getResources().getDrawable(R.drawable.morning);
+            case Day:
+                return context.getResources().getDrawable(R.drawable.day);
+        }
+        return context.getResources().getDrawable(R.drawable.night);
     }
 
 }

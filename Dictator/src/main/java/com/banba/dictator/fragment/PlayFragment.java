@@ -79,8 +79,8 @@ public class PlayFragment extends Fragment {
             PlayService.PlayBinder playerBinder = (PlayService.PlayBinder) binder;
             playerService = playerBinder.getService();
             visualizerView.link(playerService.mPlayer);
-            VisualiserFactory.addCircleBarRenderer(visualizerView);
-            VisualiserFactory.addBarGraphRenderers(visualizerView);
+            VisualiserFactory.addCircleBarRenderer(getActivity(), visualizerView);
+            VisualiserFactory.addBarGraphRenderers(getActivity(), visualizerView);
         }
 
         public void onServiceDisconnected(ComponentName className) {

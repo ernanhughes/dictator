@@ -64,7 +64,7 @@ public class PlayListFragment extends Fragment {
                 .addStaticImage(android.R.id.icon, new StaticImageLoader<Recording>() {
                     @Override
                     public void loadImage(Recording item, ImageView imageView, int position) {
-                        Drawable d = getActivity().getResources().getDrawable(R.drawable.play);
+                        Drawable d = Util.getImage(getActivity(), (Recording) item);
                         imageView.setImageDrawable(d);
                     }
                 }).build();
@@ -75,7 +75,7 @@ public class PlayListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ImageView iv = (ImageView) view.findViewById(android.R.id.icon);
-                ColorUtil.applyTempColorFilter(iv, getResources().getColor(R.color.icon_selected_color));
+                ColorUtil.applyTempNegativeColorFilter(iv.getDrawable());
                 EventBus.getDefault().post(new PlayRecordingEvent(items.get(position)));
             }
         });

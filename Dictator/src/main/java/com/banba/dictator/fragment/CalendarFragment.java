@@ -33,19 +33,18 @@ public class CalendarFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.activity_calendar, container, false);
         final List<Recording> recordings = Util.getAllRecordings(getActivity());
         final CalendarPickerView calendar = (CalendarPickerView) rootView.findViewById(R.id.calendar_view);
+        final List<Date> dates = new ArrayList<Date>();
         if (recordings.size() > 0) {
             // recording are sorted inversely
             Recording first = recordings.get(recordings.size() - 1);
             Recording last = recordings.get(0);
             Calendar lastDate = DateTimeUtil.dateToCalendar(last.getStartTime());
             lastDate.add(Calendar.DAY_OF_WEEK, 7);
-            List<Date> dates = new ArrayList<Date>();
             int maxCount = 50;
             for (int i = 0; i < recordings.size() && i < maxCount; ++i) {
                 Recording r = recordings.get(i);
                 dates.add(r.getStartTime());
             }
-
             calendar.init(first.getStartTime(), lastDate.getTime()) //
                     .inMode(CalendarPickerView.SelectionMode.MULTIPLE)
                     .withSelectedDates(dates);
@@ -87,7 +86,10 @@ public class CalendarFragment extends Fragment {
                                 }
                             }).create().show();
                 }
-                calendar.selectDate(date);
+                List<Date> datesl = calendar.getSelectedDates();
+                if (!datesl.contains(date)) {
+                    calendar.selectDate(date);
+                }
             }
         });
         return rootView;

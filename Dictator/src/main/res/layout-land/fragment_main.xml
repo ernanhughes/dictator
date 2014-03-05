@@ -1,0 +1,169 @@
+<RelativeLayout
+    android:id="@+id/layout_main"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/main_button_border"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <View
+        android:id="@+id/middle_separator"
+        android:layout_width="0dip"
+        android:layout_height="fill_parent"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/middle_separator"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1">
+
+            <ImageButton
+                style="@style/AppTheme.MainPageIcon"
+                android:tag="Record"
+                android:paddingTop="10dip"
+                android:id="@+id/iconRecord"
+                android:src="@drawable/button_record" />
+
+            <TextView
+                android:layout_below="@+id/iconRecord"
+                android:id="@+id/textRecord"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                style="@style/AppTheme.MainPageIconText"
+                android:layout_weight="0"
+                android:text="RECORD" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <ViewSwitcher
+        android:id="@+id/viewSwitcher"
+        android:layout_width="match_parent"
+        android:layout_alignLeft="@id/middle_separator"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bottomLayout"
+            android:layout_alignRight="@id/middle_separator"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        style="@style/AppTheme.MainPageIcon"
+                        android:tag="PlayList"
+                        android:id="@+id/iconManage"
+                        android:src="@drawable/button_play_main" />
+
+                    <TextView
+                        android:layout_below="@+id/iconManage"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        style="@style/AppTheme.MainPageIconText"
+                        android:text="PLAY" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        style="@style/AppTheme.MainPageIcon"
+                        android:id="@+id/iconCalendar"
+                        android:tag="Calendar"
+                        android:src="@drawable/button_entries" />
+
+                    <TextView
+                        android:layout_below="@+id/iconCalendar"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        style="@style/AppTheme.MainPageIconText"
+                        android:text="HISTORY" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        style="@style/AppTheme.MainPageIcon"
+                        android:tag="Manage"
+                        android:id="@+id/iconManage"
+                        android:src="@drawable/button_manage" />
+
+                    <TextView
+                        android:layout_below="@+id/iconManage"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        style="@style/AppTheme.MainPageIconText"
+                        android:text="MANAGE" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        style="@style/AppTheme.MainPageIcon"
+                        android:id="@+id/iconAbout"
+                        android:tag="About"
+                        android:src="@drawable/button_about" />
+
+                    <TextView
+                        android:layout_below="@+id/iconAbout"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        style="@style/AppTheme.MainPageIconText"
+                        android:text="@string/about_icon" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:id="@+id/recordingFeedbackLayout"
+            android:layout_alignLeft="@id/middle_separator"
+            android:orientation="vertical">
+
+            <com.banba.dictator.view.AudioEventView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="#00000000"
+                android:layout_margin="50dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:id="@+id/eventView"
+                android:src="@drawable/record_stop_half" />
+
+        </LinearLayout>
+    </ViewSwitcher>
+</RelativeLayout>

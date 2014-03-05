@@ -17,6 +17,25 @@ public class DateTimeUtil {
     static final String TIME_FORMAT = "HH:mm:ss";
     static final String DATE_TIME_FORMAT = "yy-MM-dd HH:mm";
 
+    public enum TimeOfDay {
+        Morning,
+        Day,
+        Night
+    }
+
+    public static TimeOfDay getTimeOfDay(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        if (hour < 12) {
+            return TimeOfDay.Morning;
+        }
+        if (hour < 20) {
+            return TimeOfDay.Day;
+        }
+        return TimeOfDay.Night;
+    }
+
     public static String formatTime(int seconds) {
         return Integer.toString(seconds / 60) + ":" + padWithZeros(seconds % 60);
     }

@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignBottom="@id/middle_separator"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <ImageButton
+            style="@style/AppTheme.MainPageIcon"
+            android:tag="Record"
+            android:paddingTop="10dip"
+            android:onClick="onClick"
+            android:id="@+id/iconRecord"
+            android:src="@drawable/button_record" />
+
+        <TextView
+            android:layout_below="@+id/iconRecord"
+            android:id="@+id/textRecord"
+            style="@style/AppTheme.MainPageIconText"
+            android:layout_weight="0"
+            android:text="RECORD" />
+    </RelativeLayout>
+</LinearLayout>

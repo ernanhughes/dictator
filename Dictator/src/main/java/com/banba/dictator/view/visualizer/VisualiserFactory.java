@@ -1,10 +1,12 @@
 package com.banba.dictator.view.visualizer;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 
+import com.banba.dictator.R;
 import com.banba.dictator.view.VisualizerView;
 import com.banba.dictator.view.visualizer.renderer.BarGraphRenderer;
 import com.banba.dictator.view.visualizer.renderer.CircleBarRenderer;
@@ -18,28 +20,28 @@ import com.banba.dictator.view.visualizer.renderer.LineRenderer;
 public class VisualiserFactory {
 
     // Methods for adding renderers to visualizer
-    public static void addBarGraphRenderers(VisualizerView visualizerView) {
+    public static void addBarGraphRenderers(Context context, VisualizerView visualizerView) {
         Paint paint = new Paint();
         paint.setStrokeWidth(50f);
         paint.setAntiAlias(true);
-        paint.setColor(Color.argb(200, 56, 138, 252));
+        paint.setColor(context.getResources().getColor(R.color.title_font_color));
         BarGraphRenderer barGraphRendererBottom = new BarGraphRenderer(16, paint, false);
         visualizerView.addRenderer(barGraphRendererBottom);
 
         Paint paint2 = new Paint();
         paint2.setStrokeWidth(12f);
         paint2.setAntiAlias(true);
-        paint2.setColor(Color.argb(200, 181, 111, 233));
+        paint2.setColor(context.getResources().getColor(R.color.light_selected_color));
         BarGraphRenderer barGraphRendererTop = new BarGraphRenderer(4, paint2, true);
         visualizerView.addRenderer(barGraphRendererTop);
     }
 
-    public static void addCircleBarRenderer(VisualizerView visualizerView) {
+    public static void addCircleBarRenderer(Context context, VisualizerView visualizerView) {
         Paint paint = new Paint();
         paint.setStrokeWidth(8f);
         paint.setAntiAlias(true);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.LIGHTEN));
-        paint.setColor(Color.argb(255, 222, 92, 143));
+        paint.setColor(context.getResources().getColor(R.color.primary_color));
         CircleBarRenderer circleBarRenderer = new CircleBarRenderer(paint, 32, true);
         visualizerView.addRenderer(circleBarRenderer);
     }

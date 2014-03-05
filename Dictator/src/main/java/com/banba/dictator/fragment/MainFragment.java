@@ -159,7 +159,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             Spanned text = Html.fromHtml("<font color=\"#CF000F\">Recording " + DateTimeUtil.formatTime(totalTime / 1000) + "</font>");
             getActivity().getActionBar().setTitle(text);
             mRecordText.setText(text);
-            double signalEMA = b.getDouble(Util.EMA);
         }
     };
 

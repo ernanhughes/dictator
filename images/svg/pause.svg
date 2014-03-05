@@ -15,7 +15,7 @@
    id="svg2987"
    version="1.1"
    inkscape:version="0.48.4 r"
-   sodipodi:docname="pause.svg">
+   sodipodi:docname="entries_quarter.svg">
   <sodipodi:namedview
      inkscape:document-units="mm"
      pagecolor="#ffffff"
@@ -24,18 +24,18 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35355339"
-     inkscape:cx="419.04439"
+     inkscape:cx="614.90285"
      inkscape:cy="724.80815"
      inkscape:current-layer="layer1"
      id="namedview2991"
      showgrid="true"
      showguides="false"
      units="mm"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="1912"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1">
+     inkscape:window-width="1515"
+     inkscape:window-height="999"
+     inkscape:window-x="2223"
+     inkscape:window-y="15"
+     inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
        id="grid2996"
@@ -327,7 +327,7 @@
      id="layer1"
      transform="translate(0,1070.0789)">
     <path
-       style="fill:#89c4f4;stroke:#89c4f4;stroke-width:35.43307114000000300;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;fill-opacity:0.94117647000000004"
+       style="fill:#89c4f4;stroke:#000000;stroke-width:35.43307114000000300;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;fill-opacity:0.94117647000000004"
        d="m 894.9375,-997.5789 c -10.39125,-0.01 -20.77904,0.21536 -31.1875,0.625 -339.56189,3.96321 -660.92907,232.87303 -777.875,551.28125 -121.696528,310.02632 -39.194116,686.40495 202.3125,916.09375 237.92122,238.6233 621.98167,310.6945 930.6563,176.125 310.9537,-127.4322 527.1717,-451.87 522.5,-788.28125 0.1519,-124.43209 -27.129,-248.81576 -79.9063,-361.53125 -133.1881,-293.76173 -444.3713,-494.00201 -766.5,-494.3125 z"
        id="path3152"
        clip-path="url(#clipPath21100)" />
@@ -808,7 +808,7 @@
        style="fill:none;stroke:#0099ff;stroke-width:3.78049445;stroke-miterlimit:4;stroke-dasharray:none" />
     <path
        inkscape:connector-curvature="0"
-       style="fill:#2c3e50;stroke:#2c3e50;stroke-width:121.95673369999999000;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;fill-opacity:0"
+       style="fill:#2c3e50;stroke:#22313f;stroke-width:121.95673369999999000;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;fill-opacity:0"
        d="m 893.66528,-878.19182 c -8.94139,-0.01 -17.87979,0.18524 -26.83598,0.5378 -292.18368,3.41016 -568.71128,200.38081 -669.34007,474.3623 -104.716506,266.76913 -33.72551,590.63265 174.0844,788.27354 204.72462,205.3288 535.1981,267.3441 800.80407,151.55074 267.5671,-109.65192 453.6168,-388.82174 449.5968,-678.29442 0.1308,-107.07039 -23.3437,-214.09913 -68.7572,-311.0877 -114.6046,-252.77389 -382.3693,-425.0752 -659.55202,-425.34226 z"
        id="path3152-8"
        clip-path="url(#clipPath21096)" />
@@ -820,22 +820,22 @@
        clip-path="url(#clipPath21092)" />
     <g
        id="g13829"
-       transform="matrix(0.88494183,0,0,0.88494183,156.76172,3.1942384)"
-       style="fill:#2c3e50;fill-opacity:1">
+       transform="matrix(0.88494183,0,0,0.88494183,156.76175,3.1942363)"
+       style="fill:#22313f;fill-opacity:0.94117647000000004;stroke:#22313f;stroke-opacity:0.94117647000000004">
       <rect
          y="-663.98895"
          x="408.8873"
          height="1000"
          width="320"
          id="rect13809"
-         style="fill:#2c3e50;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1" />
+         style="fill:#22313f;fill-opacity:0.94117647000000004;fill-rule:evenodd;stroke:#22313f;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.94117647000000004" />
       <rect
          y="-663.98895"
          x="918.80823"
          height="1000"
          width="320"
          id="rect13809-2"
-         style="fill:#2c3e50;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1" />
+         style="fill:#22313f;fill-opacity:0.94117647000000004;fill-rule:evenodd;stroke:#22313f;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.94117647000000004" />
     </g>
   </g>
 </svg>

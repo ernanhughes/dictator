@@ -46,7 +46,7 @@ public class AudioEventView extends ImageButton {
         textPaint.setColor(TEXT_COLOR);
     }
 
-    static final int STACK_SIZE = 1000;
+    static final int STACK_SIZE = 100;
 
     Stack<Integer> readings = new Stack<Integer>();
 
@@ -89,12 +89,21 @@ public class AudioEventView extends ImageButton {
         int xPos = (canvas.getWidth() / 2);
         int yPos = (int) ((canvas.getHeight() / 2) - ((textPaint.descent() + textPaint.ascent()) / 2));
 
+        final int usedWidth = viewWidth / 2;
+
         int size = readings.size();
-        for (int i = 0; i < viewWidth && i < size; ++i) {
+        int barWidth = size == 0 ? 1 : usedWidth / size;
+
+        for (int i = 0; i < usedWidth && i < size; ++i) {
             final int height = getHeightForSoundLevel(readings.get(i), viewHeight);
             final int lineStart = (viewHeight - height) / 2;
-            canvas.drawText("Max:  " + max + " Min: " + min, xPos, yPos, textPaint);
-            canvas.drawRect(i, lineStart, i + 1, lineStart + height, recordedBufferPaint);
+            canvas.drawText("Max:  " + max, xPos, yPos, textPaint);
+            //public void drawRect(float left, float top, float right, float bottom, Paint paint) {
+
+            int left = i * barWidth;
+            int right = viewWidth - (i * barWidth);
+            canvas.drawRect(left, lineStart, left + barWidth, lineStart + height, recordedBufferPaint);
+            canvas.drawRect(right, lineStart, right + barWidth, lineStart + height, recordedBufferPaint);
         }
     }
 
