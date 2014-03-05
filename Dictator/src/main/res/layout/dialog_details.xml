@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?><!--suppress AndroidLintUselessParent -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/card_outer">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/detail_header"
+            android:text="Start Time:" />
+
+        <TextView
+            style="@style/detail_item"
+            android:id="@+id/startTime" />
+
+        <TextView
+            style="@style/detail_header"
+            android:text="End Time:" />
+
+        <TextView
+            style="@style/detail_item"
+            android:id="@+id/endTime" />
+
+        <TextView
+            style="@style/detail_header"
+            android:text="File Size:" />
+
+        <TextView
+            style="@style/detail_item"
+            android:id="@+id/fileSize" />
+
+        <TextView
+            style="@style/detail_header"
+            android:text="Location:" />
+
+        <TextView
+            android:id="@+id/filePath"
+            style="@style/detail_item" />
+
+    </LinearLayout>
+
+    <!--suppress AndroidLintContentDescription -->
+    <ImageView style="@style/card_shadow" />
+
+</LinearLayout>

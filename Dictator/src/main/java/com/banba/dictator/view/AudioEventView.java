@@ -24,7 +24,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.widget.ImageButton;
 
-import java.util.Stack;
+import java.util.ArrayList;
 
 /**
  * Draws a plot with sound levels of recently recorded or played buffers. The
@@ -46,16 +46,16 @@ public class AudioEventView extends ImageButton {
         textPaint.setColor(TEXT_COLOR);
     }
 
-    static final int STACK_SIZE = 100;
+    static final int STACK_SIZE = 20;
 
-    Stack<Integer> readings = new Stack<Integer>();
+    ArrayList<Integer> readings = new ArrayList<Integer>();
 
 
     public void addReading(int reading) {
         if (readings.size() > STACK_SIZE) {
-            readings.pop();
+            readings.remove(0);
         }
-        readings.push(reading);
+        readings.add(reading);
         invalidate();
     }
 

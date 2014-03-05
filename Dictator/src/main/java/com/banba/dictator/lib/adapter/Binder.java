@@ -17,6 +17,7 @@ import com.banba.dictator.lib.adapter.fields.ProgressBarField;
 import com.banba.dictator.lib.adapter.fields.StaticImageField;
 import com.banba.dictator.lib.adapter.fields.StringField;
 import com.banba.dictator.lib.adapter.interfaces.BooleanExtractor;
+import com.banba.dictator.lib.adapter.interfaces.CheckedChangeListener;
 import com.banba.dictator.lib.adapter.interfaces.DynamicImageLoader;
 import com.banba.dictator.lib.adapter.interfaces.IntegerExtractor;
 import com.banba.dictator.lib.adapter.interfaces.ItemClickListener;
@@ -274,8 +275,10 @@ public class Binder<T> {
             return this;
         }
 
-        public Builder<T> addCheckable(int viewResId, BooleanExtractor<T> isCheckedExtractor) {
-            binder.mCheckableFields = add(binder.mCheckableFields, new CheckableField<T>(viewResId, isCheckedExtractor));
+        public Builder<T> addCheckable(int viewResId, BooleanExtractor<T> isCheckedExtractor, CheckedChangeListener<T> listener) {
+            CheckableField<T> f = new CheckableField<T>(viewResId, isCheckedExtractor);
+            f.setCheckedChangeListener(listener);
+            binder.mCheckableFields = add(binder.mCheckableFields, f);
             return this;
         }
 

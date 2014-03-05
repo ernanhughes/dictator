@@ -46,7 +46,6 @@ public class SearchFragment extends Fragment {
             @Override
             public Object call() {
                 final Hashtable<String, Object> searchResultItems = new Hashtable<String, Object>();
-
                 String searchText = tv.getText().toString().toLowerCase();
                 List<Recording> recordings = Util.getAllRecordings(getActivity());
                 for (Recording r : recordings) {

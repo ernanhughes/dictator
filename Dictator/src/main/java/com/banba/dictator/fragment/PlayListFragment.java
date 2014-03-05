@@ -1,5 +1,6 @@
 package com.banba.dictator.fragment;
 
+import android.app.Dialog;
 import android.app.Fragment;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.banba.dictator.R;
 import com.banba.dictator.Util;
@@ -22,6 +24,7 @@ import com.banba.dictator.lib.adapter.SimpleAdapter;
 import com.banba.dictator.lib.adapter.interfaces.ItemClickListener;
 import com.banba.dictator.lib.adapter.interfaces.StaticImageLoader;
 import com.banba.dictator.lib.adapter.interfaces.StringExtractor;
+import com.banba.dictator.lib.util.DateTimeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,17 +57,32 @@ public class PlayListFragment extends Fragment {
                 .addString(android.R.id.content, new StringExtractor<Recording>() {
                     @Override
                     public String getStringValue(Recording item, int position) {
-                        return Util.getRecordingLength(item) + " " +
-                                Util.getShortName(item.getFileName());
+                        return "Len: " + Util.getRecordingLength(item) + " Date: " +
+                                DateTimeUtil.shortDateFormat(item.getStartTime());
                     }
                 })
                 .addBaseField(android.R.id.button1, new ItemClickListener() {
                     @Override
                     public void onClick(Object item, int position, View view) {
                         Recording recording = (Recording) item;
-                        Util.deleteRecording(getActivity(), recording);
-                        items.remove(item);
-                        adapter.notifyDataSetChanged();
+                        // custom dialog
+                        final Dialog dialog = new Dialog(getActivity());
+                        dialog.setContentView(R.layout.dialog_details);
+                        dialog.setTitle(recording.getName());
+
+                        TextView text = (TextView) dialog.findViewById(R.id.startTime);
+                        text.setText(DateTimeUtil.normalDateFormat(recording.getStartTime()));
+
+                        text = (TextView) dialog.findViewById(R.id.endTime);
+                        text.setText(DateTimeUtil.normalDateFormat(recording.getEndTime()));
+
+                        text = (TextView) dialog.findViewById(R.id.fileSize);
+                        text.setText(String.valueOf(recording.getFileSize()) + " KB");
+
+                        text = (TextView) dialog.findViewById(R.id.filePath);
+                        text.setText(recording.getFileName());
+
+                        dialog.show();
                     }
                 })
                 .addStaticImage(android.R.id.icon, new StaticImageLoader<Recording>() {

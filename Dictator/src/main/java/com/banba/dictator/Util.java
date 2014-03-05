@@ -40,11 +40,9 @@ public class Util {
     public static final String AMPLITUDE = "Amplitude";
     public static final String EMA = "EMA";
 
-
     public static String getDatabaseName() {
         return DictatorApp.DATABASE_NAME;
     }
-
 
     public static List<Recording> getAllRecordings(Context context) {
         L.d("Get all recordings");
@@ -128,12 +126,12 @@ public class Util {
             File to = new File(newFileName);
             file.renameTo(to.getCanonicalFile());
             recording.setFileName(newFileName);
+            recording.setName(newName);
             updateRecording(context, recording);
         } catch (IOException e) {
             L.e(e.getMessage());
         }
     }
-
 
     public static void updateRecording(Context context, Recording recording) {
         L.d("Update recording: " + recording.getId() + " " + recording.getName());
@@ -172,6 +170,7 @@ public class Util {
         return uri.getLastPathSegment();
     }
 
+
     public static String getExtension(String fileName) {
         String[] split = fileName.split("\\.");
         return split[split.length - 1];
@@ -181,6 +180,7 @@ public class Util {
     public static String getRecordingName(Context context) {
         return "Rec " + DateTimeUtil.getDateTime(new Date());
     }
+
 
     public static void save100(Context context, Recording recording) {
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, getDatabaseName(), null);
@@ -207,6 +207,7 @@ public class Util {
         helper.close();
     }
 
+
     public static void addMediaEntry(Context context, String fileName) {
         ContentValues values = new ContentValues();
         long current = System.currentTimeMillis();
@@ -220,11 +221,13 @@ public class Util {
         context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, newUri));
     }
 
+
     public static void addCalendarEntry(Context context, Recording recording) {
         CalendarUtil.insertEvent(context, recording.getName(), recording.getFileName(),
                 DateTimeUtil.dateToCalendar(recording.getStartTime()),
                 DateTimeUtil.dateToCalendar(recording.getEndTime()));
     }
+
 
     public static Drawable getImage(Context context, Recording recording) {
         DateTimeUtil.TimeOfDay tod = DateTimeUtil.getTimeOfDay(recording.getEndTime());
@@ -236,5 +239,4 @@ public class Util {
         }
         return context.getResources().getDrawable(R.drawable.night);
     }
-
 }
