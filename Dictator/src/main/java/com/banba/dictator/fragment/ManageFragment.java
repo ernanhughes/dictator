@@ -3,7 +3,6 @@ package com.banba.dictator.fragment;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -58,7 +58,7 @@ public class ManageFragment extends Fragment {
                 .addStaticImage(android.R.id.icon, new StaticImageLoader<Recording>() {
                     @Override
                     public void loadImage(Recording item, ImageView imageView, int position) {
-                        Drawable d = Util.getImage(getActivity(), (Recording) item);
+                        Drawable d = Util.getImage(getActivity(), item);
                         imageView.setImageDrawable(d);
                     }
                 }).build();
@@ -74,11 +74,8 @@ public class ManageFragment extends Fragment {
             }
         });
 
-        Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/fontawesome-webfont.ttf");
-
         final Recording selectedItem = null;
-        Button editButton = (Button) rootView.findViewById(R.id.editButton);
-        setFont(editButton, tf);
+        ImageButton editButton = (ImageButton) rootView.findViewById(R.id.editButton);
         editButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 final Recording recording = (Recording) selectedItem;
@@ -99,41 +96,49 @@ public class ManageFragment extends Fragment {
             }
         });
 
-        Button deleteButton = (Button) rootView.findViewById(R.id.deleteButton);
-        setFont(deleteButton, tf);
+        ImageButton deleteButton = (ImageButton) rootView.findViewById(R.id.deleteButton);
         deleteButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
 
+
+                final Recording recording = (Recording) selectedItem;
+                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                alert.setTitle("Rename file");
+                alert.setMessage("Rename file: " + recording.getName());
+                final EditText input = new EditText(getActivity());
+                alert.setView(input);
+                alert.setPositiveButton("Rename",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                                String value = input.getText().toString();
+                                Util.renameRecording(getActivity(), recording, value);
+                                cardsAdapter.notifyDataSetChanged();
+                            }
+                        }).create().show();
             }
         });
 
-        Button playButton = (Button) rootView.findViewById(R.id.playButton);
-        setFont(playButton, tf);
-        playButton.setOnClickListener(new Button.OnClickListener() {
+        ImageButton sortButton = (ImageButton) rootView.findViewById(R.id.sortButton);
+        sortButton.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                cardsList.getSelectedItem();
+            }
+        });
+
+        ImageButton detailsButton = (ImageButton) rootView.findViewById(R.id.detailsButton);
+        detailsButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
 
             }
         });
 
-        Button detailsButton = (Button) rootView.findViewById(R.id.detailsButton);
-        setFont(editButton, tf);
-        editButton.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-
-            }
-        });
-
-        Button shareButton = (Button) rootView.findViewById(R.id.shareButton);
-        setFont(shareButton, tf);
+        ImageButton shareButton = (ImageButton) rootView.findViewById(R.id.shareButton);
         shareButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
 
             }
         });
         return rootView;
-    }
-
-    public void setFont(Button b, Typeface tf) {
-        b.setTypeface(tf, Typeface.BOLD);
     }
 }

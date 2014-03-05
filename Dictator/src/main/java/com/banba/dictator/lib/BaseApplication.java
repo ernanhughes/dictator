@@ -52,6 +52,7 @@ public class BaseApplication extends Application implements Thread.UncaughtExcep
         crash.stackTrace = writer.toString();
 
         StackTraceElement stack = e.getStackTrace()[0];
+        L.e(stack.toString());
         crash.throwClassName = stack.getClassName();
         L.e(stack.getClassName());
         crash.throwFileName = stack.getFileName();

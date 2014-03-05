@@ -28,55 +28,50 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <Button
+                    <ImageButton
                         android:id="@+id/editButton"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:background="@drawable/rounded_icon_bar_button"
+                        android:background="@null"
                         android:padding="5dp"
-                        android:text="@string/fa_pencil"
-                        android:textColor="@color/title_font_color"
+                        android:src="@drawable/button_edit"
                         android:layout_weight="1" />
 
-                    <Button
+                    <ImageButton
                         android:id="@+id/detailsButton"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:background="@drawable/rounded_icon_bar_button"
+                        android:background="@null"
                         android:padding="5dp"
-                        android:text="@string/fa_angle_double_down"
-                        android:textColor="@color/title_font_color"
+                        android:src="@drawable/button_details"
                         android:layout_weight="1" />
 
-                    <Button
+                    <ImageButton
+                        android:id="@+id/sortButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:padding="5dp"
+                        android:src="@drawable/button_sort"
+                        android:layout_weight="1" />
+
+                    <ImageButton
                         android:id="@+id/shareButton"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:background="@drawable/rounded_icon_bar_button"
+                        android:background="@null"
                         android:padding="5dp"
-                        android:text="@string/fa_forward"
-                        android:textColor="@color/title_font_color"
+                        android:src="@drawable/button_share"
                         android:layout_weight="1" />
 
-                    <Button
-                        android:id="@+id/playButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/rounded_icon_bar_button"
-                        android:padding="5dp"
-                        android:text="@string/fa_play"
-                        android:textColor="@color/title_font_color"
-                        android:layout_weight="1" />
-
-                    <Button
+                    <ImageButton
                         android:id="@+id/deleteButton"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:background="@drawable/rounded_icon_bar_button"
+                        android:background="@null"
                         android:padding="5dp"
-                        android:layout_weight="1"
-                        android:text="@string/fa_trash_o"
-                        android:textColor="@color/title_font_color" />
+                        android:src="@drawable/button_delete"
+                        android:layout_weight="1" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

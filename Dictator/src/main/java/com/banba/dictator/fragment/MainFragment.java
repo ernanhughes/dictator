@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -38,66 +38,60 @@ import de.greenrobot.event.EventBus;
  * Copyrite Banba Inc. 2013.
  */
 public class MainFragment extends Fragment implements View.OnClickListener {
-    ImageButton mRecordButton;
     TextView mRecordText;
-    boolean mIsRecording = false;
     ViewSwitcher viewSwitcher;
-    LinearLayout firstView, secondView;
-    Animation inAnimRight, outAnimLeft, inAnimLeft, outAnimRight;
     AudioEventView eventView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        inAnimRight = AnimationUtils.loadAnimation(getActivity(),
-                R.anim.grow_from_bottom);
-        outAnimLeft = AnimationUtils.loadAnimation(getActivity(),
-                R.anim.grow_from_top);
-        inAnimLeft = AnimationUtils.loadAnimation(getActivity(),
-                R.anim.fragment_slide_left_enter);
-        outAnimRight = AnimationUtils.loadAnimation(getActivity(),
-                R.anim.fragment_slide_left_exit);
+        final ImageView mRecordButton = (ImageButton) rootView.findViewById(R.id.iconRecord);
 
-        mRecordButton = (ImageButton) rootView.findViewById(R.id.iconRecord);
+        final View firstView = rootView.findViewById(R.id.mainLayout);
+        final View secondView = rootView.findViewById(R.id.recordingFeedbackLayout);
+
         mRecordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!mIsRecording) {
-                    viewSwitcher.setInAnimation(inAnimLeft);
-                    viewSwitcher.setOutAnimation(outAnimRight);
-                    if (viewSwitcher.getCurrentView() != secondView) {
+                mRecordButton.setImageResource(R.drawable.record_start_half_selected);
+                if (viewSwitcher.getCurrentView() != secondView) {
                         viewSwitcher.showNext();
                     }
-                    mRecordButton.setImageResource(R.drawable.record_stop_half);
 
                     EventBus.getDefault().post(new RecordEvent(RecordEvent.Action.Start));
-                    mIsRecording = true;
-                } else {
-                    mIsRecording = false;
-                    viewSwitcher.setInAnimation(inAnimLeft);
-                    viewSwitcher.setOutAnimation(outAnimRight);
-                    if (viewSwitcher.getCurrentView() != firstView) {
-                        viewSwitcher.showPrevious();
-                    }
-                    mRecordButton.setImageResource(R.drawable.record_start_half);
-                    getActivity().getActionBar().setTitle(R.string.app_name);
-                    mRecordText.setText("RECORD");
-                    EventBus.getDefault().post(new RecordEvent(RecordEvent.Action.Stop));
                 }
+        });
+        final ImageView mStopRecordButton = (ImageButton) rootView.findViewById(R.id.iconStopRecording);
+        mStopRecordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (viewSwitcher.getCurrentView() != firstView) {
+                    viewSwitcher.showPrevious();
+                }
+                mRecordButton.setImageResource(R.drawable.record_start_half);
+                getActivity().getActionBar().setTitle(R.string.app_name);
+                EventBus.getDefault().post(new RecordEvent(RecordEvent.Action.Stop));
             }
         });
+
         mRecordText = (TextView) rootView.findViewById(R.id.textRecord);
         viewSwitcher = (ViewSwitcher) rootView.findViewById(R.id.viewSwitcher);
-        firstView = (LinearLayout) rootView.findViewById(R.id.bottomLayout);
-        secondView = (LinearLayout) rootView.findViewById(R.id.recordingFeedbackLayout);
+        final Animation inAnimRight = AnimationUtils.loadAnimation(getActivity(),
+                R.anim.grow_from_bottom);
+//        final Animation outAnimLeft = AnimationUtils.loadAnimation(getActivity(),
+//                R.anim.grow_from_top);
+//        final Animation inAnimLeft = AnimationUtils.loadAnimation(getActivity(),
+//                R.anim.fragment_slide_left_enter);
+        final Animation outAnimRight = AnimationUtils.loadAnimation(getActivity(),
+                R.anim.fragment_slide_left_exit);
+        viewSwitcher.setInAnimation(inAnimRight);
+        viewSwitcher.setOutAnimation(outAnimRight);
 
         eventView = (AudioEventView) rootView.findViewById(R.id.eventView);
 
-
         Intent ps = new Intent(getActivity(), RecordService.class);
         getActivity().startService(ps);
-
         return rootView;
     }
 
@@ -166,5 +160,4 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         EventBus.getDefault().post(new RecordEvent(RecordEvent.Action.Stop));
         super.onDestroy();
     }
-
 }
