@@ -1,3 +1,5 @@
+Const resPath = "D:\Users\Ernan\AndroidStudioProjects\DictatorProject\Dictator\src\main\res"
+
 Dim shell: Set shell = CreateObject("WScript.Shell")
 Dim fso: Set fso = CreateObject("Scripting.FileSystemObject")
 Dim folder: Set folder = fso.GetFolder(fso.GetFolder("."))
@@ -5,6 +7,7 @@ WScript.Echo "Working folder: " & folder
 
  
 Call processFiles(folder)
+Call crush()
 
 Function processFiles(folder)
 	imageFolderPath = fso.GetParentFolderName(folder) & "\svg"
@@ -18,7 +21,7 @@ Function processFiles(folder)
 			minuteCount = DateDiff("n", fileItem.DateLastModified, startTime) 	
 			If minuteCount < 10 Then 
 				WScript.Echo minuteCount & "-->"  & fileItem
-				WScript.Echo folder
+		''		WScript.Echo folder
 				fso.CopyFile fileItem, folder & "\", True
 				
 				Dim curFile: Set curFile = fso.getFile(folder & "\" & fileItem.Name) 
@@ -28,6 +31,38 @@ Function processFiles(folder)
 		End IF
 	Next
 End Function
+
+Function crush()
+	Dim resFolder: Set resFolder = fso.getFolder(resPath)
+    For Each subfolder in resFolder.SubFolders
+  ''      Wscript.Echo subfolder.Path
+		For Each filePath in subfolder.Files
+			minuteCount = DateDiff("n", filePath.DateLastModified, startTime) 	
+			If minuteCount < 10 Then 
+				strCommand = "pngquant.exe " &  filePath & " --force --ext .png"
+	''			Wscript.Echo strCommand
+				Set objExecObject = shell.Exec(strCommand)
+				strText = ""
+				Do While Not objExecObject.StdOut.AtEndOfStream
+					strText = strText & objExecObject.StdOut.ReadLine()
+				Loop
+
+				Wscript.Echo strText
+
+				strCommand = "pngout.exe " & filePath
+	''			Wscript.Echo strCommand
+				Set objExecObject = shell.Exec(strCommand)
+				strText = ""
+				Do While Not objExecObject.StdOut.AtEndOfStream
+					strText = strText & objExecObject.StdOut.ReadLine()
+				Loop
+				Wscript.Echo strText
+			End If
+		Next
+    Next
+End Function
+
+
 
 Function processFile(file) 
 	processType = getProcessType(file)
