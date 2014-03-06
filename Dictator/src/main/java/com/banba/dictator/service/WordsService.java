@@ -210,6 +210,7 @@ public class WordsService extends Service {
             try {
                 mServerMessenger.send(message);
             } catch (RemoteException e) {
+                L.e(e.getMessage());
             }
         }
 
@@ -225,6 +226,7 @@ public class WordsService extends Service {
             try {
                 mServerMessenger.send(message);
             } catch (RemoteException e) {
+                L.e(e.getMessage());
             }
         }
 
@@ -244,6 +246,7 @@ public class WordsService extends Service {
             try {
                 mServerMessenger.send(message);
             } catch (RemoteException e) {
+                L.e(e.getMessage());
             }
         }
 

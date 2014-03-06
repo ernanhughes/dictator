@@ -87,7 +87,7 @@ public class PlayListFragment extends Fragment {
                 .addStaticImage(android.R.id.icon, new StaticImageLoader<Recording>() {
                     @Override
                     public void loadImage(Recording item, ImageView imageView, int position) {
-                        Drawable d = Util.getImage(getActivity(), (Recording) item);
+                        Drawable d = Util.getImage(getActivity(), item);
                         imageView.setImageDrawable(d);
                     }
                 }).build();

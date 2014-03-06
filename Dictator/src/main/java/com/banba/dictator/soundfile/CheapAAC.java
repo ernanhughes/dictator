@@ -47,8 +47,6 @@ public class CheapAAC extends CheapSoundFile {
         public byte[] data;
     }
 
-    ;
-
     public static final int kDINF = 0x64696e66;
     public static final int kFTYP = 0x66747970;
     public static final int kHDLR = 0x68646c72;
@@ -765,4 +763,4 @@ public class CheapAAC extends CheapSoundFile {
      c.WriteFile(new File(""),
      0, c.getNumFrames());
      } **/
-};
+}

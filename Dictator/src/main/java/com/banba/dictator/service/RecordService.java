@@ -97,6 +97,7 @@ public class RecordService extends Service {
                     try {
                         mRecorder.stop(); // illegal state
                     } catch (Exception ex) {
+                        L.e(ex.getMessage());
                     }
                     mRecorder.reset();
                     mRecorder.release();

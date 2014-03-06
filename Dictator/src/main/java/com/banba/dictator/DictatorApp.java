@@ -8,5 +8,4 @@ import com.banba.dictator.lib.BaseApplication;
  */
 public class DictatorApp extends BaseApplication {
     public static final String DATABASE_NAME = "director.db";
-
 }

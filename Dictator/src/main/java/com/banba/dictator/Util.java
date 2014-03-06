@@ -36,9 +36,9 @@ public class Util {
     public static final String FILE_NAME = "Uri";
     public static final String POSITION = "Position";
     public static final String DURATION = "Duration";
-    public static final String VISUALISER = "Visualiser";
     public static final String AMPLITUDE = "Amplitude";
-    public static final String EMA = "EMA";
+    public static final String RECORDING = "Recording";
+
 
     public static String getDatabaseName() {
         return DictatorApp.DATABASE_NAME;
@@ -80,39 +80,39 @@ public class Util {
         return results;
     }
 
-    public static void saveRecording(Context context, Recording recording) {
+    public static long saveRecording(Context context, Recording recording) {
         L.d("Saving recording:  " + recording.getName());
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, getDatabaseName(), null);
         DaoMaster daoMaster = new DaoMaster(helper.getWritableDatabase());
         DaoSession session = daoMaster.newSession();
         RecordingDao dataDao = session.getRecordingDao();
-        dataDao.insert(recording);
+        long result = dataDao.insert(recording);
         helper.close();
+        return result;
     }
 
-    public static void deleteRecording(Context context, Recording recording) {
+    public static boolean deleteRecording(Context context, Recording recording) {
         L.d("Deleting recording: " + recording.getId() + "  " + recording.getName());
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, getDatabaseName(), null);
         DaoMaster daoMaster = new DaoMaster(helper.getWritableDatabase());
         DaoSession session = daoMaster.newSession();
         RecordingDao dataDao = session.getRecordingDao();
         File file = new File(recording.getFileName());
+        boolean result = false;
         try {
-            boolean deleted = file.getCanonicalFile().delete();
+            result = file.getCanonicalFile().delete();
         } catch (IOException e) {
             L.e(e.getMessage());
         }
         dataDao.delete(recording);
         helper.close();
+        return result;
     }
 
     public static boolean isValidMediaFile(String path) {
         L.d("Is Valid Media : " + path);
         File f = new File(path);
-        if (f.exists() && f.length() > 10) {
-            return true;
-        }
-        return false;
+        return f.exists() && f.length() > 10;
     }
 
     public static void renameRecording(Context context, Recording recording, String newName) {

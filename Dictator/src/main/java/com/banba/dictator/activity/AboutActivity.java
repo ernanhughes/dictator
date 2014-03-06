@@ -13,7 +13,7 @@ import com.banba.dictator.fragment.AboutFragment;
  */
 public class AboutActivity extends BaseActivity {
 
-    AboutFragment aboutFragment;
+    private AboutFragment aboutFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

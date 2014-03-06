@@ -162,8 +162,7 @@ public class CheapMP3 extends CheapSoundFile {
             if (bufferOffset > 0) {
                 // We didn't find a sync code (0xFF) at position 0;
                 // shift the buffer over and try again
-                for (int i = 0; i < 12 - bufferOffset; i++)
-                    buffer[i] = buffer[bufferOffset + i];
+                System.arraycopy(buffer, bufferOffset + 0, buffer, 0, 12 - bufferOffset);
                 pos += bufferOffset;
                 offset = 12 - bufferOffset;
                 continue;
@@ -177,8 +176,7 @@ public class CheapMP3 extends CheapSoundFile {
                 mpgVersion = 2;
             } else {
                 bufferOffset = 1;
-                for (int i = 0; i < 12 - bufferOffset; i++)
-                    buffer[i] = buffer[bufferOffset + i];
+                System.arraycopy(buffer, bufferOffset + 0, buffer, 0, 12 - bufferOffset);
                 pos += bufferOffset;
                 offset = 12 - bufferOffset;
                 continue;
@@ -199,8 +197,7 @@ public class CheapMP3 extends CheapSoundFile {
 
             if (bitRate == 0 || sampleRate == 0) {
                 bufferOffset = 2;
-                for (int i = 0; i < 12 - bufferOffset; i++)
-                    buffer[i] = buffer[bufferOffset + i];
+                System.arraycopy(buffer, bufferOffset + 0, buffer, 0, 12 - bufferOffset);
                 pos += bufferOffset;
                 offset = 12 - bufferOffset;
                 continue;
@@ -322,4 +319,4 @@ public class CheapMP3 extends CheapSoundFile {
             44100, 48000, 32000, 0};
     static private int SAMPLERATES_MPEG2_L3[] = {
             22050, 24000, 16000, 0};
-};
+}

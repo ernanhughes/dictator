@@ -35,8 +35,6 @@ public class ExceptionDataDao extends AbstractDao<ExceptionData, Long> {
         public final static Property ThrowMethodName = new Property(10, String.class, "throwMethodName", false, "THROW_METHOD_NAME");
     }
 
-    ;
-
 
     public ExceptionDataDao(DaoConfig config) {
         super(config);

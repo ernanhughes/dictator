@@ -31,8 +31,6 @@ public class RecordingDao extends AbstractDao<Recording, Long> {
         public final static Property EndTime = new Property(6, java.util.Date.class, "endTime", false, "END_TIME");
     }
 
-    ;
-
 
     public RecordingDao(DaoConfig config) {
         super(config);

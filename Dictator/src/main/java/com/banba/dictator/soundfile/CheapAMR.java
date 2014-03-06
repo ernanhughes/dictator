@@ -1038,4 +1038,4 @@ public class CheapAMR extends CheapSoundFile {
      c.WriteFile(new File(""),
      0, c.getNumFrames());
      } **/
-};
+}

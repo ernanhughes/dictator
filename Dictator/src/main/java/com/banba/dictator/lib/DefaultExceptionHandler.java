@@ -32,7 +32,7 @@ public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler 
     private Thread.UncaughtExceptionHandler defaultExceptionHandler;
 
     // constructor
-    public DefaultExceptionHandler(Thread.UncaughtExceptionHandler pDefaultExceptionHandler) {
+    private DefaultExceptionHandler(Thread.UncaughtExceptionHandler pDefaultExceptionHandler) {
         defaultExceptionHandler = pDefaultExceptionHandler;
     }
 

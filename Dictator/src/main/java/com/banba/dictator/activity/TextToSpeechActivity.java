@@ -11,7 +11,7 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import com.banba.dictator.R;
 import com.banba.dictator.lib.L;
@@ -24,7 +24,7 @@ public class TextToSpeechActivity extends Activity implements
     private static final int MY_DATA_CHECK_CODE = 2534;
     private TextToSpeech tts;
     private Button btnSpeak;
-    private EditText txtText;
+    private TextView txtText;
     private String lastTextToSpeak;
 
     private static final HashMap<String, String> ttsParams = new HashMap<String, String>();
@@ -42,7 +42,7 @@ public class TextToSpeechActivity extends Activity implements
 
         tts = new TextToSpeech(this, this);
         btnSpeak = (Button) findViewById(R.id.btnSpeak);
-        txtText = (EditText) findViewById(R.id.txtText);
+        txtText = (TextView) findViewById(R.id.txtText);
         btnSpeak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {

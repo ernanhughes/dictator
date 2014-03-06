@@ -1,5 +1,7 @@
 package com.banba.dictator.lib.util;
 
+import android.text.format.DateFormat;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -10,12 +12,12 @@ import java.util.concurrent.TimeUnit;
  */
 public class DateTimeUtil {
 
-    static final String FILE_NAME_FORMAT = "yyMMddHHmmss";
-    static final String DATE_FORMAT = "yy-MM-dd HH:mm:ss";
-    static final String SHORT_DATE_FORMAT = "yy-MM-dd";
-    static final String SQL_DATE_FORMAT = "yy-MM-dd";
-    static final String TIME_FORMAT = "HH:mm:ss";
-    static final String DATE_TIME_FORMAT = "yy-MM-dd HH:mm";
+    private static final String FILE_NAME_FORMAT = "yyMMddHHmmss";
+    private static final String DATE_FORMAT = "yy-MM-dd HH:mm:ss";
+    private static final String SHORT_DATE_FORMAT = "yy-MM-dd";
+    private static final String SQL_DATE_FORMAT = "yy-MM-dd";
+    private static final String TIME_FORMAT = "HH:mm:ss";
+    private static final String DATE_TIME_FORMAT = "yy-MM-dd HH:mm";
 
     public enum TimeOfDay {
         Morning,
@@ -36,7 +38,7 @@ public class DateTimeUtil {
         return TimeOfDay.Night;
     }
 
-    public static String formatTime(int seconds) {
+    private static String formatTime(int seconds) {
         return Integer.toString(seconds / 60) + ":" + padWithZeros(seconds % 60);
     }
 
@@ -46,17 +48,17 @@ public class DateTimeUtil {
 
     public static String shortSQLDate(Date date) {
         android.text.format.DateFormat df = new android.text.format.DateFormat();
-        return String.valueOf(df.format(SQL_DATE_FORMAT, date));
+        return String.valueOf(DateFormat.format(SQL_DATE_FORMAT, date));
     }
 
     public static String getTime(Date date) {
         android.text.format.DateFormat df = new android.text.format.DateFormat();
-        return String.valueOf(df.format(TIME_FORMAT, date));
+        return String.valueOf(DateFormat.format(TIME_FORMAT, date));
     }
 
     public static String getDateTime(Date date) {
         android.text.format.DateFormat df = new android.text.format.DateFormat();
-        return String.valueOf(df.format(DATE_TIME_FORMAT, date));
+        return String.valueOf(DateFormat.format(DATE_TIME_FORMAT, date));
     }
 
 
@@ -66,7 +68,7 @@ public class DateTimeUtil {
 
     public static String shortDateFormat(Date date) {
         android.text.format.DateFormat df = new android.text.format.DateFormat();
-        return String.valueOf(df.format(SHORT_DATE_FORMAT, date));
+        return String.valueOf(DateFormat.format(SHORT_DATE_FORMAT, date));
     }
 
     public static String shortTimeFormat(long timeToFormat) {
@@ -98,12 +100,12 @@ public class DateTimeUtil {
 
     public static String normalDateFormat(Date date) {
         android.text.format.DateFormat df = new android.text.format.DateFormat();
-        return String.valueOf(df.format(DATE_FORMAT, date));
+        return String.valueOf(DateFormat.format(DATE_FORMAT, date));
     }
 
     public static String shortFileNameFormat(Date date) {
         android.text.format.DateFormat df = new android.text.format.DateFormat();
-        return String.valueOf(df.format(FILE_NAME_FORMAT, date));
+        return String.valueOf(DateFormat.format(FILE_NAME_FORMAT, date));
     }
 
     public static String milliSecondsToTimer(long milliseconds) {
@@ -159,7 +161,7 @@ public class DateTimeUtil {
      */
     public static int progressToTimer(int progress, int totalDuration) {
         int currentDuration = 0;
-        totalDuration = (int) (totalDuration / 1000);
+        totalDuration = (totalDuration / 1000);
         currentDuration = (int) ((((double) progress) / 100) * totalDuration);
         return currentDuration * 1000;
     }

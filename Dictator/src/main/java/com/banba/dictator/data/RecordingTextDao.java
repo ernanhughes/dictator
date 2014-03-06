@@ -28,8 +28,6 @@ public class RecordingTextDao extends AbstractDao<RecordingText, Long> {
         public final static Property Words = new Property(3, String.class, "words", false, "WORDS");
     }
 
-    ;
-
 
     public RecordingTextDao(DaoConfig config) {
         super(config);

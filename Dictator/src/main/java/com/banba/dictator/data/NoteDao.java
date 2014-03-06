@@ -30,8 +30,6 @@ public class NoteDao extends AbstractDao<Note, Long> {
         public final static Property Note_date = new Property(5, java.util.Date.class, "note_date", false, "NOTE_DATE");
     }
 
-    ;
-
 
     public NoteDao(DaoConfig config) {
         super(config);

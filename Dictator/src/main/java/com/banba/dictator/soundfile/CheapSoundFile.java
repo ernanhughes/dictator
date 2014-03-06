@@ -233,4 +233,4 @@ public class CheapSoundFile {
     public void WriteFile(File outputFile, int startFrame, int numFrames)
             throws java.io.IOException {
     }
-};
+}

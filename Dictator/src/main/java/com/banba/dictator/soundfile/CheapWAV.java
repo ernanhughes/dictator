@@ -304,4 +304,4 @@ public class CheapWAV extends CheapSoundFile {
         in.close();
         out.close();
     }
-};
+}

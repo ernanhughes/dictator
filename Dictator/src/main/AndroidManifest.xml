@@ -9,7 +9,7 @@
 
     <uses-feature
         android:name="android.hardware.microphone"
-        android:required="true"></uses-feature>
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -55,6 +55,9 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".activity.PlayActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".activity.BanbaActivity"
             android:parentActivityName=".MainActivity" />
 
 

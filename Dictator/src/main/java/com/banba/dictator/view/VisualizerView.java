@@ -36,11 +36,11 @@ import java.util.Set;
  */
 public class VisualizerView extends View {
     private static final String TAG = "VisualizerView";
-
-    private byte[] mBytes;
-    private byte[] mFFTBytes;
     private Rect mRect = new Rect();
     private Visualizer mVisualizer;
+    AudioData mAudioData = null;
+    FFTData mFftData = null;
+    Matrix mMatrix = new Matrix();
 
     private Set<Renderer> mRenderers;
 
@@ -61,9 +61,6 @@ public class VisualizerView extends View {
     }
 
     private void init() {
-        mBytes = null;
-        mFFTBytes = null;
-
         mFlashPaint.setColor(Color.argb(122, 255, 255, 255));
         mFadePaint.setColor(Color.argb(238, 255, 255, 255)); // Adjust alpha to change how quickly the image fades
         mFadePaint.setXfermode(new PorterDuffXfermode(Mode.MULTIPLY));
@@ -140,6 +137,7 @@ public class VisualizerView extends View {
     @Override
     protected void onDetachedFromWindow() {
         release();
+        super.onDetachedFromWindow();
     }
 
     /**
@@ -150,7 +148,9 @@ public class VisualizerView extends View {
      * @param bytes
      */
     public void updateVisualizer(byte[] bytes) {
-        mBytes = bytes;
+        if (bytes != null) {
+            mAudioData = new AudioData(bytes);
+        }
         invalidate();
     }
 
@@ -162,7 +162,10 @@ public class VisualizerView extends View {
      * @param bytes
      */
     public void updateVisualizerFFT(byte[] bytes) {
-        mFFTBytes = bytes;
+        if (bytes != null) {
+            mFftData = new FFTData(bytes);
+        }
+
         invalidate();
     }
 
@@ -184,7 +187,6 @@ public class VisualizerView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
         // Create canvas once we're ready to draw
         mRect.set(0, 0, getWidth(), getHeight());
 
@@ -195,30 +197,24 @@ public class VisualizerView extends View {
             mCanvas = new Canvas(mCanvasBitmap);
         }
 
-        if (mBytes != null) {
-            // Render all audio renderers
-            AudioData audioData = new AudioData(mBytes);
+        if (mAudioData != null) {
             for (Renderer r : mRenderers) {
-                r.render(mCanvas, audioData, mRect);
+                r.render(mCanvas, mAudioData, mRect);
             }
         }
 
-        if (mFFTBytes != null) {
-            // Render all FFT renderers
-            FFTData fftData = new FFTData(mFFTBytes);
+        if (mFftData != null) {
             for (Renderer r : mRenderers) {
-                r.render(mCanvas, fftData, mRect);
+                r.render(mCanvas, mFftData, mRect);
             }
         }
 
         // Fade out old contents
         mCanvas.drawPaint(mFadePaint);
-
         if (mFlash) {
             mFlash = false;
             mCanvas.drawPaint(mFlashPaint);
         }
-
-        canvas.drawBitmap(mCanvasBitmap, new Matrix(), null);
+        canvas.drawBitmap(mCanvasBitmap, mMatrix, null);
     }
 }

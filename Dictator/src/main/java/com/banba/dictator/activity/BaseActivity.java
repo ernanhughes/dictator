@@ -14,6 +14,7 @@ import com.banba.dictator.R;
 import com.banba.dictator.Util;
 import com.banba.dictator.event.PlayRecordingEvent;
 import com.banba.dictator.event.SectionEvent;
+import com.banba.dictator.lib.L;
 
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.SubscriberExceptionEvent;
@@ -116,8 +117,9 @@ public abstract class BaseActivity extends Activity {
     }
 
     public void onEvent(SubscriberExceptionEvent event) {
-
+        L.e(event.toString());
     }
+
 
     public int getActionBarTitleResourceId() {
         return R.string.app_name;

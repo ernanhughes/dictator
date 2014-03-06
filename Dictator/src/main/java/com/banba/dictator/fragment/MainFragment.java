@@ -36,26 +36,45 @@ import de.greenrobot.event.EventBus;
  */
 public class MainFragment extends Fragment implements View.OnClickListener {
     TextView mRecordText;
-    ViewSwitcher viewSwitcher;
     AudioEventView eventView;
+    boolean isRecording = false;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         final ImageView mRecordButton = (ImageButton) rootView.findViewById(R.id.iconRecord);
+        if (savedInstanceState != null && savedInstanceState.getSerializable(Util.RECORDING) != null) {
+            isRecording = savedInstanceState.getBoolean(Util.RECORDING);
+        }
 
+        final ViewSwitcher viewSwitcher = (ViewSwitcher) rootView.findViewById(R.id.viewSwitcher);
+
+        final Animation inAnimRight = AnimationUtils.loadAnimation(getActivity(),
+                R.anim.grow_from_bottom);
+        final Animation outAnimRight = AnimationUtils.loadAnimation(getActivity(),
+                R.anim.fragment_slide_left_exit);
+        viewSwitcher.setInAnimation(inAnimRight);
+        viewSwitcher.setOutAnimation(outAnimRight);
         final View firstView = rootView.findViewById(R.id.mainLayout);
         final View secondView = rootView.findViewById(R.id.recordingFeedbackLayout);
+        if (isRecording) {
+            if (viewSwitcher.getCurrentView() != secondView) {
+                viewSwitcher.showNext();
+            }
+        } else {
+            if (viewSwitcher.getCurrentView() != firstView) {
+                viewSwitcher.showPrevious();
+            }
+        }
 
         mRecordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mRecordButton.setImageResource(R.drawable.record_start_half_selected);
                 if (viewSwitcher.getCurrentView() != secondView) {
                     viewSwitcher.showNext();
                 }
-
+                isRecording = true;
                 EventBus.getDefault().post(new RecordEvent(RecordEvent.Action.Start));
             }
         });
@@ -69,22 +88,11 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 mRecordButton.setImageResource(R.drawable.record_start_half);
                 getActivity().getActionBar().setTitle(R.string.app_name);
                 EventBus.getDefault().post(new RecordEvent(RecordEvent.Action.Stop));
+                isRecording = false;
             }
         });
 
         mRecordText = (TextView) rootView.findViewById(R.id.textRecord);
-        viewSwitcher = (ViewSwitcher) rootView.findViewById(R.id.viewSwitcher);
-        final Animation inAnimRight = AnimationUtils.loadAnimation(getActivity(),
-                R.anim.grow_from_bottom);
-//        final Animation outAnimLeft = AnimationUtils.loadAnimation(getActivity(),
-//                R.anim.grow_from_top);
-//        final Animation inAnimLeft = AnimationUtils.loadAnimation(getActivity(),
-//                R.anim.fragment_slide_left_enter);
-        final Animation outAnimRight = AnimationUtils.loadAnimation(getActivity(),
-                R.anim.fragment_slide_left_exit);
-        viewSwitcher.setInAnimation(inAnimRight);
-        viewSwitcher.setOutAnimation(outAnimRight);
-
         eventView = (AudioEventView) rootView.findViewById(R.id.eventView);
 
         Intent ps = new Intent(getActivity(), RecordService.class);
@@ -105,6 +113,11 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         getActivity().unregisterReceiver(broadcastReceiver);
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putBoolean(Util.RECORDING, isRecording);
+    }
 
     public void onClick(View view) {
         ImageButton button = (ImageButton) view;
@@ -141,9 +154,4 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             mRecordText.setText(text);
         }
     };
-
-    public void onDestroy() {
-        EventBus.getDefault().post(new RecordEvent(RecordEvent.Action.Stop));
-        super.onDestroy();
-    }
 }

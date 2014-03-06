@@ -15,6 +15,7 @@ import com.banba.dictator.data.DaoMaster;
 import com.banba.dictator.data.DaoSession;
 import com.banba.dictator.data.ExceptionData;
 import com.banba.dictator.data.ExceptionDataDao;
+import com.banba.dictator.lib.L;
 import com.banba.dictator.lib.adapter.Binder;
 import com.banba.dictator.lib.adapter.SimpleAdapter;
 import com.banba.dictator.lib.adapter.interfaces.StringExtractor;
@@ -163,6 +164,7 @@ public class ExceptionActivity extends Activity {
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             httpclient.execute(httppost);
         } catch (Exception e) {
+            L.e(e.getMessage());
         }
     }
 

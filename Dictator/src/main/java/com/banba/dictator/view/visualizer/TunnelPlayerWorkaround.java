@@ -13,6 +13,7 @@ import android.media.MediaPlayer;
 import android.util.Log;
 
 import com.banba.dictator.R;
+import com.banba.dictator.lib.L;
 
 public class TunnelPlayerWorkaround {
     private static final String TAG = "TunnelPlayerWorkaround";
@@ -58,6 +59,7 @@ public class TunnelPlayerWorkaround {
                 try {
                     mp.release();
                 } catch (IllegalStateException e) {
+                    L.e(e.getMessage());
                 }
             }
         }

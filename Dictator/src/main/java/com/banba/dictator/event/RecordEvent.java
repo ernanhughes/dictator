@@ -10,8 +10,6 @@ public class RecordEvent {
         Stop
     }
 
-    ;
-
     public Action action;
 
     public RecordEvent(Action action) {

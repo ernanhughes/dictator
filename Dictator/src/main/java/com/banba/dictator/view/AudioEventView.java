@@ -85,19 +85,13 @@ public class AudioEventView extends ImageButton {
     protected void onDraw(Canvas canvas) {
         final int viewWidth = getWidth();
         final int viewHeight = getHeight();
-
-        int xPos = (canvas.getWidth() / 2);
-        int yPos = (int) ((canvas.getHeight() / 2) - ((textPaint.descent() + textPaint.ascent()) / 2));
-
         final int usedWidth = viewWidth / 2;
-
         int size = readings.size();
         int barWidth = size == 0 ? 1 : usedWidth / size;
-
         for (int i = 0; i < usedWidth && i < size; ++i) {
             final int height = getHeightForSoundLevel(readings.get(i), viewHeight);
             final int lineStart = (viewHeight - height) / 2;
-            canvas.drawText("Max:  " + max, xPos, yPos, textPaint);
+            canvas.drawText("Max:  " + max, 10, 10, textPaint);
             //public void drawRect(float left, float top, float right, float bottom, Paint paint) {
 
             int left = i * barWidth;

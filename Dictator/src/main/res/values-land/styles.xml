@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.MainPageIconText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/title_section_textSize</item>
+        <item name="android:layout_marginLeft">@dimen/title_section_margin</item>
+        <item name="android:layout_marginRight">@dimen/title_section_margin</item>
+        <item name="android:layout_marginBottom">@dimen/title_section_margin_bottom</item>
+        <item name="android:layout_marginTop">@dimen/title_section_margin_top</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/icon_font_color</item>
+    </style>
+</resources>
