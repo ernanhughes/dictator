@@ -17,7 +17,6 @@ import com.banba.dictator.R;
 import com.banba.dictator.Util;
 import com.banba.dictator.data.Recording;
 import com.banba.dictator.event.PlayRecordingEvent;
-import com.banba.dictator.lib.ColorUtil;
 import com.banba.dictator.lib.L;
 import com.banba.dictator.lib.adapter.Binder;
 import com.banba.dictator.lib.adapter.SimpleAdapter;
@@ -141,8 +140,6 @@ public class PlayListFragment extends Fragment {
         cardsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ImageView iv = (ImageView) view.findViewById(android.R.id.icon);
-                ColorUtil.applyTempNegativeColorFilter(iv.getDrawable());
                 EventBus.getDefault().post(new PlayRecordingEvent(items.get(position)));
             }
         });

@@ -1,18 +1,37 @@
 package com.banba.dictator.activity;
 
+import android.app.Fragment;
+import android.os.Bundle;
+import android.view.View;
+
 import com.banba.dictator.R;
-import com.banba.dictator.lib.activity.WebPageActivity;
+import com.banba.dictator.fragment.AboutFragment;
 
 /**
  * Created by Ernan on 29/01/14.
  * Copyrite Banba Inc. 2013.
  */
-public class AboutActivity extends WebPageActivity {
+public class AboutActivity extends BaseActivity {
+
+    AboutFragment aboutFragment;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        aboutFragment = new AboutFragment();
+        super.onCreate(savedInstanceState);
+    }
+
+    public void onClick(View view) {
+        aboutFragment.onClick(view);
+    }
+
+
     protected int getPageTitle() {
         return R.string.about;
     }
 
-    protected String getPath() {
-        return "file:///android_asset/banba.html";
+    @Override
+    public Fragment getFragment() {
+        return aboutFragment;
     }
 }

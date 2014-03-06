@@ -18,6 +18,7 @@ import com.banba.dictator.data.ExceptionDataDao;
 import com.banba.dictator.lib.adapter.Binder;
 import com.banba.dictator.lib.adapter.SimpleAdapter;
 import com.banba.dictator.lib.adapter.interfaces.StringExtractor;
+import com.banba.dictator.lib.util.DateTimeUtil;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -54,7 +55,7 @@ public class ExceptionActivity extends Activity {
                 .addString(R.id.timeText, new StringExtractor<ExceptionData>() {
                     @Override
                     public String getStringValue(ExceptionData item, int position) {
-                        return new Date(item.getExceptionTime()).toString();
+                        return DateTimeUtil.normalDateFormat(new Date(item.getExceptionTime()));
                     }
                 })
                 .addString(R.id.exceptionMessage, new StringExtractor<ExceptionData>() {
@@ -155,14 +156,13 @@ public class ExceptionActivity extends Activity {
 
     public void postData(ExceptionData data) {
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("https://www.oursite.com/domainchecker.php");
+        HttpPost httppost = new HttpPost("https://banba.ca/exceptions.php");
         try {
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
             nameValuePairs.add(new BasicNameValuePair("id", data.getExceptionClassName()));
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             httpclient.execute(httppost);
         } catch (Exception e) {
-
         }
     }
 

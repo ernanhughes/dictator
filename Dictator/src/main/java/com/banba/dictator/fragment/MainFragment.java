@@ -21,12 +21,9 @@ import android.widget.ViewSwitcher;
 
 import com.banba.dictator.R;
 import com.banba.dictator.Util;
-import com.banba.dictator.activity.ApacheActivity;
 import com.banba.dictator.activity.SearchActivity;
 import com.banba.dictator.event.RecordEvent;
 import com.banba.dictator.event.SectionEvent;
-import com.banba.dictator.lib.ColorUtil;
-import com.banba.dictator.lib.activity.ExceptionActivity;
 import com.banba.dictator.lib.util.DateTimeUtil;
 import com.banba.dictator.service.RecordService;
 import com.banba.dictator.view.AudioEventView;
@@ -56,11 +53,11 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             public void onClick(View v) {
                 mRecordButton.setImageResource(R.drawable.record_start_half_selected);
                 if (viewSwitcher.getCurrentView() != secondView) {
-                        viewSwitcher.showNext();
-                    }
-
-                    EventBus.getDefault().post(new RecordEvent(RecordEvent.Action.Start));
+                    viewSwitcher.showNext();
                 }
+
+                EventBus.getDefault().post(new RecordEvent(RecordEvent.Action.Start));
+            }
         });
         final ImageView mStopRecordButton = (ImageButton) rootView.findViewById(R.id.iconStopRecording);
         mStopRecordButton.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +109,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         ImageButton button = (ImageButton) view;
         String tag = (String) button.getTag();
-        ColorUtil.applyTempNegativeColorFilter(button.getDrawable());
         EventBus.getDefault().post(new SectionEvent(tag));
     }
 
@@ -127,16 +123,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         }
         if (id == R.id.menu_item_search) {
             Intent search = new Intent(getActivity(), SearchActivity.class);
-            startActivity(search);
-            return true;
-        }
-        if (id == R.id.menu_item_ex) {
-            Intent search = new Intent(getActivity(), ExceptionActivity.class);
-            startActivity(search);
-            return true;
-        }
-        if (id == R.id.menu_item_apache) {
-            Intent search = new Intent(getActivity(), ApacheActivity.class);
             startActivity(search);
             return true;
         }

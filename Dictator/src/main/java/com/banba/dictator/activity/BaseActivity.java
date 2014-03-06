@@ -14,7 +14,6 @@ import com.banba.dictator.R;
 import com.banba.dictator.Util;
 import com.banba.dictator.event.PlayRecordingEvent;
 import com.banba.dictator.event.SectionEvent;
-import com.banba.dictator.lib.activity.ExceptionActivity;
 
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.SubscriberExceptionEvent;
@@ -86,16 +85,6 @@ public abstract class BaseActivity extends Activity {
             startActivity(search);
             return true;
         }
-        if (id == R.id.menu_item_ex) {
-            Intent search = new Intent(this, ExceptionActivity.class);
-            startActivity(search);
-            return true;
-        }
-//        if (id == R.id.menu_item_command) {
-//            Intent activity_search = new Intent(this, RunCommandActivity.class);
-//            startActivity(activity_search);
-//            return true;
-//        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -119,9 +108,6 @@ public abstract class BaseActivity extends Activity {
             startActivity(i);
         } else if (SectionEvent.CALENDAR.equalsIgnoreCase(event.section)) {
             Intent i = new Intent(this, CalendarActivity.class);
-            startActivity(i);
-        } else if (SectionEvent.HELP.equalsIgnoreCase(event.section)) {
-            Intent i = new Intent(this, HelpActivity.class);
             startActivity(i);
         } else if (SectionEvent.ABOUT.equalsIgnoreCase(event.section)) {
             Intent i = new Intent(this, AboutActivity.class);
