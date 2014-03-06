@@ -10,19 +10,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/card_inner"
-        android:id="@+id/mainLayout"
         android:orientation="vertical">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/mainLayout"
             android:orientation="vertical">
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:baselineAligned="false"
                 android:orientation="horizontal">
 
                 <RelativeLayout
@@ -33,16 +32,16 @@
                     <ImageButton
                         style="@style/AppTheme.MainPageIcon"
                         android:tag="Help"
-                        android:id="@+id/iconManage"
+                        android:id="@+id/iconHelp"
                         android:onClick="onClick"
                         android:src="@drawable/button_help" />
 
                     <TextView
-                        android:layout_below="@+id/iconManage"
+                        android:layout_below="@+id/iconHelp"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         style="@style/AppTheme.MainPageIconText"
-                        android:text="HELP" />
+                        android:text="@string/help" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -62,7 +61,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         style="@style/AppTheme.MainPageIconText"
-                        android:text="APPS" />
+                        android:text="@string/apps" />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -71,6 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:baselineAligned="false"
                 android:orientation="horizontal">
 
                 <RelativeLayout
@@ -81,16 +81,16 @@
                     <ImageButton
                         style="@style/AppTheme.MainPageIcon"
                         android:tag="Licence"
-                        android:id="@+id/iconManage"
+                        android:id="@+id/iconApps"
                         android:onClick="onClick"
                         android:src="@drawable/button_apps" />
 
                     <TextView
-                        android:layout_below="@+id/iconManage"
+                        android:layout_below="@+id/iconApps"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         style="@style/AppTheme.MainPageIconText"
-                        android:text="LICENCE" />
+                        android:text="@string/licence" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -110,7 +110,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         style="@style/AppTheme.MainPageIconText"
-                        android:text="BUGS" />
+                        android:text="@string/bugs" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -118,6 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:baselineAligned="false"
                 android:orientation="horizontal">
 
                 <RelativeLayout
@@ -137,7 +138,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         style="@style/AppTheme.MainPageIconText"
-                        android:text="RATE" />
+                        android:text="@string/rate" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -157,7 +158,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         style="@style/AppTheme.MainPageIconText"
-                        android:text="CONTACT US" />
+                        android:text="@string/contact_us" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

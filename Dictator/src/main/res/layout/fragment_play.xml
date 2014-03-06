@@ -17,9 +17,7 @@
             style="@style/card_inner"
             android:orientation="horizontal">
 
-            <RelativeLayout
-                android:id="@+id/titleFrame"
-                style="@style/card_title_frame">
+            <RelativeLayout style="@style/card_title_frame">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -29,7 +27,7 @@
                     android:textStyle="bold"
                     style="@style/AppTheme.HeaderText"
                     android:id="@+id/recordingTitle"
-                    android:text="File Name" />
+                    android:text="@string/file_name" />
 
             </RelativeLayout>
         </LinearLayout>
@@ -140,7 +138,7 @@
             <com.banba.dictator.view.VisualizerView
                 android:id="@+id/visualizerView"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"></com.banba.dictator.view.VisualizerView>
+                android:layout_height="fill_parent" />
         </LinearLayout>
     </LinearLayout>
 

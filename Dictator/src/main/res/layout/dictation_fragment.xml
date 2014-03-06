@@ -2,5 +2,5 @@
     android:id="@+id/dictationStateButton"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:contentDescription="Control"
+    android:contentDescription="@string/control"
     android:src="@drawable/white" />

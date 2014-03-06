@@ -17,7 +17,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Speak"
+        android:text="@string/speak"
         android:id="@+id/btnSpeak"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.49" />

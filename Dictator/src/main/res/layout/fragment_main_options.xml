@@ -7,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -17,16 +18,16 @@
             <ImageButton
                 style="@style/AppTheme.MainPageIcon"
                 android:tag="PlayList"
-                android:id="@+id/iconManage"
+                android:id="@+id/iconPlay"
                 android:onClick="onClick"
                 android:src="@drawable/button_play_main" />
 
             <TextView
-                android:layout_below="@+id/iconManage"
+                android:layout_below="@+id/iconPlay"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 style="@style/AppTheme.MainPageIconText"
-                android:text="PLAY" />
+                android:text="@string/play" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -46,7 +47,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 style="@style/AppTheme.MainPageIconText"
-                android:text="RECORDINGS" />
+                android:text="@string/recordings" />
         </RelativeLayout>
 
     </LinearLayout>
@@ -55,6 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -74,7 +76,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 style="@style/AppTheme.MainPageIconText"
-                android:text="MANAGE" />
+                android:text="@string/manage" />
         </RelativeLayout>
 
         <RelativeLayout

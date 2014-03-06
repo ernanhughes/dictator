@@ -8,14 +8,14 @@
         android:id="@+id/game_difficulty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Easy"
+        android:text="@string/easy"
         android:textSize="12sp" />
 
     <TextView
         android:id="@+id/game_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Easy Game 1"
+        android:text="@string/easy_game_1"
         android:textSize="16sp" />
 
     <ImageView
