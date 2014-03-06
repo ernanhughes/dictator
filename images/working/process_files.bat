@@ -14,5 +14,5 @@ FOR %%x IN (*.png) DO pngout.exe %%x
 mkdir "D:\Users\Ernan\AndroidStudioProjects\DictatorProject\Dictator\src\main\res\"%arg3%
 move *.png "D:\Users\Ernan\AndroidStudioProjects\DictatorProject\Dictator\src\main\res\"%arg3% 
 
-copy /Y *.svg "D:\Users\Ernan\AndroidStudioProjects\DictatorProject\images\svg"
+REM copy /Y *.svg "D:\Users\Ernan\AndroidStudioProjects\DictatorProject\images\svg"
  
