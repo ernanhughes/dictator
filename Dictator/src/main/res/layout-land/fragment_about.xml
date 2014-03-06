@@ -11,19 +11,18 @@
         android:layout_height="wrap_content"
         style="@style/card_inner"
         android:gravity="center"
-        android:id="@+id/mainLayout"
         android:orientation="vertical">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/mainLayout"
             android:orientation="vertical">
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:baselineAligned="false"
                 android:orientation="horizontal">
 
                 <RelativeLayout
@@ -43,7 +42,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         style="@style/AppTheme.MainPageIconText"
-                        android:text="HELP" />
+                        android:text="@string/help" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -63,7 +62,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         style="@style/AppTheme.MainPageIconText"
-                        android:text="APPS" />
+                        android:text="@string/apps" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -83,7 +82,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         style="@style/AppTheme.MainPageIconText"
-                        android:text="LICENCE" />
+                        android:text="@string/licence" />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -92,6 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:baselineAligned="false"
                 android:orientation="horizontal">
 
                 <RelativeLayout
@@ -111,7 +111,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         style="@style/AppTheme.MainPageIconText"
-                        android:text="BUGS" />
+                        android:text="@string/bugs" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -122,16 +122,16 @@
                     <ImageButton
                         style="@style/AppTheme.MainPageIcon"
                         android:tag="Rate"
-                        android:id="@+id/iconManage"
+                        android:id="@+id/iconRate"
                         android:onClick="onClick"
                         android:src="@drawable/button_rate" />
 
                     <TextView
-                        android:layout_below="@+id/iconManage"
+                        android:layout_below="@+id/iconRate"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         style="@style/AppTheme.MainPageIconText"
-                        android:text="RATE" />
+                        android:text="@string/rate" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -141,17 +141,17 @@
 
                     <ImageButton
                         style="@style/AppTheme.MainPageIcon"
-                        android:id="@+id/iconAbout"
+                        android:id="@+id/iconContactus"
                         android:tag="Contactus"
                         android:onClick="onClick"
                         android:src="@drawable/button_contactus" />
 
                     <TextView
-                        android:layout_below="@+id/iconAbout"
+                        android:layout_below="@+id/iconContactus"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         style="@style/AppTheme.MainPageIconText"
-                        android:text="CONTACT US" />
+                        android:text="@string/contact_us" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
