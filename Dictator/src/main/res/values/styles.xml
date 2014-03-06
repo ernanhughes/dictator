@@ -146,6 +146,14 @@
         <item name="android:layout_toRightOf">@android:id/icon</item>
     </style>
 
+    <style name="card_expand_inner_layout">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
     <style name="card_title">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -156,6 +164,27 @@
         <item name="android:singleLine">true</item>
         <item name="android:layout_centerVertical">true</item>
     </style>
+
+    <style name="detail_header">
+        <item name="android:textSize">@dimen/card_subheader</item>
+        <item name="android:textColor">@color/card_text_color_header</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="detail_item">
+        <item name="android:textSize">@dimen/card_content</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
 
     <style name="card_popup_anchor">
         <item name="android:layout_width">wrap_content</item>

@@ -1,7 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/mainLayout"
     android:orientation="vertical">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -47,7 +46,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 style="@style/AppTheme.MainPageIconText"
-                android:text="HISTORY" />
+                android:text="RECORDINGS" />
         </RelativeLayout>
 
     </LinearLayout>
