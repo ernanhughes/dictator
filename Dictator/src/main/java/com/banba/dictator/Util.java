@@ -38,6 +38,8 @@ public class Util {
     public static final String DURATION = "Duration";
     public static final String AMPLITUDE = "Amplitude";
     public static final String RECORDING = "Recording";
+    public static final String EMA = "EMA";
+    public static final String RMS = "RMS";
 
 
     public static String getDatabaseName() {

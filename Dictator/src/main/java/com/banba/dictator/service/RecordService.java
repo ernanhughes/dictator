@@ -40,6 +40,8 @@ public class RecordService extends Service {
         intent = new Intent(BROADCAST_ACTION);
     }
 
+    //    static double mEMA = 0.0;
+//    static final private double EMA_FILTER = 0.6;
     public void updateRecordingInfo() {
         Bundle b = new Bundle();
         long now = SystemClock.uptimeMillis();
@@ -47,9 +49,15 @@ public class RecordService extends Service {
         b.putLong(Util.DURATION, totalTime);
         int amp = mRecorder.getMaxAmplitude();
         b.putInt(Util.AMPLITUDE, amp);
+//        mEMA = EMA_FILTER * amp + (1.0 - EMA_FILTER) * mEMA;
+//        b.putDouble(Util.EMA, mEMA);
+//        double rms = 10*Math.pow(10, ((double)mEMA/(double)10));
+//        b.putDouble(Util.RMS, rms);
+
         intent.putExtras(b);
         sendBroadcast(intent);
     }
+
 
     private Runnable outGoingHandler = new Runnable() {
         public void run() {
@@ -59,6 +67,7 @@ public class RecordService extends Service {
             }
         }
     };
+
 
     public void onEvent(RecordEvent event) {
         switch (event.action) {

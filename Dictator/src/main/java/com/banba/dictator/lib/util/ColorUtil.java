@@ -1,4 +1,4 @@
-package com.banba.dictator.lib;
+package com.banba.dictator.lib.util;
 
 import android.graphics.ColorFilter;
 import android.graphics.ColorMatrixColorFilter;

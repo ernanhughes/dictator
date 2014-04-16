@@ -1160,10 +1160,10 @@ com.banba.dictator.event.SectionEvent:
     public static final java.lang.String SEARCH
     public static final java.lang.String HELP
     public static final java.lang.String ABOUT
-com.banba.dictator.lib.ColorUtil
-com.banba.dictator.lib.ColorUtil$1
-com.banba.dictator.lib.ColorUtil$2
-com.banba.dictator.lib.ColorUtil$3
+com.banba.dictator.lib.util.ColorUtil
+com.banba.dictator.lib.util.ColorUtil$1
+com.banba.dictator.lib.util.ColorUtil$2
+com.banba.dictator.lib.util.ColorUtil$3
 com.banba.dictator.lib.DefaultExceptionHandler
 com.banba.dictator.lib.DefaultExceptionHandler$1
 com.banba.dictator.lib.DefaultExceptionHandler$ExceptionHandler

@@ -19,10 +19,14 @@
 package com.banba.dictator.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.widget.ImageButton;
+
+import com.banba.dictator.R;
 
 import java.util.ArrayList;
 
@@ -38,12 +42,15 @@ public class AudioEventView extends ImageButton {
     private static final int TEXT_COLOR = 0xff0000d0;
     private final Paint textPaint;
 
+    Bitmap mBackgroundImage;
+
     public AudioEventView(Context context, AttributeSet attrs) {
         super(context, attrs);
         recordedBufferPaint = new Paint();
         recordedBufferPaint.setColor(RECORDED_BUFFER_COLOR);
         textPaint = new Paint();
         textPaint.setColor(TEXT_COLOR);
+        mBackgroundImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.record_start_half);
     }
 
     static final int STACK_SIZE = 20;
@@ -83,6 +90,7 @@ public class AudioEventView extends ImageButton {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        canvas.drawBitmap(mBackgroundImage, 0, 0, null);
         final int viewWidth = getWidth();
         final int viewHeight = getHeight();
         final int usedWidth = viewWidth / 2;
@@ -99,6 +107,20 @@ public class AudioEventView extends ImageButton {
             canvas.drawRect(left, lineStart, left + barWidth, lineStart + height, recordedBufferPaint);
             canvas.drawRect(right, lineStart, right + barWidth, lineStart + height, recordedBufferPaint);
         }
+
+//        if (readings.size() > 0) {
+//            int currentRmsdB = readings.get(0);
+//            if(currentRmsdB != 0){
+//                float halfwidth = getWidth()/2;
+//                textPaint.setColor(Color.LTGRAY);
+//                currentRmsdB = Math.abs(currentRmsdB);
+//                textPaint.setColor(Color.GRAY);
+//                canvas.drawRect(halfwidth - currentRmsdB * 2, 20, halfwidth + currentRmsdB * 2, 50, textPaint);
+//
+//                canvas.drawLine(halfwidth, 15, halfwidth, 55, textPaint);
+//            }
+//
+//        }
     }
 
     /**
