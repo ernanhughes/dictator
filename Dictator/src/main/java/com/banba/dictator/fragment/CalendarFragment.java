@@ -80,7 +80,7 @@ public class CalendarFragment extends Fragment {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     if (results.size() > 0) {
-                                        Recording recording = results.get(0);
+                                        Recording recording = results.get(which);
                                         EventBus.getDefault().post(new PlayRecordingEvent((recording)));
                                     }
                                 }
