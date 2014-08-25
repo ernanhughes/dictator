@@ -1,8 +1,8 @@
 apply plugin: 'android'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.0.2"
+    compileSdkVersion 20
+    buildToolsVersion "20.0.0"
 
     defaultConfig {
         minSdkVersion 14
@@ -21,9 +21,9 @@ android {
         }
         banba {
             storeFile file("D:/Users/Ernan/.android/banba-release-key.keystore")
-            storePassword "2Winter2"
+            storePassword System.getProperty("user.password")
             keyAlias "banba.private.key"
-            keyPassword "2Winter2"
+            keyPassword System.getProperty("user.password")
         }
     }
 
