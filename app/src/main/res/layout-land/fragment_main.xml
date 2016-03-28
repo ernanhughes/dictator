@@ -1,0 +1,201 @@
+<RelativeLayout
+    android:id="@+id/layout_main"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    style="@style/card_outer"
+    android:gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <ViewSwitcher
+        android:id="@+id/viewSwitcher"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:baselineAligned="false"
+            style="@style/card_inner"
+            android:gravity="center_horizontal|center_vertical"
+            android:id="@+id/mainLayout"
+            android:orientation="horizontal">
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        style="@style/AppTheme.MainPageIcon"
+                        android:tag="PlayList"
+                        android:id="@+id/iconManage"
+                        android:onClick="onClick"
+                        android:src="@drawable/button_play_main" />
+
+                    <TextView
+                        android:layout_below="@+id/iconManage"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        style="@style/AppTheme.MainPageIconText"
+                        android:text="PLAY" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        style="@style/AppTheme.MainPageIcon"
+                        android:id="@+id/iconCalendar"
+                        android:tag="Calendar"
+                        android:onClick="onClick"
+                        android:src="@drawable/button_entries" />
+
+                    <TextView
+                        android:layout_below="@+id/iconCalendar"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        style="@style/AppTheme.MainPageIconText"
+                        android:text="RECORDINGS" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        style="@style/AppTheme.MainPageIcon"
+                        android:tag="Record"
+                        android:paddingTop="10dip"
+                        android:onClick="onClick"
+                        android:id="@+id/iconRecord"
+                        android:src="@drawable/button_record" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        style="@style/AppTheme.MainPageIcon"
+                        android:tag="Manage"
+                        android:id="@+id/iconManage"
+                        android:onClick="onClick"
+                        android:src="@drawable/button_manage" />
+
+                    <TextView
+                        android:layout_below="@+id/iconManage"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        style="@style/AppTheme.MainPageIconText"
+                        android:text="MANAGE" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        style="@style/AppTheme.MainPageIcon"
+                        android:id="@+id/iconAbout"
+                        android:tag="About"
+                        android:onClick="onClick"
+                        android:src="@drawable/button_about" />
+
+                    <TextView
+                        android:layout_below="@+id/iconAbout"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        style="@style/AppTheme.MainPageIconText"
+                        android:text="@string/about_icon" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            style="@style/card_inner"
+            android:id="@+id/recordingFeedbackLayout"
+            android:orientation="horizontal">
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            style="@style/AppTheme.MainPageIcon"
+                            android:tag="Record"
+                            android:paddingTop="10dip"
+                            android:onClick="onClick"
+                            android:id="@+id/iconStopRecording"
+                            android:src="@drawable/button_record_stop" />
+
+                        <TextView
+                            android:layout_below="@+id/iconStopRecording"
+                            android:id="@+id/textRecord"
+                            style="@style/AppTheme.MainPageIconText"
+                            android:text="RECORDING" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:orientation="vertical">
+
+                        <programmer.ie.dictator.view.AudioEventView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="#00000000"
+                            android:id="@+id/eventView"
+                            android:src="@drawable/record_stop_half" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+    </ViewSwitcher>
+</RelativeLayout>
