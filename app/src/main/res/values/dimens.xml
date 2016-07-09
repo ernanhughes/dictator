@@ -1,0 +1,48 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+
+    <dimen name="title_section_margin">10dp</dimen>
+    <dimen name="title_section_margin_bottom">1dp</dimen>
+    <dimen name="title_section_margin_top">3dp</dimen>
+    <dimen name="title_section_textSize">18sp</dimen>
+    <dimen name="tiny_icon_textSize">8sp</dimen>
+    <dimen name="package_title_section_textSize">22sp</dimen>
+    <dimen name="list_title_textSize">18sp</dimen>
+    <dimen name="list_sub_title_textSize">16sp</dimen>
+
+    <dimen name="small_bold_textSize">12sp</dimen>
+
+    <dimen name="list_title_margin_bottom">18dp</dimen>
+    <dimen name="list_title_margin_top">18dp</dimen>
+
+
+    <dimen name="card_outer_padding_top">2dp</dimen>
+    <dimen name="card_outer_padding_bottom">1dp</dimen>
+    <dimen name="card_outer_padding_horizontal">8dp</dimen>
+    <dimen name="card_outer_padding_horizontal_child">18dp</dimen>
+
+
+    <dimen name="card_inner_padding_vertical">8dp</dimen>
+    <dimen name="card_inner_padding_left">10dp</dimen>
+    <dimen name="card_inner_inner_padding_left">20dp</dimen>
+    <dimen name="card_inner_padding_right">5dp</dimen>
+    <dimen name="card_thumbnail">56dp</dimen>
+    <dimen name="card_thumbnail_margin">5dp</dimen>
+    <dimen name="card_title_margin_left">5dp</dimen>
+    <dimen name="card_title">18sp</dimen>
+    <dimen name="card_content">17sp</dimen>
+    <dimen name="card_shadow">3dp</dimen>
+    <dimen name="card_header">21sp</dimen>
+    <dimen name="card_subheader">15sp</dimen>
+    <dimen name="card_header_padding_top">20dp</dimen>
+    <dimen name="card_header_padding_horizontal">20dp</dimen>
+    <dimen name="card_header_button_text">13sp</dimen>
+    <dimen name="card_header_button_padding_side">8dp</dimen>
+    <dimen name="card_header_button_padding_top">5dp</dimen>
+    <dimen name="card_header_button_margin_left">10dp</dimen>
+
+
+</resources>

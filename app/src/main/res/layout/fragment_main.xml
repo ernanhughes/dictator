@@ -1,0 +1,107 @@
+<RelativeLayout
+    android:id="@+id/layout_main"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    style="@style/card_outer"
+    android:gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <ViewSwitcher
+        android:id="@+id/viewSwitcher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/card_inner"
+            android:id="@+id/mainLayout"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/middle_separator"
+                android:layout_width="fill_parent"
+                android:layout_height="0dip" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        style="@style/AppTheme.MainPageIcon"
+                        android:tag="Record"
+                        android:paddingTop="10dip"
+                        android:onClick="onClick"
+                        android:id="@+id/iconRecord"
+                        android:src="@drawable/button_record" />
+
+                    <TextView
+                        android:layout_below="@+id/iconRecord"
+                        style="@style/AppTheme.MainPageIconText"
+                        android:text="@string/record" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <include layout="@layout/fragment_main_options" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            style="@style/card_inner"
+            android:id="@+id/recordingFeedbackLayout"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/middle_separator"
+                android:layout_width="fill_parent"
+                android:layout_height="0dip" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        style="@style/AppTheme.MainPageIcon"
+                        android:tag="Record"
+                        android:paddingTop="10dip"
+                        android:onClick="onClick"
+                        android:id="@+id/iconStopRecording"
+                        android:src="@drawable/button_record_stop" />
+
+                    <TextView
+                        android:layout_below="@+id/iconStopRecording"
+                        android:id="@+id/textRecord"
+                        style="@style/AppTheme.MainPageIconText"
+                        android:text="@string/recording" />
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            <programmer.ie.dictator.view.AudioEventView
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:background="#00000000"
+                android:layout_margin="50dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:id="@+id/eventView"
+                android:src="@drawable/record_stop_half" />
+
+        </LinearLayout>
+    </ViewSwitcher>
+</RelativeLayout>

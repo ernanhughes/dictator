@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Dictator</string>
+    <string name="action_settings">Settings</string>
+    <string name="intro">Press the button to speak!</string>
+    <string name="speech">Speak now!</string>
+    <string name="word_intro">Suggested words&#8230;</string>
+    <string name="search">Search</string>
+    <string name="share">Share</string>
+    <string name="share_using">Share Using…</string>
+    <string name="about">About</string>
+    <string name="apache">Apache</string>
+    <string name="apache_item">Apache</string>
+    <string name="error">Error</string>
+    <string name="text_to_speech">Speak</string>
+    <string name="history">History</string>
+    <string name="manage">Manage</string>
+    <string name="play">Playing</string>
+    <string name="inital_Time">0 min, 0 sec</string>
+    <string name="record_icon">RECORD</string>
+    <string name="manage_icon">MANAGE</string>
+    <string name="help_icon">HELP</string>
+    <string name="about_icon">ABOUT</string>
+    <string name="speak">Speak</string>
+    <string name="start_time">Start Time:</string>
+    <string name="end_time">End Time:</string>
+    <string name="file_size">File Size:</string>
+    <string name="location">Location:</string>
+    <string name="control">Control</string>
+    <string name="help">HELP</string>
+    <string name="apps">APPS</string>
+    <string name="licence">LICENCE</string>
+    <string name="bugs">BUGS</string>
+    <string name="rate">RATE</string>
+    <string name="contact_us">CONTACT US</string>
+    <string name="record">RECORD</string>
+    <string name="recording">RECORDING</string>
+    <string name="recordings">RECORDINGS</string>
+    <string name="file_name">File Name</string>
+    <string name="easy">Easy</string>
+    <string name="easy_game_1">Easy Game 1</string>
+    <string name="time">Time:</string>
+    <string name="timetext">timeText</string>
+    <string name="message">Message:</string>
+    <string name="large_text">Large Text</string>
+    <string name="class_name">Class Name</string>
+    <string name="throw_file_name">throw File Name</string>
+    <string name="method_name">Method Name: </string>
+    <string name="throw_method_name">throw Method Name</string>
+    <string name="line_number">Line Number: </string>
+    <string name="stack_trace">Stack Trace</string>
+</resources>
