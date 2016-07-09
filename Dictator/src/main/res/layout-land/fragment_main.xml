@@ -1,10 +1,9 @@
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_main"
+    style="@style/card_outer"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    style="@style/card_outer"
-    android:gravity="center"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:gravity="center">
 
 
     <ViewSwitcher
@@ -13,12 +12,12 @@
         android:layout_height="fill_parent">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/mainLayout"
+            style="@style/card_inner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:baselineAligned="false"
-            style="@style/card_inner"
             android:gravity="center_horizontal|center_vertical"
-            android:id="@+id/mainLayout"
             android:orientation="horizontal">
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -33,17 +32,17 @@
                     android:layout_weight="1">
 
                     <ImageButton
-                        style="@style/AppTheme.MainPageIcon"
-                        android:tag="PlayList"
                         android:id="@+id/iconManage"
+                        style="@style/AppTheme.MainPageIcon"
                         android:onClick="onClick"
-                        android:src="@drawable/button_play_main" />
+                        android:src="@drawable/button_play_main"
+                        android:tag="PlayList" />
 
                     <TextView
-                        android:layout_below="@+id/iconManage"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
                         style="@style/AppTheme.MainPageIconText"
+                        android:layout_alignParentBottom="true"
+                        android:layout_below="@+id/iconManage"
+                        android:layout_centerHorizontal="true"
                         android:text="PLAY" />
                 </RelativeLayout>
 
@@ -53,17 +52,17 @@
                     android:layout_weight="1">
 
                     <ImageButton
-                        style="@style/AppTheme.MainPageIcon"
                         android:id="@+id/iconCalendar"
-                        android:tag="Calendar"
+                        style="@style/AppTheme.MainPageIcon"
                         android:onClick="onClick"
-                        android:src="@drawable/button_entries" />
+                        android:src="@drawable/button_entries"
+                        android:tag="Calendar" />
 
                     <TextView
-                        android:layout_below="@+id/iconCalendar"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
                         style="@style/AppTheme.MainPageIconText"
+                        android:layout_alignParentBottom="true"
+                        android:layout_below="@+id/iconCalendar"
+                        android:layout_centerHorizontal="true"
                         android:text="RECORDINGS" />
                 </RelativeLayout>
 
@@ -77,16 +76,16 @@
                 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|center_vertical">
 
                     <ImageButton
-                        style="@style/AppTheme.MainPageIcon"
-                        android:tag="Record"
-                        android:paddingTop="10dip"
-                        android:onClick="onClick"
                         android:id="@+id/iconRecord"
-                        android:src="@drawable/button_record" />
+                        style="@style/AppTheme.MainPageIcon"
+                        android:onClick="onClick"
+                        android:paddingTop="10dip"
+                        android:src="@drawable/button_record"
+                        android:tag="Record" />
 
                 </RelativeLayout>
             </LinearLayout>
@@ -103,17 +102,17 @@
                     android:layout_weight="1">
 
                     <ImageButton
-                        style="@style/AppTheme.MainPageIcon"
-                        android:tag="Manage"
                         android:id="@+id/iconManage"
+                        style="@style/AppTheme.MainPageIcon"
                         android:onClick="onClick"
-                        android:src="@drawable/button_manage" />
+                        android:src="@drawable/button_manage"
+                        android:tag="Manage" />
 
                     <TextView
-                        android:layout_below="@+id/iconManage"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
                         style="@style/AppTheme.MainPageIconText"
+                        android:layout_alignParentBottom="true"
+                        android:layout_below="@+id/iconManage"
+                        android:layout_centerHorizontal="true"
                         android:text="MANAGE" />
                 </RelativeLayout>
 
@@ -123,27 +122,27 @@
                     android:layout_weight="1">
 
                     <ImageButton
-                        style="@style/AppTheme.MainPageIcon"
                         android:id="@+id/iconAbout"
-                        android:tag="About"
+                        style="@style/AppTheme.MainPageIcon"
                         android:onClick="onClick"
-                        android:src="@drawable/button_about" />
+                        android:src="@drawable/button_about"
+                        android:tag="About" />
 
                     <TextView
-                        android:layout_below="@+id/iconAbout"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
                         style="@style/AppTheme.MainPageIconText"
+                        android:layout_alignParentBottom="true"
+                        android:layout_below="@+id/iconAbout"
+                        android:layout_centerHorizontal="true"
                         android:text="@string/about_icon" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/recordingFeedbackLayout"
+            style="@style/card_inner"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            style="@style/card_inner"
-            android:id="@+id/recordingFeedbackLayout"
             android:orientation="horizontal">
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -164,17 +163,17 @@
                         android:orientation="vertical">
 
                         <ImageButton
-                            style="@style/AppTheme.MainPageIcon"
-                            android:tag="Record"
-                            android:paddingTop="10dip"
-                            android:onClick="onClick"
                             android:id="@+id/iconStopRecording"
-                            android:src="@drawable/button_record_stop" />
+                            style="@style/AppTheme.MainPageIcon"
+                            android:onClick="onClick"
+                            android:paddingTop="10dip"
+                            android:src="@drawable/button_record_stop"
+                            android:tag="Record" />
 
                         <TextView
-                            android:layout_below="@+id/iconStopRecording"
                             android:id="@+id/textRecord"
                             style="@style/AppTheme.MainPageIconText"
+                            android:layout_below="@+id/iconStopRecording"
                             android:text="RECORDING" />
                     </LinearLayout>
 
@@ -185,11 +184,11 @@
                         android:gravity="center_horizontal|center_vertical"
                         android:orientation="vertical">
 
-                        <com.banba.dictator.view.AudioEventView
+                        <programmer.ie.dictator.view.AudioEventView
+                            android:id="@+id/eventView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="#00000000"
-                            android:id="@+id/eventView"
                             android:src="@drawable/record_stop_half" />
 
                     </LinearLayout>
