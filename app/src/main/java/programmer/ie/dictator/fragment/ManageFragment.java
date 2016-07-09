@@ -9,8 +9,10 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -18,10 +20,17 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.facebook.rebound.BaseSpringSystem;
+import com.facebook.rebound.SimpleSpringListener;
+import com.facebook.rebound.Spring;
+import com.facebook.rebound.SpringSystem;
+import com.facebook.rebound.SpringUtil;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
 import programmer.ie.dictator.R;
 import programmer.ie.dictator.Util;
 import programmer.ie.dictator.adapter.Binder;
@@ -31,10 +40,14 @@ import programmer.ie.dictator.adapter.interfaces.CheckedChangeListener;
 import programmer.ie.dictator.adapter.interfaces.StaticImageLoader;
 import programmer.ie.dictator.adapter.interfaces.StringExtractor;
 import programmer.ie.dictator.data.Recording;
+import programmer.ie.dictator.event.PlayRecordingEvent;
 import programmer.ie.dictator.util.DateTimeUtil;
 
 public class ManageFragment extends Fragment {
-    SimpleAdapter<Recording> cardsAdapter;
+    SimpleAdapter<Recording> adapter;
+    final BaseSpringSystem mSpringSystem = SpringSystem.create();
+    ExampleSpringListener mSpringListener;
+    Spring mScaleSpring;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,7 +55,9 @@ public class ManageFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_manage, container, false);
         final List<Recording> items = Util.getAllRecordings(getActivity());
         final ListView listView = (ListView) rootView.findViewById(R.id.listview);
-        final List<Recording> selected = new ArrayList<Recording>();
+        final List<Recording> selected = new ArrayList<>();
+        mScaleSpring = mSpringSystem.createSpring();
+
         Binder<Recording> binder = new Binder.Builder<Recording>()
                 .addString(android.R.id.title, new StringExtractor<Recording>() {
                     @Override
@@ -81,8 +96,8 @@ public class ManageFragment extends Fragment {
                     }
                 }).build();
 
-        cardsAdapter = new SimpleAdapter<Recording>(getActivity(), items, binder, R.layout.list_item_manage);
-        listView.setAdapter(cardsAdapter);
+        adapter = new SimpleAdapter<>(getActivity(), items, binder, R.layout.list_item_manage);
+        listView.setAdapter(adapter);
         ImageButton editButton = (ImageButton) rootView.findViewById(R.id.editButton);
         editButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
@@ -98,7 +113,7 @@ public class ManageFragment extends Fragment {
                                                     int whichButton) {
                                     String value = input.getText().toString();
                                     Util.renameRecording(getActivity(), recording, value);
-                                    cardsAdapter.notifyDataSetChanged();
+                                    adapter.notifyDataSetChanged();
                                 }
                             }).create().show();
                 }
@@ -113,7 +128,7 @@ public class ManageFragment extends Fragment {
                     items.remove(items.indexOf(recording));
                 }
                 selected.clear();
-                cardsAdapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
             }
         });
 
@@ -121,7 +136,7 @@ public class ManageFragment extends Fragment {
         sortButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Collections.reverse(items);
-                cardsAdapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
             }
         });
 
@@ -149,6 +164,26 @@ public class ManageFragment extends Fragment {
                 }
             }
         });
+        mSpringListener = new ExampleSpringListener(detailsButton);
+
+        // Add an OnTouchListener to the root view.
+        detailsButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        // When pressed start solving the spring to 1.
+                        mScaleSpring.setEndValue(1);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        // When released start solving the spring to 0.
+                        mScaleSpring.setEndValue(0);
+                        break;
+                }
+                return true;
+            }
+        });
 
         ImageButton shareButton = (ImageButton) rootView.findViewById(R.id.shareButton);
         shareButton.setOnClickListener(new Button.OnClickListener() {
@@ -162,6 +197,51 @@ public class ManageFragment extends Fragment {
                 }
             }
         });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Recording recording = adapter.getItem(position);
+                EventBus.getDefault().post(new PlayRecordingEvent(recording));
+            }
+        });
         return rootView;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Add a listener to the spring when the Activity resumes.
+        mScaleSpring.addListener(mSpringListener);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Remove the listener to the spring when the Activity pauses.
+        mScaleSpring.removeListener(mSpringListener);
+    }
+
+
+    private class ExampleSpringListener extends SimpleSpringListener {
+        View view;
+
+        ExampleSpringListener(View view){
+            this.view = view;
+        }
+
+        @Override
+        public void onSpringUpdate(Spring spring) {
+            // On each update of the spring value, we adjust the scale of the image view to match the
+            // springs new value. We use the SpringUtil linear interpolation function mapValueFromRangeToRange
+            // to translate the spring's 0 to 1 scale to a 100% to 50% scale range and apply that to the View
+            // with setScaleX/Y. Note that rendering is an implementation detail of the application and not
+            // Rebound itself. If you need Gingerbread compatibility consider using NineOldAndroids to update
+            // your view properties in a backwards compatible manner.
+            float mappedValue = (float) SpringUtil.mapValueFromRangeToRange(spring.getCurrentValue(), 0, 1, 1, 0.5);
+            view.setScaleX(mappedValue);
+            view.setScaleY(mappedValue);
+        }
+    }
+
 }

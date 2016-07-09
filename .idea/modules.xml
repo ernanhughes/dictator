@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Dictator/Dictator.iml" filepath="$PROJECT_DIR$/Dictator/Dictator.iml" />
-      <module fileurl="file://$PROJECT_DIR$/DictatorProject.iml" filepath="$PROJECT_DIR$/DictatorProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Dictator.iml" filepath="$PROJECT_DIR$/Dictator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>
-
