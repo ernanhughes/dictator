@@ -39,7 +39,7 @@ public class Util {
 
 
     public static String getDatabaseName() {
-        return DictatorApp.DATABASE_NAME;
+        return App.DATABASE_NAME;
     }
 
     public static List<Recording> getAllRecordings(Context context) {

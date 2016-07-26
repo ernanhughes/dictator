@@ -18,8 +18,8 @@ import android.speech.SpeechRecognizer;
 
 import java.lang.ref.WeakReference;
 
-import programmer.ie.dictator.DictatorApp;
 import programmer.ie.dictator.util.BundleUtil;
+import programmer.ie.dictator.util.E;
 import programmer.ie.dictator.util.L;
 
 public class WordsService extends Service {
@@ -189,7 +189,7 @@ public class WordsService extends Service {
                     errorMessage = "Insufficient permissions.";
                     break;
             }
-            DictatorApp.reportException(WordsService.this, new Exception(errorMessage));
+            E.LogError(WordsService.this, new Exception(errorMessage));
             L.e(errorMessage);
 
             if (mIsCountDownOn) {
@@ -232,7 +232,7 @@ public class WordsService extends Service {
 
         @Override
         public void onResults(Bundle results) {
-            L.d("onResults " + BundleUtil.toString(results)); //$NON-NLS-1$
+            L.d("onResults " + BundleUtil.toString(results));
             Message message = Message.obtain(null, MSG_RECOGNIZER_START_LISTENING);
             try {
                 mServerMessenger.send(message);

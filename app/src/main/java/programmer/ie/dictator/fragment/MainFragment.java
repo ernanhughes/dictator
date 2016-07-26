@@ -27,18 +27,18 @@ import programmer.ie.dictator.event.RecordEvent;
 import programmer.ie.dictator.event.SectionEvent;
 import programmer.ie.dictator.service.RecordService;
 import programmer.ie.dictator.util.DateTimeUtil;
-import programmer.ie.dictator.view.AudioEventView;
+import programmer.ie.dictator.view.Visualizer;
 
 public class MainFragment extends Fragment implements View.OnClickListener {
     TextView mRecordText;
-    AudioEventView eventView;
+    Visualizer eventView;
     boolean isRecording = false;
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             Bundle b = intent.getExtras();
             int amplitude = b.getInt(Util.AMPLITUDE);
-            eventView.addReading(amplitude);
+//            eventView.addReading(amplitude);
             long totalTime = b.getLong(Util.DURATION);
             Spanned text = Html.fromHtml("<font color=\"#CF000F\">Recording " + DateTimeUtil.formatTime(totalTime / 1000) + "</font>");
             getActivity().getActionBar().setTitle(text);
@@ -69,10 +69,12 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             if (viewSwitcher.getCurrentView() != secondView) {
                 viewSwitcher.showNext();
             }
+            eventView.startListening();
         } else {
             if (viewSwitcher.getCurrentView() != firstView) {
                 viewSwitcher.showPrevious();
             }
+            eventView.startListening();
         }
 
         mRecordButton.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +102,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         });
 
         mRecordText = (TextView) rootView.findViewById(R.id.textRecord);
-        eventView = (AudioEventView) rootView.findViewById(R.id.eventView);
+        eventView = (Visualizer) rootView.findViewById(R.id.eventView);
 
         Intent ps = new Intent(getActivity(), RecordService.class);
         getActivity().startService(ps);

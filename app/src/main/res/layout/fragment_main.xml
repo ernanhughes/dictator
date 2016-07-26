@@ -1,10 +1,10 @@
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aw="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_main"
+    style="@style/card_outer"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    style="@style/card_outer"
-    android:gravity="center"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:gravity="center">
 
 
     <ViewSwitcher
@@ -13,14 +13,13 @@
         android:layout_height="wrap_content">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/mainLayout"
+            style="@style/card_inner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/card_inner"
-            android:id="@+id/mainLayout"
             android:orientation="vertical">
 
             <View
-                android:id="@+id/middle_separator"
                 android:layout_width="fill_parent"
                 android:layout_height="0dip" />
 
@@ -35,16 +34,16 @@
                     android:layout_weight="1">
 
                     <ImageButton
-                        style="@style/AppTheme.MainPageIcon"
-                        android:tag="Record"
-                        android:paddingTop="10dip"
-                        android:onClick="onClick"
                         android:id="@+id/iconRecord"
-                        android:src="@drawable/button_record" />
+                        style="@style/AppTheme.MainPageIcon"
+                        android:onClick="onClick"
+                        android:paddingTop="10dip"
+                        android:src="@drawable/button_record"
+                        android:tag="Record" />
 
                     <TextView
-                        android:layout_below="@+id/iconRecord"
                         style="@style/AppTheme.MainPageIconText"
+                        android:layout_below="@+id/iconRecord"
                         android:text="@string/record" />
                 </RelativeLayout>
             </LinearLayout>
@@ -53,12 +52,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/recordingFeedbackLayout"
+            style="@style/card_inner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            style="@style/card_inner"
-            android:id="@+id/recordingFeedbackLayout"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <View
                 android:id="@+id/middle_separator"
@@ -76,31 +75,43 @@
                     android:layout_weight="1">
 
                     <ImageButton
-                        style="@style/AppTheme.MainPageIcon"
-                        android:tag="Record"
-                        android:paddingTop="10dip"
-                        android:onClick="onClick"
                         android:id="@+id/iconStopRecording"
-                        android:src="@drawable/button_record_stop" />
+                        style="@style/AppTheme.MainPageIcon"
+                        android:onClick="onClick"
+                        android:paddingTop="10dip"
+                        android:src="@drawable/button_record_stop"
+                        android:tag="Record" />
 
                     <TextView
-                        android:layout_below="@+id/iconStopRecording"
                         android:id="@+id/textRecord"
                         style="@style/AppTheme.MainPageIconText"
+                        android:layout_below="@+id/iconStopRecording"
                         android:text="@string/recording" />
                 </RelativeLayout>
             </LinearLayout>
 
 
-            <programmer.ie.dictator.view.AudioEventView
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:background="#00000000"
-                android:layout_margin="50dp"
-                android:layout_weight="1"
-                android:gravity="center"
+            <programmer.ie.dictator.view.Visualizer
                 android:id="@+id/eventView"
-                android:src="@drawable/record_stop_half" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                aw:aw_ball_diameter="30"
+                aw:aw_color_gradient_end="@color/curious_blue2"
+                aw:aw_color_gradient_start="@color/light_sea_green"
+                aw:aw_color_is_gradient="true"
+                aw:aw_color_uniform="@color/belize_hole"
+                aw:aw_format="vertical_lines"
+                aw:aw_gravity="center"
+                aw:aw_height="200"
+                aw:aw_line_border_radius="50"
+                aw:aw_line_height="30"
+                aw:aw_line_min_height="30"
+                aw:aw_line_min_with="30"
+                aw:aw_line_spacing="10"
+                aw:aw_line_with="30"
+                aw:aw_num_waves="10"
+                aw:aw_width="100" />
+
 
         </LinearLayout>
     </ViewSwitcher>
