@@ -65,6 +65,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         viewSwitcher.setOutAnimation(outAnimRight);
         final View firstView = rootView.findViewById(R.id.mainLayout);
         final View secondView = rootView.findViewById(R.id.recordingFeedbackLayout);
+
+        eventView = (Visualizer) rootView.findViewById(R.id.eventView);
         if (isRecording) {
             if (viewSwitcher.getCurrentView() != secondView) {
                 viewSwitcher.showNext();
